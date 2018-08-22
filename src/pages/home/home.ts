@@ -4,7 +4,6 @@ import { Restaurants } from '../../providers/restaurants/restaurants';
 import { MapPage } from '../map/map';
 import {  NgZone, ElementRef, ViewChild } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { GeolocationOptions ,Geoposition ,PositionError } from 'ionic-native';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
