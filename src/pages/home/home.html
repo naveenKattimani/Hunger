@@ -1,0 +1,65 @@
+<ion-content>
+
+
+  <ion-list no-line>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2>
+            <button><ion-icon name="menu" ></ion-icon></button>
+          </ion-col>
+          <ion-col col-8 right>
+            <button><ion-icon name="cart" ></ion-icon></button>
+          </ion-col>
+          <ion-col col-2>
+            <button><ion-icon name="contact" ></ion-icon></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>  
+    </ion-item>
+     
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2>
+              <button (click)="openrestaurantPage()" ><ion-icon name="locate" ></ion-icon></button>
+            </ion-col>
+            <ion-col col-8 right>
+              <p style="font-size: 10px;float:left;padding-top: 2%">Now at</p><br/>
+              <p style="font-size: 12px;float:left;text-overflow: ellipsis;overflow: hidden;">Vijayanagar rpc layoyt bangalore karnataka</p>
+            </ion-col>
+            <ion-col col-2>
+              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: right" text-wrap>Change Location</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+      </ion-item>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-sm-12 >
+              <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+      </ion-item>
+  </ion-list>
+  <div #map id="map"></div> 
+  <ion-list >
+    <ion-item class="searchlist" *ngFor = "let place of nearbyPlaces">
+      <ion-row>
+        <ion-col col-4>
+            <ion-img width="80" height="80" src="assets/imgs/Burgers.png"></ion-img>
+        </ion-col>
+        <ion-col col-8>
+            <p style="font-weight: bold; font-size: 12px;">{{place.name}}</p>
+            <p style="font-size: 12px;">{{place.locality}}</p>
+            <br/>
+            <p style="border-bottom: 0.1px solid grey;border-width: thin;">{{place.location}}</p>
+            <p style="font-size: 10px;float:right;">{{place.place}}</p>
+        </ion-col>      
+    </ion-row>
+  </ion-item>
+  </ion-list>
+</ion-content>
