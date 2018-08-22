@@ -53,10 +53,10 @@
             <ion-img width="80" height="80" src="assets/imgs/Burgers.png"></ion-img>
         </ion-col>
         <ion-col col-8>
-            <p style="font-weight: bold; font-size: 12px;">{{place.name}}</p>
-            <p style="font-size: 12px;">{{place.locality}}</p>
+            <a (click)="openrestaurantmenu()" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
+            <p style="font-size: 12px;">{{place.distance}}Km</p>
             <br/>
-            <p style="border-bottom: 0.1px solid grey;border-width: thin;">{{place.location}}</p>
+            <p style="border-bottom: 0.1px solid grey;border-width: thin;">{{place.adrs}}</p>
             <p style="font-size: 10px;float:right;">{{place.place}}</p>
         </ion-col>      
     </ion-row>

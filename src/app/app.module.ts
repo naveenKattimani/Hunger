@@ -13,6 +13,8 @@ import { LocationsProvider } from '../providers/locations/locations';
 import { GoogleMaps } from '../providers/google-maps/google-maps';
 import{ MapPage } from '../pages/map/map';
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     Connectivity,
     LocationsProvider,
     GoogleMaps,
-    Geolocation
+    Geolocation,
+    NativeGeocoder
   ]
 })
 export class AppModule {}
