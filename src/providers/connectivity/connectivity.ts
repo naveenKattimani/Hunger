@@ -15,19 +15,27 @@ export class Connectivity {
   }
  
   isOnline(): boolean {
-    if(this.onDevice && Network.onConnect){
-      return Network.onConnect !== Connection.NONE;
+    if(this.onDevice && Network.type){
+      return Network.type != 'none';
     } else {
       return navigator.onLine;
     }
   }
  
   isOffline(): boolean {
-    if(this.onDevice && Network.onConnect){
-      return Network.onConnect === Connection.NONE;
+    if(this.onDevice && Network.type){
+      return Network.type == 'none';
     } else {
       return !navigator.onLine;  
     }
+  }
+
+  watchOnline(): any {
+    return Network.onConnect();
+  }
+ 
+  watchOffline(): any {
+    return Network.onDisconnect();
   }
  
 }

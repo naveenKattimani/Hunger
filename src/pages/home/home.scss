@@ -37,7 +37,7 @@ page-home {
     button {
         zoom: 1;
         background-color: color($colors,danger);
-        float:right;
+        float:left;
         padding-top: 15px;
     }
 
@@ -51,8 +51,13 @@ page-home {
         font-size: 1.2rem;
         text-overflow: inherit;
         color: rgb(0, 0, 0);
+        width:110%;
     }
 
+    .searchbar-md {
+        background: inherit;
+        padding: 0;
+    }
     .searchbar-md .searchbar-input {
         padding: 4px 45px;
         border-radius: 5px;

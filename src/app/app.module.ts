@@ -4,14 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
-
+import { HTTP } from '@ionic-native/http';
 import { Network } from '@ionic-native/network';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Restaurants } from '../providers/restaurants/restaurants';
 import { Connectivity } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
-import { GoogleMaps } from '../providers/google-maps/google-maps';
+import { Google_Maps } from '../providers/google-maps/google-maps';
 import{ MapPage } from '../pages/map/map';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
@@ -27,7 +27,9 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      mode: 'md'
+      })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,10 +44,11 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Connectivity,
     LocationsProvider,
-    GoogleMaps,
+    Google_Maps,
     Geolocation,
     NativeGeocoder,
-    Network
+    Network,
+    HTTP
   ]
 })
 export class AppModule {}

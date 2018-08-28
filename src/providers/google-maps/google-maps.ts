@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Connectivity } from '../connectivity/connectivity';
-import { Geolocation } from 'ionic-native';
+import { Geolocation, GoogleMapsEvent } from 'ionic-native';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
  
 declare var google;
+
  
 @Injectable()
-export class GoogleMaps {
+export class Google_Maps {
  
   mapElement: any;
   pleaseConnect: any;
@@ -15,8 +18,10 @@ export class GoogleMaps {
   mapLoadedObserver: any;
   markers: any = [];
   apiKey: string;
+  markerlatlong: any;
+  newplace = {lat: 0, lng: 0};
  
-  constructor(public connectivityService: Connectivity) {
+  constructor(public connectivityService: Connectivity,private http: Http) {
  
   }
  
@@ -100,6 +105,7 @@ export class GoogleMaps {
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
+        this.addMarker(lat,lng);
         resolve(true);
  
       });
@@ -164,11 +170,20 @@ export class GoogleMaps {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: latLng
+      draggable:true,
+      zoom:5,
+      position: {
+        lat: lat,
+        lng: lng
+      }
     });
  
-    this.markers.push(marker); 
- 
+    google.maps.event.addListener(marker, 'drag', () => {
+      console.log("lat"+ marker.position.lat());
+      console.log("lat"+ marker.position.lng());
+      this.newplace.lat=marker.position.lat();
+      this.newplace.lng=marker.position.lng();
+    })
   }
  
 }

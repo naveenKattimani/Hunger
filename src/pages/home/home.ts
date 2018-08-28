@@ -7,14 +7,15 @@ import { Platform } from 'ionic-angular';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-
+import { HTTP } from '@ionic-native/http';
+import { Google_Maps } from '../../providers/google-maps/google-maps';
+import { LoadingController } from 'ionic-angular'
 
 
 declare var google: any;
 declare var google;
 var address="";
 let map: any;
-let infowindow: any;
 let options = {
   enableHighAccuracy: true,
   timeout: 5000,
@@ -34,28 +35,46 @@ export class HomePage {
     items: any;
     service: any;
     nearbyPlaces = new Array();
+    
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
-    constructor(public navCtrl: NavController, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
-   
+    currentaddress: any;
+    
+    constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+      
     }
  
     ionViewDidLoad() {
-        this.setFilteredItems();     
-        this.nearbyPlaces=[];
-      setTimeout(()=>
-      {this.initMap()},500);  
+      //this.openrestaurantPage();  
     }
 
- 
+    ionViewCanEnter():boolean {
+      // setTimeout(() => {
+      //   this.openrestaurantPage();
+      // }, 1000);
+      // return true;
+      let loading = this.loadingCtrl.create({
+        content: 'Loading...'
+      });    
+      loading.present();    
+      var myvar=setTimeout(() => {
+        if (this.restaurant.items.length>0)
+        {
+        loading.dismiss();
+        clearTimeout(myvar);
+        }
+      }, 2000);
+      this.openrestaurantPage();
+      return true;
+    }
+    
     setFilteredItems() {
-        this.items = this.dataService.filterItems(this.searchTerm);
+        this.nearbyPlaces = this.restaurant.filterItems(this.searchTerm);
     }   
 
      openmapPage(){
-      this.navCtrl.push(MapPage)
-      
+      this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
@@ -64,56 +83,75 @@ export class HomePage {
       {this.initMap()},500);
     }
 
-    
     initMap(){
-
-      this.geolocation.getCurrentPosition().then((resp) => {
-        myplace.lat=resp.coords.latitude;
-        myplace.lng= resp.coords.longitude;
-        
-       }).catch((error) => {
-         console.log('Error getting location', error);
-       });
-
         navigator.geolocation.getCurrentPosition((location) => {
-            console.log(location);
-            var distkm;
-            
-            map = new google.maps.Map(this.mapElement.nativeElement, {
-              center: {lat: location.coords.latitude, lng: location.coords.longitude},
-              zoom: 15
-            });
-            
-            
+          console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
+          console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
+          if (this.Google_Maps.newplace.lat==0)
+          {
+            myplace.lat=location.coords.latitude;
+            myplace.lng= location.coords.longitude;
+          }
+          else
+          {
+          myplace.lat=this.Google_Maps.newplace.lat;
+          myplace.lng=this.Google_Maps.newplace.lng;
+          this.Google_Maps.newplace.lat=0;
+          this.Google_Maps.newplace.lat=0;
+          }
+          
+          var distkm;          
+          map = new google.maps.Map(this.mapElement.nativeElement, {
+          center: {lat: myplace.lat, lng: myplace.lng},
+          zoom: 15
+        });
 
-            var service = new google.maps.places.PlacesService(map);
-            
-            service.nearbySearch({
-              location: {lat: location.coords.latitude, lng: location.coords.longitude},
-              radius: 500,
-              type: ['restaurant'],
-            }, (results,status) => {
-              if (status === google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                  //console.log("<<<<<<<<<<<<<<<<<<<<<"+results[i]);
-                  
-                  distkm=this.calculateDistance(results[i].geometry.location.lat(),myplace.lat,results[i].geometry.location.lng(),myplace.lng)
-                  distkm=distkm.toFixed(2);
-                  address="";
-                  let geocoder = new google.maps.Geocoder;
-                  var serachrestaurant=results[i];
-                  let latlng = {lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng()};
-                  geocoder.geocode({'location': latlng},(res, status) => {
-                    if(status==="OK")
+        let geocoder = new google.maps.Geocoder;
+          let latlng = {lat: myplace.lat, lng: myplace.lng};
+          geocoder.geocode({'location': latlng},(res, status) => {
+            if(status==="OK")
+            {
+            address=res[0].formatted_address;
+            this.currentaddress=res[0].formatted_address;
+            console.log("current location-----"+ this.currentaddress); 
+            }
+          });
+        
+        var service = new google.maps.places.PlacesService(map);        
+        service.nearbySearch({
+          location: {lat: myplace.lat, lng: myplace.lng},
+          radius: 500,
+          type: ['restaurant'],
+          }, (results,status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                //console.log("<<<<<<<<<<<<<<<<<<<<<"+results[i]);                
+                distkm=this.calculateDistance(results[i].geometry.location.lat(),myplace.lat,results[i].geometry.location.lng(),myplace.lng)
+                distkm=distkm.toFixed(2);
+                address="";
+                let geocoder = new google.maps.Geocoder;
+                var serachrestaurant=results[i];
+                let latlng = {lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng()};
+                geocoder.geocode({'location': latlng},(res, status) => {
+                  if(status==="OK")
+                  {
+                  address=res[0].formatted_address;
+                  //console.log("-----"+ res[0].formatted_address); // read data from here
+                  //console.log("-----"+address);
+                  }
+                  console.log("-----"+serachrestaurant.name);
+                  this.restaurant.availablerestaurants.forEach((arr1)=>
                     {
-                    address=res[0].formatted_address;
-                    //console.log("-----"+ res[0].formatted_address); // read data from here
-                    //console.log("-----"+address);
-                    }
-                    console.log("-----"+address);
-                    this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,adrs:address});
-                  });
-                  
+                      if(arr1.name===serachrestaurant.name)
+                      {
+                        //console.log("-----"+arr1.name);
+                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,adrs:address});
+                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,adrs:address});
+                        
+                      }
+                    });                  
+                });
+                    
                   // console.log("-----"+address);
                   // this.nearbyPlaces.push({name:results[i].name,distance:distkm,adrs:address});                    
                 }

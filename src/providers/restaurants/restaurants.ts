@@ -4,26 +4,22 @@ import 'rxjs/add/operator/map';
  
 @Injectable()
 export class Restaurants {
- 
-    items: any;
+    items=new Array();
+    availablerestaurants=new Array();
  
     constructor(public http: Http) {
- 
-        this.items = [
-            {title: 'Shanti Sagar'},
-            {title: 'Nisarga'},
-            {title: 'Barbeque Nation'},
-            {title: 'Punjabi Dhaba'},
-            {title: 'Hyderabadi Biryani'},
-            {title: 'Udupi Hotel'}
-        ]
- 
+        this.availablerestaurants = [
+            {name:'By2 Coffee',cost:"25",quantity:0,orderID:'101'},
+            {name:'Karavali Hotel',cost:"30",quantity:0,orderID:'102'},
+            {name:'R K Hotel',cost:"35",quantity:0,orderID:'103'},
+            {name:'Havmor Ice-Cream Parlour',cost:"35",quantity:0,orderID:'103'},
+            {name:'KFC',cost:"35",quantity:0,orderID:'103'},
+          ];
     }
  
     filterItems(searchTerm){
         return this.items.filter((item) => {
-            return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+            return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
         }); 
     }
-
 }

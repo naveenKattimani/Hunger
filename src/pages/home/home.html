@@ -6,13 +6,10 @@
       <ion-grid>
         <ion-row>
           <ion-col col-2>
-            <button><ion-icon name="menu" ></ion-icon></button>
-          </ion-col>
-          <ion-col col-8 right>
-            <button><ion-icon name="cart" ></ion-icon></button>
-          </ion-col>
-          <ion-col col-2>
             <button><ion-icon name="contact" ></ion-icon></button>
+          </ion-col>
+          <ion-col col-4>
+            <button><ion-icon name="cart" ></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-grid>  
@@ -21,16 +18,17 @@
       <ion-item>
         <ion-grid>
           <ion-row>
-            <ion-col col-2>
+            <!--ion-col col-2>
               <button (click)="openrestaurantPage()" ><ion-icon name="locate" ></ion-icon></button>
+            </ion-col-->
+            <ion-col col-4>
+              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="font-size: 20px;float:left;padding-right: 5px"name="pin" ></ion-icon>Change Location</button>
             </ion-col>
             <ion-col col-8 right>
-              <p style="font-size: 10px;float:left;padding-top: 2%">Now at</p><br/>
-              <p style="font-size: 12px;float:left;text-overflow: ellipsis;overflow: hidden;">Vijayanagar rpc layoyt bangalore karnataka</p>
+              <!--p style="font-size: 10px;float:left;padding-top: 2%"><ion-icon style="font-size: 14px;float:right;margin-right: 80%"name="arrow-dropdown" ></ion-icon>Now</p--><br/>
+              <p style="font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
             </ion-col>
-            <ion-col col-2>
-              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: right" text-wrap>Change Location</button>
-            </ion-col>
+            
           </ion-row>
         </ion-grid>  
       </ion-item>
@@ -53,7 +51,7 @@
             <ion-img width="80" height="80" src="assets/imgs/Burgers.png"></ion-img>
         </ion-col>
         <ion-col col-8>
-            <a (click)="openrestaurantmenu()" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
+            <a (click)="openrestaurantmenu(place.name)" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
             <p style="font-size: 12px;">{{place.distance}}Km</p>
             <br/>
             <p style="border-bottom: 0.1px solid grey;border-width: thin;">{{place.adrs}}</p>
