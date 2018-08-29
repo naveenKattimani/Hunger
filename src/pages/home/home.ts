@@ -10,6 +10,8 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 import { HTTP } from '@ionic-native/http';
 import { Google_Maps } from '../../providers/google-maps/google-maps';
 import { LoadingController } from 'ionic-angular'
+import { MenuPage } from '../menu/menu';
+import { MyaccountPage } from '../myaccount/myaccount';
 
 
 declare var google: any;
@@ -173,7 +175,13 @@ export class HomePage {
 
         openrestaurantmenu(restaurantname)
         {
-          //this.navCtrl.push(Menu);
+          this.navCtrl.push(MenuPage);
           console.log("----restaurant"+ restaurantname);
+        }
+
+        myaccountpage()
+        {
+          this.navCtrl.push(MyaccountPage);
+          console.log("----accountpage");
         }
 }

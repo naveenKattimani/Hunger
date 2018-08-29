@@ -14,6 +14,7 @@ import { LocationsProvider } from '../providers/locations/locations';
 import { Google_Maps } from '../providers/google-maps/google-maps';
 import{ MapPage } from '../pages/map/map';
 import{ MenuPage } from '../pages/menu/menu';
+import{ MyaccountPage } from '../pages/myaccount/myaccount';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 
@@ -24,6 +25,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     HomePage,
     MapPage,
     MenuPage,
+    MyaccountPage,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     HomePage,
     MapPage,
     MenuPage,
+    MyaccountPage,
   ],
   providers: [
     StatusBar,
