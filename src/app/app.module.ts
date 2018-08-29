@@ -17,6 +17,7 @@ import{ MenuPage } from '../pages/menu/menu';
 import{ MyaccountPage } from '../pages/myaccount/myaccount';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { MycartPage } from '../pages/mycart/mycart';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     MapPage,
     MenuPage,
     MyaccountPage,
+    MycartPage,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     MapPage,
     MenuPage,
     MyaccountPage,
+    MycartPage,
   ],
   providers: [
     StatusBar,

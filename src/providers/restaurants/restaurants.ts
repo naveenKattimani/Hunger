@@ -9,11 +9,11 @@ export class Restaurants {
  
     constructor(public http: Http) {
         this.availablerestaurants = [
-            {name:'By2 Coffee',cost:"25",quantity:0,orderID:'101'},
-            {name:'Karavali Hotel',cost:"30",quantity:0,orderID:'102'},
-            {name:'R K Hotel',cost:"35",quantity:0,orderID:'103'},
-            {name:'Havmor Ice-Cream Parlour',cost:"35",quantity:0,orderID:'103'},
-            {name:'KFC',cost:"35",quantity:0,orderID:'103'},
+            {name:'By2 Coffee',r_id:'foodie_20001'},
+            {name:'Karavali Hotel',r_id:'foodie_20002'},
+            {name:'R K Hotel',r_id:'foodie_20003'},
+            {name:'Havmor Ice-Cream Parlour',r_id:'foodie_20004'},
+            {name:'KFC',r_id:'foodie_20005'},
           ];
     }
  

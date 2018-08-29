@@ -12,6 +12,7 @@ import { Google_Maps } from '../../providers/google-maps/google-maps';
 import { LoadingController } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
+import { MycartPage } from '../mycart/mycart';
 
 
 declare var google: any;
@@ -182,6 +183,12 @@ export class HomePage {
         myaccountpage()
         {
           this.navCtrl.push(MyaccountPage);
+          console.log("----accountpage");
+        }
+
+        mycartpage()
+        {
+          this.navCtrl.push(MycartPage);
           console.log("----accountpage");
         }
 }
