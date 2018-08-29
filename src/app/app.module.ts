@@ -13,6 +13,7 @@ import { Connectivity } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { Google_Maps } from '../providers/google-maps/google-maps';
 import{ MapPage } from '../pages/map/map';
+import{ MenuPage } from '../pages/menu/menu';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 
@@ -22,7 +23,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     MyApp,
     HomePage,
     MapPage,
-    
+    MenuPage,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +37,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
     MyApp,
     HomePage,
     MapPage,
+    MenuPage,
   ],
   providers: [
     StatusBar,

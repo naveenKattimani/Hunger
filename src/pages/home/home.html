@@ -1,37 +1,25 @@
 <ion-content>
-
-
-  <ion-list no-line>
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-2>
-            <button><ion-icon name="contact" ></ion-icon></button>
-          </ion-col>
-          <ion-col col-4>
-            <button><ion-icon name="cart" ></ion-icon></button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>  
-    </ion-item>
-     
+  <ion-list no-line>  
       <ion-item>
         <ion-grid>
           <ion-row>
-            <!--ion-col col-2>
-              <button (click)="openrestaurantPage()" ><ion-icon name="locate" ></ion-icon></button>
-            </ion-col-->
-            <ion-col col-4>
-              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="font-size: 20px;float:left;padding-right: 5px"name="pin" ></ion-icon>Change Location</button>
+            <ion-col col-2>
+              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="font-size: 20px;float:left;padding-left:2px;padding-bottom: 14px"name="pin" ></ion-icon></button>
             </ion-col>
-            <ion-col col-8 right>
-              <!--p style="font-size: 10px;float:left;padding-top: 2%"><ion-icon style="font-size: 14px;float:right;margin-right: 80%"name="arrow-dropdown" ></ion-icon>Now</p--><br/>
-              <p style="font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
+            <ion-col col-6 right>
+               <p style="padding-top:20px;font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
+            </ion-col>
+            <ion-col col-2>
+              <button><ion-icon name="cart" ></ion-icon></button>
+            </ion-col>
+            <ion-col col-2>
+              <button><ion-icon name="contact" ></ion-icon></button>
             </ion-col>
             
           </ion-row>
         </ion-grid>  
       </ion-item>
+      
 
       <ion-item>
         <ion-grid>

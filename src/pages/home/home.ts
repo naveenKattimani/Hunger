@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Menu } from 'ionic-angular';
 import { Restaurants } from '../../providers/restaurants/restaurants';
 import { MapPage } from '../map/map';
 import {  NgZone, ElementRef, ViewChild } from '@angular/core';
@@ -59,11 +59,11 @@ export class HomePage {
       });    
       loading.present();    
       var myvar=setTimeout(() => {
-        if (this.restaurant.items.length>0)
-        {
+        //if (this.restaurant.items.length>0)
+        //{
         loading.dismiss();
-        clearTimeout(myvar);
-        }
+        //clearTimeout(myvar);
+        //}
       }, 2000);
       this.openrestaurantPage();
       return true;
@@ -169,5 +169,11 @@ export class HomePage {
           let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
           let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
           return dis;
+        }
+
+        openrestaurantmenu(restaurantname)
+        {
+          //this.navCtrl.push(Menu);
+          console.log("----restaurant"+ restaurantname);
         }
 }
