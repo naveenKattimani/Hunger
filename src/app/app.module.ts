@@ -18,6 +18,7 @@ import{ MyaccountPage } from '../pages/myaccount/myaccount';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { MycartPage } from '../pages/mycart/mycart';
+import{CartServiceProvider} from '../providers/cart-service/cart-service'
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { MycartPage } from '../pages/mycart/mycart';
     StatusBar,
     SplashScreen,
     Restaurants,
+    CartServiceProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Connectivity,
     LocationsProvider,

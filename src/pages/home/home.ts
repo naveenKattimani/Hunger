@@ -176,14 +176,15 @@ export class HomePage {
 
         openrestaurantmenu(restaurantname)
         {
+          this.restaurant.selectedrestaurant=restaurantname;
           this.navCtrl.push(MenuPage);
-          console.log("----restaurant"+ restaurantname);
+          //console.log("----restaurant"+ restaurantname);          
         }
 
         myaccountpage()
         {
           this.navCtrl.push(MyaccountPage);
-          console.log("----accountpage");
+          //console.log("----accountpage");
         }
 
         mycartpage()

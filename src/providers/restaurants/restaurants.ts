@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 export class Restaurants {
     items=new Array();
     availablerestaurants=new Array();
+    selectedrestaurant;
  
     constructor(public http: Http) {
         this.availablerestaurants = [

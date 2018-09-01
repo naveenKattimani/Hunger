@@ -1,3 +1,203 @@
 page-menu {
 
+    .toolbar-background-md {
+        border-color: white;
+        background:white;
+    }
+    
+    .grid{
+    padding: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 18px solid rgb(233, 227, 227);
+    border-bottom: 18px solid rgb(233, 227, 227);
+    padding-top: 28px;
+}
+    
+    .restaurantheader {
+        padding-left: 3%;
+        font-size: 18px;
+        font-weight: bold;
+        color: chocolate;
+    }
+    button.show-back-button {
+        display: inline-block;
+        margin-left: auto;
+    }
+
+    
+
+    .item-md {
+        padding-left: 3px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: #fff;
+    }
+
+    .item-md.item-block .item-inner {
+        padding-right: -3px;
+        border-bottom: 1px solid #dedede;
+        height: 95px;
+        border: 2px solid lightgrey;
+    }
+
+    .recommended
+    {
+        padding-left: 3%;
+        font-size: 15px;
+    }
+
+    .recommended_box{
+        padding-left: 3px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: #fff;
+        height: 10rem;
+    }
+    //----------------------------
+    
+    ion-label    {
+        color: #000000fb;
+        font-size: 12px;
+    }
+    ion-title    {
+        margin-left: 50px;
+    }
+
+    button {
+        padding-top: 7px;
+        zoom: 1;
+        background-color: white;
+    }
+
+    ion-badge {
+            /* padding: 2px 2px; */
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 1rem;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    margin-left: 25px;
+    margin-top: 15px;
+    color: white;
+    }
+
+    .itemsquantitybadge {
+        padding: 0;
+        text-align: center;
+        display: inline-block;
+        min-width: 16px;
+        font-size: 1.3rem;
+        line-height: 1;
+        white-space: nowrap;
+        vertical-align: baseline;
+        margin-left: 0; 
+        color: black;
+        background-color: white;
+    }
+
+ 
+    .badge-md-light {
+        color: #000;
+        background-color: white;
+    }
+
+    .button-clear-md {
+        border-color: transparent;
+        color: black;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: 1;
+        border: 1px solid;
+        width: 70px;
+        height: 20px;
+
+        background-color: rgb(237, 252, 237);
+        box-shadow: 0 0 5px 1px grey;
+        font-weight: normal;
+    }
+
+    ion-icon {
+        font-size: 1.2em;
+        color: darkslategrey;
+        padding-bottom: 30px
+    }
+
+    ion-item {
+        height: 6em; /* <- this can be whatever you need */
+        }
+
+        .itemname{
+        padding-left: 0;
+        white-space: normal;
+        max-width: 100%;
+        font-size:1.2rem;
+        }
+
+        .listbullet{
+            font-size: 1em;
+            color: darkslategrey;
+            padding-top: 18px;
+        }
+   
+        .item-md p {
+            margin: 0 0 2px;
+            overflow: inherit;
+            color: cadetblue;
+            padding-right: 8px;
+            float: right;
+        }
+        
+    .selector {
+        font-family: SFNSDisplay;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: 0.1px;
+        padding: 5px ;
+        color: #29235e;
+        width: 25% !important;
+        max-width: 25% !important;
+        justify-content: center;
+        border: solid 1px #e8ebf0;
+        background-color: #ffffff;
+        text-align: center;
+      }
+      .option {
+        font-family: SFNSDisplay;
+        font-size: 8px;
+        line-height: 1.2;
+        letter-spacing: 0.1px;
+        color: #29235e;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center;
+        height: 20px;
+      }
+      .buttonalign {
+     
+        white-space: normal;
+        max-width: 100%;
+    
+    }
+    .item-md ion-avatar img {
+        overflow: hidden;
+        max-width: 70px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
+    .additems {
+        margin-left: 10%;
+    }
 }
