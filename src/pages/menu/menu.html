@@ -1,34 +1,22 @@
  
   <ion-content>
-      <ion-navbar>
-        </ion-navbar>
-        <div class="restaurantheader">{{restaurantname}}</div>
-    <ion-grid>
-      <div class="recommended"> Recommended</div>
-        <ion-row>
-          <ion-col>
-            <ion-item class="recommended_box">
-                <ion-label>BURGERS</ion-label>
-            </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item class="recommended_box">
-                <ion-label>SHAKES</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-item class="recommended_box">
-                <ion-label>MOJITOS</ion-label>
+    <ion-navbar>
+    </ion-navbar>
+    <div class="restaurantheader">{{restaurantname}}</div>
+    
+    <ion-grid >
+        <div class="recommended"> Recommended</div>
+        <ion-row wrap>
+          <ion-col col-6 *ngFor="let item of recommendeditems; let i = index">              
+              <ion-item class="recommended_box">   
+                  <ion-img src="assets/imgs/Burgers.png"></ion-img>    
               </ion-item>
-          </ion-col>
-          <ion-col>
-            <ion-item class="recommended_box" >
-                <ion-label>SHAKES</ion-label>
-              </ion-item>
-          </ion-col>
-        </ion-row>
+              <button class="addbutton" ion-button clear (click)="incrementQty(item)" *ngIf="item.quantity==0" >Add </button>      
+                <button clear (click)="decrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="remove-circle" ></ion-icon></button>
+                <ion-badge class="itemsquantitybadge" *ngIf="item.quantity>0">{{item.quantity}}</ion-badge>
+                <button clear (click)="incrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="add-circle" ></ion-icon></button>
+            </ion-col>
+          </ion-row>
       </ion-grid>
       
       <ion-list no-lines>

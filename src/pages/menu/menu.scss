@@ -19,6 +19,7 @@ page-menu {
         font-size: 18px;
         font-weight: bold;
         color: chocolate;
+        padding-bottom: 5%;
     }
     button.show-back-button {
         display: inline-block;
@@ -48,7 +49,7 @@ page-menu {
     .recommended
     {
         padding-left: 3%;
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .recommended_box{
@@ -200,4 +201,12 @@ page-menu {
     .additems {
         margin-left: 10%;
     }
+    
+    ion-img {
+    display: inline-block;
+    min-width: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+    background: #eee;
+    /* contain: strict; */
+}
 }

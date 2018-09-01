@@ -53,20 +53,13 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
-      // setTimeout(() => {
-      //   this.openrestaurantPage();
-      // }, 1000);
-      // return true;
+
       let loading = this.loadingCtrl.create({
         content: 'Loading...'
       });    
       loading.present();    
       var myvar=setTimeout(() => {
-        //if (this.restaurant.items.length>0)
-        //{
         loading.dismiss();
-        //clearTimeout(myvar);
-        //}
       }, 2000);
       this.openrestaurantPage();
       return true;
