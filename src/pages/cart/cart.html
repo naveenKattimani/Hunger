@@ -9,13 +9,9 @@
     <ion-list>
       <ion-item *ngFor="let item of items; let i = index">
         <ion-row>
-          <ion-col >
-            <ion-avatar item-start>
-              <img src='assets/imgs/{{item.orderID}}.jpg'>
-            </ion-avatar>
-          </ion-col>
-          <ion-col ><br>{{item.title}}<br>{{item.cost}}Rs</ion-col><br>
-          <ion-col>
+
+          <ion-col col-8><br>{{item.title}}<br>{{item.cost}}Rs</ion-col><br>
+          <ion-col col-4>
             <br>
             <button clear (click)="decrementQty(item)"><ion-icon name="remove-circle" ></ion-icon></button>
             <ion-badge class="itemsquantitybadge">{{item.quantity}}</ion-badge>

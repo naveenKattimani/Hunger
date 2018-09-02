@@ -40,10 +40,13 @@ page-menu {
     }
 
     .item-md.item-block .item-inner {
-        padding-right: -3px;
+        //padding-right: -3px;
         border-bottom: 1px solid #dedede;
-        height: 95px;
+        //height: 95px;
         border: 2px solid lightgrey;
+        //padding-bottom: 50px;
+        //display: table;
+        padding-right: 0;
     }
 
     .recommended
@@ -67,14 +70,24 @@ page-menu {
     
     ion-label    {
         color: #000000fb;
-        font-size: 12px;
+        font-size: 12px;        
     }
+
+    .label-md{
+        margin:0;
+    }
+    .recommendtitle {
+        font-size: 10px;
+        padding: 0 4px;
+        margin: 0;
+    }
+    
     ion-title    {
         margin-left: 50px;
     }
 
     button {
-        padding-top: 7px;
+        //padding-top: 7px;
         zoom: 1;
         background-color: white;
     }
@@ -98,7 +111,7 @@ page-menu {
         text-align: center;
         display: inline-block;
         min-width: 16px;
-        font-size: 1.3rem;
+        font-size: 1rem;
         line-height: 1;
         white-space: nowrap;
         vertical-align: baseline;
@@ -132,7 +145,7 @@ page-menu {
     ion-icon {
         font-size: 1.2em;
         color: darkslategrey;
-        padding-bottom: 30px
+        //padding-bottom: 30px
     }
 
     ion-item {
