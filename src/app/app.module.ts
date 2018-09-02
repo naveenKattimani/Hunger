@@ -15,6 +15,7 @@ import { Google_Maps } from '../providers/google-maps/google-maps';
 import{ MapPage } from '../pages/map/map';
 import{ MenuPage } from '../pages/menu/menu';
 import{ MyaccountPage } from '../pages/myaccount/myaccount';
+import { CartPage } from '../pages/cart/cart';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { MycartPage } from '../pages/mycart/mycart';
@@ -28,7 +29,7 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
     MapPage,
     MenuPage,
     MyaccountPage,
-    MycartPage,
+    CartPage,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,7 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
     MapPage,
     MenuPage,
     MyaccountPage,
-    MycartPage,
+    CartPage,
   ],
   providers: [
     StatusBar,

@@ -13,6 +13,7 @@ import { LoadingController } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
 import { MycartPage } from '../mycart/mycart';
+import { CartPage } from '../cart/cart';
 
 
 declare var google: any;
@@ -182,7 +183,7 @@ export class HomePage {
 
         mycartpage()
         {
-          this.navCtrl.push(MycartPage);
+          this.navCtrl.push(CartPage);
           console.log("----accountpage");
         }
 }

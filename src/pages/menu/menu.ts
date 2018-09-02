@@ -17,9 +17,7 @@ export class MenuPage {
   constructor(public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public navCtrl: NavController,public Restaurant:Restaurants,public navParams: NavParams) {
     this.restaurantname=this.Restaurant.selectedrestaurant;
     console.log("---"+ this.restaurantname);
-    var my_json = JSON.stringify(this.items)
-    this.recommendeditems = this.find_in_object(JSON.parse(my_json), {recommended: '1'});
-    console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
+    
     
   }
 
@@ -31,6 +29,9 @@ export class MenuPage {
     var myvar=setTimeout(() => {
       loading.dismiss();
     }, 2000);
+    var my_json = JSON.stringify(this.items)
+    this.recommendeditems = this.find_in_object(JSON.parse(my_json), {recommended: '1'});
+    console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
     return true;
   }
   ionViewDidLoad() {
