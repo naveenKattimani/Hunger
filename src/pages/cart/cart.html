@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>CART</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content >
+    <ion-list>
+      <ion-item *ngFor="let item of items; let i = index">
+        <ion-row>
+          <ion-col >
+            <ion-avatar item-start>
+              <img src='assets/imgs/{{item.orderID}}.jpg'>
+            </ion-avatar>
+          </ion-col>
+          <ion-col ><br>{{item.title}}<br>{{item.cost}}Rs</ion-col><br>
+          <ion-col>
+            <br>
+            <button clear (click)="decrementQty(item)"><ion-icon name="remove-circle" ></ion-icon></button>
+            <ion-badge class="itemsquantitybadge">{{item.quantity}}</ion-badge>
+            <button clear (click)="incrementQty(item)"><ion-icon name="add-circle" ></ion-icon></button>
+            &nbsp;<br><ion-badge color="light">{{item.quantity*item.cost}} Rs</ion-badge>
+          </ion-col>
+        </ion-row>      
+      </ion-item>
+        
+      <ion-item style="height:50%" *ngIf="items.length==0">
+          <div>No items in cart. please add the items from menu</div>
+      </ion-item>
+
+      <ion-item style="height:50%" *ngIf="items.length>0">
+          <ion-row >
+            <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 0.9">
+                <br>
+                <div>Total items in cart: {{items.length}}</div><br>
+                <div>Ordered amount: {{totalcartamount}} Rs</div><br>
+                <div>Packaging charge: {{packagingcharge}} Rs</div><br>                
+                <div>Delivery Charge: {{deliverycharge}} Rs</div><br>           
+            </ion-col>              
+          </ion-row>      
+            <ion-row>
+                <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 1">
+                    <div>Total Amount: {{totalamount}}</div><br>           
+                </ion-col>              
+            </ion-row>
+            <ion-row>
+                <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 1">
+                    <button ion-button>Checkout </button>           
+                </ion-col>              
+            </ion-row>
+        </ion-item>  
+    </ion-list>
+  </ion-content>

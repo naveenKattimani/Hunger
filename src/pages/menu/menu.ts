@@ -17,8 +17,6 @@ export class MenuPage {
   constructor(public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public navCtrl: NavController,public Restaurant:Restaurants,public navParams: NavParams) {
     this.restaurantname=this.Restaurant.selectedrestaurant;
     console.log("---"+ this.restaurantname);
-    
-    
   }
 
   ionViewCanEnter():boolean {
