@@ -37,13 +37,13 @@ export class MenuPage {
   }
   
   items = [
-    {title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
-    {title:'wow masal paneer',cost:"30",quantity:0,orderID:'102',recommended:'0'},
-    {title:'wow schezwan',cost:"35",quantity:0,orderID:'103',recommended:'1'},
-    {title:'wow crunchy',cost:"35",quantity:0,orderID:'104',recommended:'0'},
-    {title:'wow corn cheese nuggets',cost:"35",quantity:0,orderID:'105',recommended:'1'},
-    {title:'wow chatpata fries',cost:"35",quantity:0,orderID:'106',recommended:'0'},
-    {title:'wow hot masala',cost:"35",quantity:0,orderID:'107',recommended:'1'},
+    {type:'burger',title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
+    {type:'burger',title:'wow masal paneer',cost:"30",quantity:0,orderID:'102',recommended:'0'},
+    {type:'burger',title:'wow schezwan',cost:"35",quantity:0,orderID:'103',recommended:'1'},
+    {type:'burger',title:'wow crunchy',cost:"35",quantity:0,orderID:'104',recommended:'0'},
+    {type:'burger',title:'wow corn cheese nuggets',cost:"35",quantity:0,orderID:'105',recommended:'1'},
+    {type:'burger',title:'wow chatpata fries',cost:"35",quantity:0,orderID:'106',recommended:'0'},
+    {type:'burger',title:'wow hot masala',cost:"35",quantity:0,orderID:'107',recommended:'1'},
   ];
 
   itemSelected(item: string) {
