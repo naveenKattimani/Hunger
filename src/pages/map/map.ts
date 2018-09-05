@@ -52,6 +52,7 @@ export class MapPage {
           center: myLatLng
         });
         this.maps.map.setCenter(myLatLng);
+        this.maps.addMarker(myLatLng.lat,myLatLng.lng);
     });
   }
 }
