@@ -10,10 +10,6 @@ export class Restaurants {
  
     constructor(public http: Http) {
         this.availablerestaurants = [
-            {name:'Shanthi Sagar',r_id:'foodie_20001'},
-            {name:'Karavali Hotel',r_id:'foodie_20002'},
-            {name:'KFC',r_id:'foodie_20003'},
-            {name:'R K Hotel',r_id:'foodie_20004'},
             {name:'wow cafe',r_id:'foodie_20005'},
           ];
     }
