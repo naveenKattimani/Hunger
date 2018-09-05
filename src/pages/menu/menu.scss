@@ -15,11 +15,21 @@ page-menu {
 }
     
     .restaurantheader {
-        padding-left: 3%;
+        padding-left: 4%;
         font-size: 18px;
         font-weight: bold;
         color: chocolate;
         padding-bottom: 5%;
+    }
+
+    .categoryclass
+    {
+        padding-left: 3%;
+        font-size: 14px;
+        font-weight: bold;
+        color: #ab662b;
+        padding-top: 1%;
+        text-transform: uppercase;
     }
     button.show-back-button {
         display: inline-block;

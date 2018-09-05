@@ -12,6 +12,10 @@
   <div #pleaseConnect id="please-connect">
     <p>Please connect to the Internet...</p>
   </div>
+
+      <ion-item>
+         <ion-input id="places" type="search"  placeholder="Search" (input)='searchtext($event.target.value)'></ion-input>       
+     </ion-item>
  
   <div #map id="map"></div>
  

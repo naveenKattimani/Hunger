@@ -20,7 +20,7 @@ export class CartPage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidLoad cartpage');
+    //console.log('ionViewDidLoad cartpage');
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
     this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
@@ -52,19 +52,19 @@ export class CartPage {
     this.ncount=0;
     this.cartSvc.thecart.forEach((cartitem,arrindex) =>{   
       this.ncount++;
-      console.log("------name" +cartitem.title);
+      //console.log("------name" +cartitem.title);
       if (cartitem.orderID==item.orderID)
         {
           if(cartitem.quantity>0)
           {
             cartitem.quantity=cartitem.quantity-1;
-            console.log("total quantity " + cartitem.quantity);
+            //console.log("total quantity " + cartitem.quantity);
             this.cartSvc.updatetotal();
             this.totalcartamount=this.cartSvc.totalcartamount;
             this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
             if(cartitem.quantity==0)
             {
-              console.log("------index" + arrindex + "----"+ cartitem.title +"---" + cartitem.quantity);
+              //console.log("------index" + arrindex + "----"+ cartitem.title +"---" + cartitem.quantity);
               this.cartSvc.thecart.splice(arrindex,1);
             }   
           }      

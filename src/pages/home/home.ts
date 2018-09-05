@@ -54,15 +54,15 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
-
+      this.openrestaurantPage();
       let loading = this.loadingCtrl.create({
         content: 'Loading...'
       });    
       loading.present();    
       var myvar=setTimeout(() => {
         loading.dismiss();
-      }, 1000);
-      this.openrestaurantPage();
+      }, 5000);
+      
       return true;
     }
     
@@ -82,8 +82,8 @@ export class HomePage {
 
     initMap(){
         navigator.geolocation.getCurrentPosition((location) => {
-          console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
-          console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
+          //console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
+          //console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
           if (this.Google_Maps.newplace.lat==0)
           {
             myplace.lat=location.coords.latitude;
@@ -110,19 +110,19 @@ export class HomePage {
             {
             address=res[0].formatted_address;
             this.currentaddress=res[0].formatted_address;
-            console.log("current location-----"+ this.currentaddress); 
             }
           });
         
         var service = new google.maps.places.PlacesService(map);        
         service.nearbySearch({
           location: {lat: myplace.lat, lng: myplace.lng},
-          radius: 500,
-          type: ['restaurant'],
-          }, (results,status) => {
+          radius: 5000,
+          type: ["restaurant"],
+          //name:'wow cafe'
+          }, (results,status,pagination) => {
+            pagination.nextPage();
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-              for (var i = 0; i < results.length; i++) {
-                //console.log("<<<<<<<<<<<<<<<<<<<<<"+results[i]);                
+              for (var i = 0; i < results.length; i++) {   
                 distkm=this.calculateDistance(results[i].geometry.location.lat(),myplace.lat,results[i].geometry.location.lng(),myplace.lng)
                 distkm=distkm.toFixed(2);
                 address="";
@@ -139,7 +139,7 @@ export class HomePage {
                   console.log("-----"+serachrestaurant.name);
                   this.restaurant.availablerestaurants.forEach((arr1)=>
                     {
-                      if(arr1.name===serachrestaurant.name)
+                      if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase())
                       {
                         //console.log("-----"+arr1.name);
                         this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,adrs:address});
@@ -155,18 +155,34 @@ export class HomePage {
               }
             });
           }, (error) => {
-            console.log(error);
+            //console.log(error);
           }, options);          
         }
 
-        calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
-          //console.log(lat1+"--"+lat2+"--"+long1+"--"+long2+"--");
-          let p = 0.017453292519943295;    // Math.PI / 180
-          let c = Math.cos;
-          let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
-          let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
-          return dis;
-        }
+        // calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
+        //   //console.log(lat1+"--"+lat2+"--"+long1+"--"+long2+"--");
+        //   let p = 0.017453292519943295;    // Math.PI / 180
+        //   let c = Math.cos;
+        //   let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
+        //   let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
+        //   return dis;
+        // }
+
+        rad = function(x) {
+          return x * Math.PI / 180;
+        };
+
+        calculateDistance(lat1:number,lat2:number,long1:number,long2:number) {
+          var R = 6378137; // Earth’s mean radius in meter
+          var dLat = this.rad(lat2 - lat1);
+          var dLong = this.rad(long2 - long1);
+          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.rad(lat1)) * Math.cos(this.rad(lat2)) *
+            Math.sin(dLong / 2) * Math.sin(dLong / 2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          var d = R * c;
+          return d/1000; // returns the distance in meter
+        };
 
         openrestaurantmenu(restaurantname)
         {
@@ -184,6 +200,6 @@ export class HomePage {
         mycartpage()
         {
           this.navCtrl.push(CartPage);
-          console.log("----accountpage");
+          //console.log("----accountpage");
         }
 }

@@ -37,33 +37,33 @@ export class MenuPage {
     let raw = this.items;
     let itemsbytype = {};
     raw.forEach((item) => {
-      console.log(">>-----"+item.type);
+     // console.log(">>-----"+item.type);
       
       if (!itemsbytype[item.type]) {
         itemsbytype[item.type] = [];
       }
       itemsbytype[item.type].push(item);
-      // console.log("-----------"+ itemsbytype[item.type][0].title);
+      //console.log("-----------"+ itemsbytype[item.type][0].title);
     });
 
     for (let dest in itemsbytype) {
       //console.log("-----------"+ dest);
       this.dests.push({type: dest, items: itemsbytype[dest]});     
-      console.log("----------->>"+ this.dests.length); 
+      //console.log("----------->>"+ this.dests.length); 
     }
 
     return true;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
+    //console.log('ionViewDidLoad MainPage');
   }
   
   items = [
-    {type:'burger',title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
-    {type:'burger',title:'wow masal paneer',cost:"30",quantity:0,orderID:'102',recommended:'0'},
-    {type:'burger',title:'wow schezwan',cost:"35",quantity:0,orderID:'103',recommended:'1'},
-    {type:'burger',title:'wow crunchy',cost:"35",quantity:0,orderID:'104',recommended:'0'},
+    {type:'burgers',title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
+    {type:'burgers',title:'wow masal paneer',cost:"30",quantity:0,orderID:'102',recommended:'0'},
+    {type:'burgers',title:'wow schezwan',cost:"35",quantity:0,orderID:'103',recommended:'1'},
+    {type:'burgers',title:'wow crunchy',cost:"35",quantity:0,orderID:'104',recommended:'0'},
     {type:'vadapav',title:'wow corn cheese nuggets',cost:"35",quantity:0,orderID:'105',recommended:'1'},
     {type:'vadapav',title:'wow chatpata fries',cost:"35",quantity:0,orderID:'106',recommended:'0'},
     {type:'vadapav',title:'wow hot masala',cost:"35",quantity:0,orderID:'107',recommended:'1'},

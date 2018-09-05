@@ -23,7 +23,8 @@
       
       <ion-list no-lines>
           <ng-template ngFor let-dest [ngForOf]="dests">
-          <ion-item-divider>{{dest.type}}</ion-item-divider>
+          <ion-item-divider >
+            <div class="categoryclass">{{dest.type}}</div></ion-item-divider>
           <ion-item *ngFor="let item of dest.items">
             <ion-row>
                 <ion-col col-1>
