@@ -20,8 +20,11 @@
           </ion-row>
       </ion-grid>
       
+      
       <ion-list no-lines>
-          <ion-item *ngFor="let item of items; let i = index">
+          <ng-template ngFor let-dest [ngForOf]="dests">
+          <ion-item-divider>{{dest.type}}</ion-item-divider>
+          <ion-item *ngFor="let item of dest.items">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon class="listbullet" name="radio-button-on"></ion-icon>
@@ -38,9 +41,11 @@
               </ion-col>
             </ion-row>      
           </ion-item>
+        </ng-template>
       </ion-list>
   </ion-content>
 
+  
   
   
   

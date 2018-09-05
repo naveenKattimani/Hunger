@@ -61,7 +61,7 @@ export class HomePage {
       loading.present();    
       var myvar=setTimeout(() => {
         loading.dismiss();
-      }, 2000);
+      }, 1000);
       this.openrestaurantPage();
       return true;
     }
@@ -77,7 +77,7 @@ export class HomePage {
     openrestaurantPage(){
       this.nearbyPlaces=[];
       setTimeout(()=>
-      {this.initMap()},500);
+      {this.initMap()},1000);
     }
 
     initMap(){

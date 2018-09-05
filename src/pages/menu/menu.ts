@@ -14,9 +14,11 @@ export class MenuPage {
   restaurantname: string;
   ncount: number;
   recommendeditems = new Array();
+  itemsbytype = new Array();
+  dests = [];
   constructor(public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public navCtrl: NavController,public Restaurant:Restaurants,public navParams: NavParams) {
     this.restaurantname=this.Restaurant.selectedrestaurant;
-    console.log("---"+ this.restaurantname);
+    //console.log("---"+ this.restaurantname);
   }
 
   ionViewCanEnter():boolean {
@@ -29,9 +31,30 @@ export class MenuPage {
     }, 2000);
     var my_json = JSON.stringify(this.items)
     this.recommendeditems = this.find_in_object(JSON.parse(my_json), {recommended: '1'});
-    console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
+    //console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
+
+    
+    let raw = this.items;
+    let itemsbytype = {};
+    raw.forEach((item) => {
+      console.log(">>-----"+item.type);
+      
+      if (!itemsbytype[item.type]) {
+        itemsbytype[item.type] = [];
+      }
+      itemsbytype[item.type].push(item);
+      // console.log("-----------"+ itemsbytype[item.type][0].title);
+    });
+
+    for (let dest in itemsbytype) {
+      //console.log("-----------"+ dest);
+      this.dests.push({type: dest, items: itemsbytype[dest]});     
+      console.log("----------->>"+ this.dests.length); 
+    }
+
     return true;
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
   }
@@ -41,13 +64,13 @@ export class MenuPage {
     {type:'burger',title:'wow masal paneer',cost:"30",quantity:0,orderID:'102',recommended:'0'},
     {type:'burger',title:'wow schezwan',cost:"35",quantity:0,orderID:'103',recommended:'1'},
     {type:'burger',title:'wow crunchy',cost:"35",quantity:0,orderID:'104',recommended:'0'},
-    {type:'burger',title:'wow corn cheese nuggets',cost:"35",quantity:0,orderID:'105',recommended:'1'},
-    {type:'burger',title:'wow chatpata fries',cost:"35",quantity:0,orderID:'106',recommended:'0'},
-    {type:'burger',title:'wow hot masala',cost:"35",quantity:0,orderID:'107',recommended:'1'},
+    {type:'vadapav',title:'wow corn cheese nuggets',cost:"35",quantity:0,orderID:'105',recommended:'1'},
+    {type:'vadapav',title:'wow chatpata fries',cost:"35",quantity:0,orderID:'106',recommended:'0'},
+    {type:'vadapav',title:'wow hot masala',cost:"35",quantity:0,orderID:'107',recommended:'1'},
   ];
 
   itemSelected(item: string) {
-    console.log("Selected Item", item);
+    //console.log("Selected Item", item);
   }
   
     incrementQty(item: any) {
@@ -57,7 +80,7 @@ export class MenuPage {
         if (cartitem.orderID==item.orderID)
         {
           cartitem.quantity=item.quantity;
-          console.log("total quantity " + cartitem.quantity);
+          //console.log("total quantity " + cartitem.quantity);
           nflag=1;
         }
        });
@@ -73,18 +96,18 @@ export class MenuPage {
       if(item.quantity>0)
       {
         item.quantity=item.quantity-1;
-      this.cartSvc.thecart.forEach((cartitem,arrindex) =>{   
+        this.cartSvc.thecart.forEach((cartitem,arrindex) =>{   
         this.ncount++;
         if (cartitem.orderID==item.orderID)
           {
             if(cartitem.quantity>=0)
             {
               cartitem.quantity=item.quantity;
-              console.log("-----"+cartitem.quantity);
+              //console.log("-----"+cartitem.quantity);
               this.cartSvc.updatetotal();
               if(cartitem.quantity==0)
               {
-                console.log("------index" + arrindex + "----"+ cartitem.title +"---" + cartitem.quantity);
+                //console.log("------index" + arrindex + "----"+ cartitem.title +"---" + cartitem.quantity);
     
                 this.cartSvc.thecart.splice(arrindex,1);
               }   
