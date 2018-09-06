@@ -82,8 +82,8 @@ export class HomePage {
 
     initMap(){
         navigator.geolocation.getCurrentPosition((location) => {
-          //console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
-          //console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
+          console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
+          console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
           if (this.Google_Maps.newplace.lat==0)
           {
             myplace.lat=location.coords.latitude;

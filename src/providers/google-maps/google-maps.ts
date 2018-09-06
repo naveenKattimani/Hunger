@@ -180,7 +180,7 @@ export class Google_Maps {
  
     google.maps.event.addListener(marker, 'drag', () => {
       console.log("lat"+ marker.position.lat());
-      console.log("lat"+ marker.position.lng());
+      console.log("lng"+ marker.position.lng());
       this.newplace.lat=marker.position.lat();
       this.newplace.lng=marker.position.lng();
     })

@@ -3,6 +3,8 @@ import { NavController, NavParams, Slides } from 'ionic-angular';
 import { Restaurants } from '../../providers/restaurants/restaurants';
 import{CartServiceProvider} from '../../providers/cart-service/cart-service'
 import { LoadingController } from 'ionic-angular'
+import { CartPage } from '../cart/cart';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-menu',
@@ -36,6 +38,7 @@ export class MenuPage {
     
     let raw = this.items;
     let itemsbytype = {};
+    this.dests=[];
     raw.forEach((item) => {
      // console.log(">>-----"+item.type);
       
@@ -123,8 +126,18 @@ export class MenuPage {
         return Object.keys(my_criteria).every(function(c) {
           return obj[c] == my_criteria[c];
         });
-      });
-    
+      });    
+    }
+
+    mycartpage()
+    {
+      this.navCtrl.push(CartPage);
+      //console.log("----accountpage");
+    }
+
+    Homepage()
+    {
+      this.navCtrl.push(HomePage);
     }
 }
 

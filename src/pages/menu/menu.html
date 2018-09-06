@@ -1,6 +1,8 @@
  
   <ion-content>
     <ion-navbar>
+        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="this.cartSvc.thecart.length>0 ? 'title' : 'dark'" name="cart"></ion-icon></button>
+        <button (click)="Homepage()" class="carticon"><ion-icon name="home"></ion-icon></button>
     </ion-navbar>
     <div class="restaurantheader">{{restaurantname}}</div>
     

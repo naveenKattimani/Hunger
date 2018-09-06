@@ -36,6 +36,18 @@ page-menu {
         margin-left: auto;
     }
 
+    ion-icon {
+        font-size: 1.5em;
+        color:black;
+        float: right;
+    }
+
+    .carticon {
+        zoom: 1;
+        float:right;
+        padding-top: 5px;
+        padding-right: 20px;
+    }
     
 
     .item-md {
@@ -152,13 +164,7 @@ page-menu {
         font-weight: normal;
     }
 
-    ion-icon {
-        font-size: 1.2em;
-        color: darkslategrey;
-        //padding-bottom: 30px
-    }
-
-    ion-item {
+   ion-item {
         height: 6em; /* <- this can be whatever you need */
         }
 
