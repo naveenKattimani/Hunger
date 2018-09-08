@@ -55,4 +55,11 @@ export class MapPage {
         this.maps.addMarker(myLatLng.lat,myLatLng.lng);
     });
   }
+
+  myLocation()
+  {
+    this.maps.newplace.lat=0;
+    this.maps.newplace.lng=0;
+    let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+  }
 }
