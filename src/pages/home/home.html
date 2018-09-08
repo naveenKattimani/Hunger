@@ -32,8 +32,12 @@
       </ion-item>
   </ion-list>
   <div #map id="map"></div> 
+  <div *ngIf="nearbyPlaces.length==0">
+      <div class="warnmesaage">No restaurants nearby you.</div>
+  </div>
   <ion-list >
     <ion-item class="searchlist" *ngFor = "let place of nearbyPlaces">
+        
       <ion-row class="searchlistinner">
         <ion-col col-4>
             <img class="restautantimage" src={{place.r_id}}>
