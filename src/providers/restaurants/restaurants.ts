@@ -10,7 +10,9 @@ export class Restaurants {
  
     constructor(public http: Http) {
         this.availablerestaurants = [
-            {name:'wow cafe',r_id:'foodie_20005'},
+            {name:'wow cafe',description:'Burger vadapav and more',place_id:'ChIJoTN7T1y_yDsREvscujjUSYI',r_id:'foodie-20005'},
+            {name:'Green Kababish',description:'Non Vegand Veg',place_id:'ChIJoTN7T1y_yDsREvscujjUSYI',r_id:'foodie-20006'},
+            {name:'KFC',description:'Non Vegand Veg',place_id:'ChIJoTN7T1y_yDsREvscujjUSYI',r_id:'foodie-20007'},
           ];
     }
  

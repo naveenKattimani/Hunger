@@ -93,9 +93,14 @@ export class Google_Maps {
     return new Promise((resolve) => {
  
       Geolocation.getCurrentPosition().then((position) => {
- 
         var lat= position.coords.latitude;
         var lng= position.coords.longitude;
+        if (this.newplace.lat!=0)
+          {
+            lat=this.newplace.lat;
+            lng= this.newplace.lng;
+          }
+
         let latLng = new google.maps.LatLng(lat, lng);
  
         let mapOptions = {

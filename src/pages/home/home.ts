@@ -93,8 +93,8 @@ export class HomePage {
           {
           myplace.lat=this.Google_Maps.newplace.lat;
           myplace.lng=this.Google_Maps.newplace.lng;
-          this.Google_Maps.newplace.lat=0;
-          this.Google_Maps.newplace.lat=0;
+          //this.Google_Maps.newplace.lat=0;
+          //this.Google_Maps.newplace.lat=0;
           }
           
           var distkm;          
@@ -113,12 +113,15 @@ export class HomePage {
             }
           });
         
-        var service = new google.maps.places.PlacesService(map);        
+        var service = new google.maps.places.PlacesService(map);     
+           
+        this.restaurant.availablerestaurants.forEach((arr1)=>
+        {
         service.nearbySearch({
           location: {lat: myplace.lat, lng: myplace.lng},
-          radius: 5000,
+          radius: 10000,
           type: ["restaurant"],
-          //name:'wow cafe'
+          name:arr1.name,
           }, (results,status,pagination) => {
             pagination.nextPage();
             if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -136,14 +139,14 @@ export class HomePage {
                   //console.log("-----"+ res[0].formatted_address); // read data from here
                   //console.log("-----"+address);
                   }
-                  console.log("-----"+serachrestaurant.name);
+                  
                   this.restaurant.availablerestaurants.forEach((arr1)=>
                     {
-                      if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase())
+                      if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
                       {
-                        //console.log("-----"+arr1.name);
-                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,adrs:address});
-                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,adrs:address});
+                        console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
+                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         
                       }
                     });                  
@@ -154,9 +157,11 @@ export class HomePage {
                 }
               }
             });
+          });
           }, (error) => {
             //console.log(error);
-          }, options);          
+          }, options);
+                  
         }
 
         // calculateDistance(lat1:number,lat2:number,long1:number,long2:number){

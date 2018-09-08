@@ -2,7 +2,7 @@
   <ion-list no-line>  
       <ion-item>
         <ion-grid>
-          <ion-row>
+          <ion-row class="searchheader">
             <ion-col col-2>
               <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="font-size: 20px;float:left;padding-left:2px;padding-bottom: 14px"name="pin" ></ion-icon></button>
             </ion-col>
@@ -23,7 +23,7 @@
 
       <ion-item>
         <ion-grid>
-          <ion-row>
+          <ion-row class="searchheader">
             <ion-col col-sm-12 >
               <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
             </ion-col>
@@ -34,16 +34,16 @@
   <div #map id="map"></div> 
   <ion-list >
     <ion-item class="searchlist" *ngFor = "let place of nearbyPlaces">
-      <ion-row>
+      <ion-row class="searchlistinner">
         <ion-col col-4>
-            <ion-img width="80" height="80" src="assets/imgs/Burgers.png"></ion-img>
+            <img class="restautantimage" src={{place.r_id}}>
         </ion-col>
         <ion-col col-8>
             <a (click)="openrestaurantmenu(place.name)" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
-            <p style="font-size: 12px;">{{place.distance}}Km</p>
+            <p style="font-size: 12px;">{{place.desc}}</p>
             <br/>
-            <p style="border-bottom: 0.1px solid grey;border-width: thin;">{{place.adrs}}</p>
-            <p style="font-size: 10px;float:right;">{{place.place}}</p>
+            <p style="border-bottom: 0.1px solid grey;border-width: thin;">***</p>
+            <p style="font-size: 10px;padding-left:80%;">{{place.distance}}KM</p>
         </ion-col>      
     </ion-row>
   </ion-item>

@@ -69,15 +69,39 @@ page-home {
     .searchlist
     {
         padding:2%;
-        background-color: white;
+        background-color:#e4dddd;
         height:7em;
         text-align: left;
     }
 
-    .sitem-md p {
- 
-        line-height: 0;
+    .searchlistinner {
+        border: 1px solid grey;
+        background-color: white;
+    }
 
+    .searchheader {
+        border-color: red;
+    }
+
+    .sitem-md p { 
+        line-height: 0;
+    }
+
+    .restautantimage
+    {
+        max-width: 90px;
+        height: 82px;
+    }
+
+    .list-md {
+         margin: 0; 
+    }
+    .label-md {
+        margin: 0;
+    }
+
+    .scroll-content {
+        background-color: #e4dddd;
     }
 
 }
