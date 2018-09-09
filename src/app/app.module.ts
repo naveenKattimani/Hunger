@@ -4,7 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
+//import { HTTP } from '@ionic-native/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Network } from '@ionic-native/network';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -18,7 +19,6 @@ import{ MyaccountPage } from '../pages/myaccount/myaccount';
 import { CartPage } from '../pages/cart/cart';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-import { MycartPage } from '../pages/mycart/mycart';
 import{CartServiceProvider} from '../providers/cart-service/cart-service'
 
 
@@ -34,6 +34,7 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp,{
       mode: 'md'
       })
@@ -59,7 +60,6 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
     Geolocation,
     NativeGeocoder,
     Network,
-    HTTP
   ]
 })
 export class AppModule {}

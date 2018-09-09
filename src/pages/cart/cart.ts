@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
+import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
+//import { Http, Headers, RequestOptions } from '@angular/http';;
 
 @Component({
   selector: 'page-cart',
@@ -14,7 +16,7 @@ export class CartPage {
   totalamount=0;
 
   ncount: number;
-  constructor(public navCtrl: NavController,public cartSvc:CartServiceProvider) {
+  constructor(public navCtrl: NavController,public cartSvc:CartServiceProvider,private httpClient: HttpClient) {
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
   }
@@ -70,5 +72,29 @@ export class CartPage {
           }      
         }
      });
+  }
+
+  checkout()
+  {
+    // var headers=new Headers({ 'Content-Type': 'application/json'});
+    // //headers.append( 'Accept', 'application/json');
+    // //headers.append( 'Content-Type', 'application/json');
+    // const options=new RequestOptions({headers:headers});
+    // this.http.post('http://localhost:8100/createPayment','',{headers:headers}).
+    // subscribe(data=>{
+    //   console.log("--------"+data);
+    // });
+
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    let body = {  something: 'value' };
+
+    this.httpClient.post('http://localhost:8100/CreatePayment', body, {headers: headers})
+                .subscribe((result: any) => {
+                    console.log(result);
+            }, (errorResponse: HttpErrorResponse) => {
+                console.error(errorResponse);
+            });
   }
 }
