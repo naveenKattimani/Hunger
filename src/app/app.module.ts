@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { NewTransactionPage } from '../pages/instamojo/new_transaction'
+import {InAppBrowser} from '@ionic-native/in-app-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,16 +22,23 @@ import { CartPage } from '../pages/cart/cart';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import{CartServiceProvider} from '../providers/cart-service/cart-service'
+import { HTTP } from '@ionic-native/http';
+import { importType } from '@angular/compiler/src/output/output_ast';
+import {CheckoutPage} from '../pages/checkout/checkout'
+//import { HTTP } from 'ionic-native';
+
 
 
 @NgModule({
   declarations: [
+      NewTransactionPage,
     MyApp,
     HomePage,
     MapPage,
     MenuPage,
     MyaccountPage,
     CartPage,
+    CheckoutPage,
   ],
   imports: [
     BrowserModule,
@@ -41,14 +50,18 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+      NewTransactionPage,
     MyApp,
     HomePage,
     MapPage,
     MenuPage,
     MyaccountPage,
     CartPage,
+    CheckoutPage,
   ],
   providers: [
+      InAppBrowser,
+      HTTP,
     StatusBar,
     SplashScreen,
     Restaurants,

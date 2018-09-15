@@ -12,7 +12,6 @@ import { Google_Maps } from '../../providers/google-maps/google-maps';
 import { LoadingController } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
-import { MycartPage } from '../mycart/mycart';
 import { CartPage } from '../cart/cart';
 
 
@@ -61,7 +60,7 @@ export class HomePage {
       loading.present();    
       var myvar=setTimeout(() => {
         loading.dismiss();
-      }, 5000);
+      }, 2000);
       
       return true;
     }
