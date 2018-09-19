@@ -23,8 +23,7 @@ export class MapPage {
  
   ionViewDidLoad(){
  
-    this.platform.ready().then(() => {
- 
+    this.platform.ready().then(() => { 
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         console.log("ion view load");
     });

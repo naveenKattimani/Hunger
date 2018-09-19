@@ -12,6 +12,7 @@ export class CartServiceProvider {
   thecart: any[]=[];
   checkoutresp;
   totalcartamount: number;
+  checksum;
   constructor() {
     console.log('Hello CartServiceProvider Provider');
     

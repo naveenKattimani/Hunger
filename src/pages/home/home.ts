@@ -50,6 +50,7 @@ export class HomePage {
  
     ionViewDidLoad() {
       //this.openrestaurantPage();  
+      console.log(this.restaurant.restaurantnames);
     }
 
     ionViewCanEnter():boolean {
@@ -141,6 +142,7 @@ export class HomePage {
                   
                   this.restaurant.availablerestaurants.forEach((arr1)=>
                     {
+                      console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                       if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
                       {
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);

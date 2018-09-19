@@ -25,6 +25,10 @@ import{CartServiceProvider} from '../providers/cart-service/cart-service'
 import { HTTP } from '@ionic-native/http';
 import { importType } from '@angular/compiler/src/output/output_ast';
 import {CheckoutPage} from '../pages/checkout/checkout'
+import { FIREBASE_CONFIG } from '../../src/environment/environment';
+import { AngularFireDatabaseModule,AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FirebaseProvider } from '../providers/dbservice/firebasedb';
 //import { HTTP } from 'ionic-native';
 
 
@@ -46,7 +50,9 @@ import {CheckoutPage} from '../pages/checkout/checkout'
     HttpClientModule,
     IonicModule.forRoot(MyApp,{
       mode: 'md'
-      })
+      }),
+      AngularFireModule.initializeApp(FIREBASE_CONFIG.firebase),
+      AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,6 +79,8 @@ import {CheckoutPage} from '../pages/checkout/checkout'
     Geolocation,
     NativeGeocoder,
     Network,
+    FirebaseProvider
+    
   ]
 })
 export class AppModule {}
