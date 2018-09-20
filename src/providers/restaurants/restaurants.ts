@@ -12,6 +12,7 @@ export class Restaurants {
     items=new Array();
     availablerestaurants=new Array();
     selectedrestaurant;
+    selectedrestaurantid;
     restaurantnames: AngularFireList<any>;
     newItem = '';
 

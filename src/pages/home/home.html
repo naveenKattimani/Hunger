@@ -40,10 +40,10 @@
         
       <ion-row class="searchlistinner">
         <ion-col col-4>
-            <img class="restautantimage" src={{place.r_id}}>
+            <img class="restautantimage" src={{place.img_id}}>
         </ion-col>
         <ion-col col-8>
-            <a (click)="openrestaurantmenu(place.name)" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
+            <a (click)="openrestaurantmenu(place.name,place.r_id)" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
             <p style="font-size: 12px;">{{place.desc}}</p>
             <br/>
             <p style="border-bottom: 0.1px solid grey;border-width: thin;">***</p>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Menu } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Menu, MenuController } from 'ionic-angular';
 import { Restaurants } from '../../providers/restaurants/restaurants';
 import { MapPage } from '../map/map';
 import {  NgZone, ElementRef, ViewChild } from '@angular/core';
@@ -13,7 +13,7 @@ import { LoadingController } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
 import { CartPage } from '../cart/cart';
-
+import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 
 declare var google: any;
 declare var google;
@@ -44,7 +44,7 @@ export class HomePage {
     map: any;
     currentaddress: any;
     
-    constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+    constructor(public FirebaseProvider:FirebaseProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
       
     }
  
@@ -146,8 +146,8 @@ export class HomePage {
                       if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
                       {
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
-                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
-                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         
                       }
                     });                  
@@ -183,16 +183,19 @@ export class HomePage {
           var dLat = this.rad(lat2 - lat1);
           var dLong = this.rad(long2 - long1);
           var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(this.rad(lat1)) * Math.cos(this.rad(lat2)) *
-            Math.sin(dLong / 2) * Math.sin(dLong / 2);
+          Math.cos(this.rad(lat1)) * Math.cos(this.rad(lat2)) *
+          Math.sin(dLong / 2) * Math.sin(dLong / 2);
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
           var d = R * c;
           return d/1000; // returns the distance in meter
         };
 
-        openrestaurantmenu(restaurantname)
+        openrestaurantmenu(restaurantname,restaurantid)
         {
-          this.restaurant.selectedrestaurant=restaurantname;
+          //console.log("----restaurant name"+ restaurantid)
+           this.restaurant.selectedrestaurant=restaurantname;
+           this.restaurant.selectedrestaurantid=restaurantid;
+           this.FirebaseProvider.getmenu(restaurantid);
           this.navCtrl.push(MenuPage);
           //console.log("----restaurant"+ restaurantname);          
         }

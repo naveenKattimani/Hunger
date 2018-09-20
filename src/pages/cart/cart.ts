@@ -29,6 +29,7 @@ export class CartPage {
   deliverycharge=20;
   totalamount=0;
   resp="";
+  public timeStampInMs;
   public checksum;
 
   ncount: number;
@@ -93,19 +94,86 @@ export class CartPage {
 
   checkout()
   {      
-    var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-    console.log(timeStampInMs, Date.now());
-    timeStampInMs=Date.now();
-    
+    this.timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+    console.log(this.timeStampInMs, Date.now());
+    this.timeStampInMs=Date.now();
+    var transferdata;
     
     let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append("Accept", 'application/json');
-      //headers.append("Cache-Control", 'no-cache');
-     // headers.append("Pragma", 'no-cache');
-      const requestOptions = new RequestOptions({ headers: headers });
-  
-      var link = 'http://localhost/foodie/pgRedirect.php';
+    headers.append('Content-Type', 'application/json');
+    headers.append("Accept", 'application/json');
+    //headers.append("Cache-Control", 'no-cache');
+    // headers.append("Pragma", 'no-cache');
+    const requestOptions = new RequestOptions({ headers: headers });
+
+    var link = 'http://localhost/foodie/pgRedirect.php';
+
+
+    var gencheksumparams="MID=Foodie22607738817864&"
+    gencheksumparams=gencheksumparams+"ORDER_ID="+this.timeStampInMs+"&"
+    gencheksumparams=gencheksumparams+"CUST_ID=8878788&"
+    gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
+    gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
+    gencheksumparams=gencheksumparams+"TXN_AMOUNT=25&"
+    gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
+    gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs+"&"
+                
+    link = link+"?" + gencheksumparams;
+
+    this.Http.post(link, '',requestOptions)
+      .subscribe(data => {
+        //console.log(data);
+        data = data["_body"]; 
+        var respdata=data.toString();
+        this.checksum=respdata.substring(respdata.indexOf('CHECKSUMHASH" value="')+21,respdata.length)
+        this.checksum=this.checksum.substring(0,this.checksum.indexOf('">'));
+        //this.cartSvc.checksum=this.checksum;
+        this.cartSvc.checksum=respdata;
+        console.log("CHECKSUM = " + this.cartSvc.checksum);
+        this.paytmpage(this.cartSvc.checksum)
+        }, error => {
+          console.log(error);
+        });    
+    }    
+
+    paytmpage(chcksum)
+    {
+      let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append("Accept", 'application/json');
+    const requestOptions = new RequestOptions({ headers: headers });
+      var transferdata="MID=Foodie22607738817864&"
+      transferdata=transferdata+"ORDER_ID="+this.timeStampInMs+"&"
+      transferdata=transferdata+"CUST_ID=8878788&"
+      transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
+      transferdata=transferdata+"CHANNEL_ID=WAP&"
+      transferdata=transferdata+"TXN_AMOUNT=25&"
+      transferdata=transferdata+"WEBSITE=APPSTAGING&"
+      // transferdata=transferdata+"MSISDN=9591317407&"
+      //transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
+      //transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
+      transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs+"&"
+      //transferdata=transferdata+"CHECKSUMHASH=qWebFKLhQPOCyYVOK/b/ngdeA+irG5Xlg80NzShs9WDzbToq3Nh3hXIy9BVTW5KZMihLfxwy6zP+aF7SMLIhhxGTy7dK/5hBWiKnqE4V0Zg=";
+      transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
+    
+      setTimeout(()=>
+        {
+        this.Http.post('http://localhost:8100/processTransaction?'+transferdata, '',requestOptions)
+            .subscribe(data => {
+              this.resp = data["_body"]; 
+              //console.log(data['_body']);
+              this.cartSvc.checkoutresp=this.resp;
+              document.getElementsByTagName("ion-content")[1].innerHTML = this.resp;
+              //this.navCtrl.push(CheckoutPage);
+            }, error => {
+              console.log(error);
+            });
+          },2000);
+
+  }
+}
+
+
     //   var myData = JSON.stringify({'MID':'Foodie22607738817864',
     //   'ORDER_ID':timeStampInMs,
     //   'CUST_ID':'8878788',
@@ -118,75 +186,6 @@ export class CartPage {
     //   // 'EMAIL': 'k32.naveen@gmail.com',
     //   // 'VERIFIED_BY': 'k29.naveen@gmail.com',    
     //  });   
-
-    var gencheksumparams="MID=Foodie22607738817864&"
-    gencheksumparams=gencheksumparams+"ORDER_ID="+timeStampInMs+"&"
-    gencheksumparams=gencheksumparams+"CUST_ID=8878788&"
-    gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
-    gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
-    gencheksumparams=gencheksumparams+"TXN_AMOUNT=25&"
-    gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
-    gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs+"&"
-                
-    link = link+"?" + gencheksumparams;
-
-      this.Http.post(link, '',requestOptions)
-        .subscribe(data => {
-          //console.log(data);
-          data = data["_body"]; 
-          var respdata=data.toString();
-          console.log(respdata);
-          this.checksum=respdata.substring(respdata.indexOf('CHECKSUMHASH" value="')+21,respdata.length)
-          this.checksum=this.checksum.substring(0,this.checksum.indexOf('">'));
-          //this.cartSvc.checksum=this.checksum;
-          this.cartSvc.checksum=respdata;
-          console.log("CHECKSUM = " + this.cartSvc.checksum);
-
-          // var transferdata = JSON.stringify({'MID':'Foodie22607738817864',
-          //   'ORDER_ID ':'ORDER8899993927',
-          //   'CUST_ID ':'8878788',
-          //   'INDUSTRY_TYPE_ID':'Retail',
-          //   'CHANNEL_ID':'WAP',
-          //   'TXN_AMOUNT':'25',
-          //   'CALLBACK_URL':'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=ORDER8899993927',
-          //   'WEBSITE':'APPSTAGING',   
-          //   //'MSISDN': '9591317407',
-          //   // 'EMAIL': 'k32.naveen@gmail.com',
-          //   // 'VERIFIED_BY': 'k29.naveen@gmail.com',
-          //   'CHECKSUMHASH': this.cartSvc.checksum,
-          // });
-            var transferdata="MID=Foodie22607738817864&"
-            transferdata=transferdata+"ORDER_ID="+timeStampInMs+"&"
-            transferdata=transferdata+"CUST_ID=8878788&"
-            transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
-            transferdata=transferdata+"CHANNEL_ID=WAP&"
-            transferdata=transferdata+"TXN_AMOUNT=25&"
-            transferdata=transferdata+"WEBSITE=APPSTAGING&"
-           // transferdata=transferdata+"MSISDN=9591317407&"
-            //transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
-            //transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
-            transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs+"&"
-            //transferdata=transferdata+"CHECKSUMHASH=qWebFKLhQPOCyYVOK/b/ngdeA+irG5Xlg80NzShs9WDzbToq3Nh3hXIy9BVTW5KZMihLfxwy6zP+aF7SMLIhhxGTy7dK/5hBWiKnqE4V0Zg=";
-            transferdata=transferdata+"CHECKSUMHASH="+ this.cartSvc.checksum;
-
-            setTimeout(()=>
-              {
-             this.Http.post('http://localhost:8100/processTransaction?'+transferdata, '',requestOptions)
-            .subscribe(data => {
-              this.resp = data["_body"]; 
-              //console.log(data['_body']);
-              this.cartSvc.checkoutresp=this.resp;
-              document.getElementsByTagName("ion-content")[1].innerHTML = this.resp;
-              //this.navCtrl.push(CheckoutPage);
-            }, error => {
-              console.log(error);
-            });},2000);
-          }, error => {
-            console.log(error);
-          });
-    
-    }        
-}
 
 
  // var data = new Insta.PaymentData();

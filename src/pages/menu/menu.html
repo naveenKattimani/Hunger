@@ -1,7 +1,7 @@
  
   <ion-content>
     <ion-navbar>
-        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="this.cartSvc.thecart.length>0 ? 'title' : 'dark'" name="cart"></ion-icon></button>
+        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="this.cartSvc.thecart.length>0 ? 'name' : 'dark'" name="cart"></ion-icon></button>
         <button (click)="Homepage()" class="carticon"><ion-icon name="home"></ion-icon></button>
     </ion-navbar>
     <div class="restaurantheader">{{restaurantname}}</div>
@@ -13,7 +13,7 @@
               <ion-item class="recommended_box">   
                   <ion-img src="assets/imgs/Burgers.png"></ion-img>    
               </ion-item>
-              <p class="recommendtitle">{{item.title}}</p>
+              <p class="recommendtitle">{{item.name}}</p>
               <button class="addbutton" ion-button clear (click)="incrementQty(item)" *ngIf="item.quantity==0" >Add </button>      
                 <button clear (click)="decrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="remove-circle" ></ion-icon></button>
                 <ion-badge class="itemsquantitybadge" *ngIf="item.quantity>0">{{item.quantity}}</ion-badge>
@@ -33,7 +33,7 @@
                     <ion-icon class="listbullet" name="radio-button-on"></ion-icon>
                   </ion-col>
               <ion-col col-7>
-                <div class="itemname"><br>{{item.title}}<br>{{item.cost}}Rs</div>
+                <div class="itemname"><br>{{item.name}}<br>{{item.cost}}Rs</div>
               </ion-col><br>
               <ion-col col-4 class="buttonalign">
                 <br>

@@ -79,7 +79,8 @@ import { FirebaseProvider } from '../providers/dbservice/firebasedb';
     Geolocation,
     NativeGeocoder,
     Network,
-    FirebaseProvider
+    FirebaseProvider,
+    
     
   ]
 })
