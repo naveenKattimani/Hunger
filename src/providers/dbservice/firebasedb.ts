@@ -32,6 +32,7 @@ export class FirebaseProvider {
 
   getmenu(restaurantid) {
     //return this.afd.list('/restaurants/foodie_2005');
+    
     this.itemname=[];
     this.dests=[];
     this.recommendedname=[];
@@ -61,15 +62,15 @@ export class FirebaseProvider {
           itemsbytype[this.itemname[i].type].push(this.itemname[i]);
           //console.log("-----------"+ itemsbytype[item.type][0].title);
           this.dests=[];
-          if (listlength==i)
-          {
+          // if (listlength==i)
+          // {
             console.log(">>-----inside if"+listlength +"---" + i);   
             for (let dest in itemsbytype) {
               //console.log("-----------"+ dest);
               this.dests.push({type: dest, items: itemsbytype[dest]});     
               //console.log("----------->>"+ this.dests.length); 
             }
-          }
+          //}
       i=i+1;
     })
     

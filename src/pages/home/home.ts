@@ -13,6 +13,7 @@ import { LoadingController } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
 import { CartPage } from '../cart/cart';
+import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 
 declare var google: any;
@@ -38,13 +39,11 @@ export class HomePage {
     items: any;
     service: any;
     nearbyPlaces = new Array();
-    
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     currentaddress: any;
-    
-    constructor(public FirebaseProvider:FirebaseProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+    constructor(public FirebaseProvider:FirebaseProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
       
     }
  
@@ -61,7 +60,7 @@ export class HomePage {
       loading.present();    
       var myvar=setTimeout(() => {
         loading.dismiss();
-      }, 2000);
+      }, 4000);
       
       return true;
     }
@@ -142,9 +141,13 @@ export class HomePage {
                   
                   this.restaurant.availablerestaurants.forEach((arr1)=>
                     {
-                      console.log("----avialbale restaurants"+arr1.name.toUpperCase())
-                      if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
+                       console.log("----"+arr1.place_id +"---"+serachrestaurant['place_id'])
+                      // console.log("----avialbale restaurants"+arr1.name.toUpperCase())
+                      //if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
+                      if(arr1.place_id===serachrestaurant['place_id'])
                       {
+                        console.log("----avialbale restaurants"+arr1.place_id.toUpperCase())
+                      console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
                         this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
@@ -192,12 +195,22 @@ export class HomePage {
 
         openrestaurantmenu(restaurantname,restaurantid)
         {
-          //console.log("----restaurant name"+ restaurantid)
+          console.log("----restaurant name"+ restaurantid)
           this.restaurant.selectedrestaurant=restaurantname;
           this.restaurant.selectedrestaurantid=restaurantid;
           this.FirebaseProvider.getmenu(restaurantid);
+          this.catsvc.thecart=[]; 
+          
+          let loading = this.loadingCtrl.create({
+            content: 'Loading...'
+          });    
+          loading.present();    
+          var myvar=setTimeout(() => {
+            loading.dismiss();
+          }, 2000);
+
           this.navCtrl.push(MenuPage);
-          //console.log("----restaurant"+ restaurantname);          
+                 
         }
 
         myaccountpage()

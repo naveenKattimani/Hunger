@@ -35,7 +35,7 @@
   <div *ngIf="nearbyPlaces.length==0">
       <div class="warnmesaage">No restaurants nearby you.</div>
   </div>
-  <ion-list >
+  <ion-list *ngIf="nearbyPlaces.length>0">
     <ion-item class="searchlist" *ngFor = "let place of nearbyPlaces">
         
       <ion-row class="searchlistinner">
