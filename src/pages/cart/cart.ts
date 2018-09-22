@@ -50,7 +50,7 @@ export class CartPage {
     item.quantity++;
     var nflag=0;
     this.cartSvc.thecart.forEach(cartitem => {   
-      if (cartitem.orderID==item.orderID)
+      if (cartitem.OrderId==item.OrderId)
       {
         cartitem.quantity=item.quantity;
         nflag=1;
@@ -73,7 +73,7 @@ export class CartPage {
     this.cartSvc.thecart.forEach((cartitem,arrindex) =>{   
       this.ncount++;
       //console.log("------name" +cartitem.title);
-      if (cartitem.orderID==item.orderID)
+      if (cartitem.OrderId==item.OrderId)
         {
           if(cartitem.quantity>0)
           {
@@ -116,7 +116,7 @@ export class CartPage {
     gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
     gencheksumparams=gencheksumparams+"TXN_AMOUNT=25&"
     gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
-    gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs+"&"
+    gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs
                 
     link = link+"?" + gencheksumparams;
 
@@ -164,6 +164,9 @@ export class CartPage {
               //console.log(data['_body']);
               this.cartSvc.checkoutresp=this.resp;
               document.getElementsByTagName("ion-content")[1].innerHTML = this.resp;
+              {
+
+              }
               //this.navCtrl.push(CheckoutPage);
             }, error => {
               console.log(error);

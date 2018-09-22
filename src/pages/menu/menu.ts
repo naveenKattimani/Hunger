@@ -39,6 +39,7 @@ export class MenuPage {
     //var my_json = JSON.stringify(this.items)
     //this.recommendeditems = this.find_in_object(JSON.parse(my_json), {recommended: '1'});
     //console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
+    this.recommendeditems=[];
     this.items.forEach(element => {
       console.log("recommenede:"+element.recommended);
       if (element.recommended=="1")
@@ -90,16 +91,17 @@ export class MenuPage {
     incrementQty(item: any) {
       item.quantity++;
       var nflag=0;
-      this.cartSvc.thecart.forEach(cartitem => {   
-        if (cartitem.orderID==item.orderID)
+      this.cartSvc.thecart.forEach(cartitem => { 
+        if (cartitem.OrderId==item.OrderId)
         {
-          cartitem.quantity=item.quantity;
-          //console.log("total quantity " + cartitem.quantity);
+          console.log("order in cart " + cartitem.OrderId +":"+item.OrderId); 
+          cartitem.quantity=item.quantity;          
           nflag=1;
         }
        });
        if (nflag==0)
       {
+        //console.log("itemname " + item.name);
         this.cartSvc.additem(item);
       }
     }
@@ -112,7 +114,7 @@ export class MenuPage {
         item.quantity=item.quantity-1;
         this.cartSvc.thecart.forEach((cartitem,arrindex) =>{   
         this.ncount++;
-        if (cartitem.orderID==item.orderID)
+        if (cartitem.OrderId==item.OrderId)
           {
             if(cartitem.quantity>=0)
             {

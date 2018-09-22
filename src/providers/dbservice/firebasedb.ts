@@ -36,7 +36,7 @@ export class FirebaseProvider {
       //console.log("-------restaurant ID"+snapshot.key);
       this.itemname[i]=new Array();
       ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
-        //console.log("key---"+snapshot.key + ":value------" + snapshot.val());
+        console.log("key---"+snapshot.key + ":value------" + snapshot.val());
         this.itemname[i][snapshot.key]=snapshot.val();
       })
       i=i+1;
