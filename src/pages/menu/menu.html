@@ -1,5 +1,5 @@
  
-  <ion-content>
+  <ion-content >
     <ion-navbar>
         <button (click)="mycartpage()" class="carticon"><ion-icon [color]="this.cartSvc.thecart.length>0 ? 'name' : 'dark'" name="cart"></ion-icon></button>
         <button (click)="Homepage()" class="carticon"><ion-icon name="home"></ion-icon></button>
@@ -9,9 +9,9 @@
     <ion-grid >
         <div class="recommended"> Recommended</div>
         <ion-row wrap>
-          <ion-col col-6 *ngFor="let item of recommendeditems; let i = index">              
+          <ion-col col-6 *ngFor="let item of FirebaseProvider.recommendedname; let i = index">              
               <ion-item class="recommended_box">   
-                  <ion-img src="assets/imgs/Burgers.png"></ion-img>    
+                  <img src="assets/imgs/{{item.OrderId}}.png">
               </ion-item>
               <p class="recommendtitle">{{item.name}}</p>
               <button class="addbutton" ion-button clear (click)="incrementQty(item)" *ngIf="item.quantity==0" >Add </button>      
@@ -24,7 +24,7 @@
       
       
       <ion-list no-lines>
-          <ng-template ngFor let-dest [ngForOf]="dests">
+          <ng-template ngFor let-dest [ngForOf]="FirebaseProvider.dests">
           <ion-item-divider >
             <div class="categoryclass">{{dest.type}}</div></ion-item-divider>
           <ion-item *ngFor="let item of dest.items; let i = index">

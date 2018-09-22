@@ -193,9 +193,9 @@ export class HomePage {
         openrestaurantmenu(restaurantname,restaurantid)
         {
           //console.log("----restaurant name"+ restaurantid)
-           this.restaurant.selectedrestaurant=restaurantname;
-           this.restaurant.selectedrestaurantid=restaurantid;
-           this.FirebaseProvider.getmenu(restaurantid);
+          this.restaurant.selectedrestaurant=restaurantname;
+          this.restaurant.selectedrestaurantid=restaurantid;
+          this.FirebaseProvider.getmenu(restaurantid);
           this.navCtrl.push(MenuPage);
           //console.log("----restaurant"+ restaurantname);          
         }

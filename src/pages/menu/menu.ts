@@ -28,51 +28,11 @@ export class MenuPage {
     //console.log("---"+ this.restaurantname);
   }
 
-  ionViewCanEnter():boolean {
-    let loading = this.loadingCtrl.create({
-      content: 'Loading...'
-    });    
-    loading.present();    
-    var myvar=setTimeout(() => {
-      loading.dismiss();
-    }, 2000);
-    //var my_json = JSON.stringify(this.items)
-    //this.recommendeditems = this.find_in_object(JSON.parse(my_json), {recommended: '1'});
-    //console.log(">>>>>><><><>><>"+ this.recommendeditems[0].title);
-    this.recommendeditems=[];
-    this.items.forEach(element => {
-      console.log("recommenede:"+element.recommended);
-      if (element.recommended=="1")
-      {
-        this.recommendeditems.push(element);
-      }
-    });
-    
-    let raw = this.items;
-    let itemsbytype = {};
-    this.dests=[];
-    raw.forEach((item) => {
-     // console.log(">>-----"+item.type);
-      
-      if (!itemsbytype[item.type]) {
-        itemsbytype[item.type] = [];
-      }
-      itemsbytype[item.type].push(item);
-      //console.log("-----------"+ itemsbytype[item.type][0].title);
-    });
-
-    for (let dest in itemsbytype) {
-      //console.log("-----------"+ dest);
-      this.dests.push({type: dest, items: itemsbytype[dest]});     
-      //console.log("----------->>"+ this.dests.length); 
-    }
-
-    return true;
-  }
-
   ionViewDidLoad() {
     //console.log('ionViewDidLoad MainPage');
   }
+
+  
   
   // items = [
   //   {type:'burgers',title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
