@@ -22,13 +22,13 @@
     "@angular/platform-browser-dynamic": "5.2.11",
     "@devsupport-ai/instamojo-nodejs": "^1.0.0",
     "@ionic-native/core": "^4.12.2",
+    "@ionic-native/dialogs": "^4.14.0",
     "@ionic-native/geolocation": "^4.12.2",
     "@ionic-native/google-maps": "^4.12.0",
     "@ionic-native/http": "^4.12.2",
     "@ionic-native/in-app-browser": "^4.12.2",
     "@ionic-native/native-geocoder": "^4.12.2",
     "@ionic-native/network": "^4.12.2",
-    "@ionic-native/paypal": "^4.12.2",
     "@ionic-native/splash-screen": "~4.11.0",
     "@ionic-native/status-bar": "~4.11.0",
     "@ionic/pro": "2.0.3",
@@ -36,13 +36,13 @@
     "angular2": "^2.0.0-beta.0",
     "angularfire2": "^5.0.1",
     "card.io.cordova.mobilesdk": "^2.1.0",
-    "com.paypal.cordova.mobilesdk": "^3.5.0",
-    "cordova-android": "7.0.0",
+    "cordova-android": "6.3.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^4.5.5",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-advanced-http": "^1.11.1",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-dialogs": "^2.0.1",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-inappbrowser": "^3.0.0",
@@ -61,8 +61,6 @@
     "ionic-native": "^2.9.0",
     "ionicons": "3.0.0",
     "live-server": "^1.2.0",
-    "paypal-rest-sdk": "^1.8.1",
-    "paytm-sdk": "0.0.2",
     "require": "^2.4.20",
     "rxjs": "^5.5.12",
     "sw-toolbox": "3.6.0",
@@ -72,7 +70,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.11",
-    "@types/paypal-rest-sdk": "^1.7.2",
+    "postcss": "6.0.14",
     "typescript": "^2.3.4"
   },
   "description": "An Ionic project",
@@ -85,22 +83,24 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-network-information": {},
       "cordova-plugin-advanced-http": {},
-      "com.paypal.cordova.mobilesdk": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-paytm": {
         "MERCHANT_ID": "Foodie22607738817864",
         "INDUSTRY_TYPE_ID": "Retail",
         "WEBSITE": "http://localhost:8100/"
-      }
+      },
+      "cordova-plugin-dialogs": {}
     },
     "platforms": [
-      "android",
       "browser",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

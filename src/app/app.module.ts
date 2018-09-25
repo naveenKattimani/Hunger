@@ -29,6 +29,7 @@ import { FIREBASE_CONFIG } from '../../src/environment/environment';
 import { AngularFireDatabaseModule,AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/dbservice/firebasedb';
+import { Dialogs } from '@ionic-native/dialogs';
 //import { HTTP } from 'ionic-native';
 
 
@@ -42,7 +43,7 @@ import { FirebaseProvider } from '../providers/dbservice/firebasedb';
     MenuPage,
     MyaccountPage,
     CartPage,
-    CheckoutPage,
+    CheckoutPage
   ],
   imports: [
     BrowserModule,
@@ -80,6 +81,7 @@ import { FirebaseProvider } from '../providers/dbservice/firebasedb';
     NativeGeocoder,
     Network,
     FirebaseProvider,
+    Dialogs
     
     
   ]

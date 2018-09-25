@@ -111,7 +111,8 @@ export class CartPage {
 
     var gencheksumparams="MID=Foodie22607738817864&"
     gencheksumparams=gencheksumparams+"ORDER_ID="+this.timeStampInMs+"&"
-    gencheksumparams=gencheksumparams+"CUST_ID=8878788&"
+   //gencheksumparams=gencheksumparams+"REQUEST_TYPE=DEFAULT&"
+    gencheksumparams=gencheksumparams+"CUST_ID=88667677778788&"
     gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
     gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
     gencheksumparams=gencheksumparams+"TXN_AMOUNT=25&"
@@ -120,7 +121,7 @@ export class CartPage {
                 
     link = link+"?" + gencheksumparams;
 
-    this.Http.post(link, '',requestOptions)
+    this.Http.post(link, '','')
       .subscribe(data => {
         //console.log(data);
         data = data["_body"]; 
@@ -143,12 +144,13 @@ export class CartPage {
     headers.append("Accept", 'application/json');
     const requestOptions = new RequestOptions({ headers: headers });
       var transferdata="MID=Foodie22607738817864&"
+      //transferdata=transferdata+"REQUEST_TYPE=DEFAULT&"
       transferdata=transferdata+"ORDER_ID="+this.timeStampInMs+"&"
-      transferdata=transferdata+"CUST_ID=8878788&"
+      transferdata=transferdata+"CUST_ID=88667677778788&"
       transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
       transferdata=transferdata+"CHANNEL_ID=WAP&"
       transferdata=transferdata+"TXN_AMOUNT=25&"
-      transferdata=transferdata+"WEBSITE=APPSTAGING&"
+      transferdata=transferdata+"WEBSITE=APPSTAGING&"    
       // transferdata=transferdata+"MSISDN=9591317407&"
       //transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
       //transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
@@ -158,21 +160,17 @@ export class CartPage {
     
       setTimeout(()=>
         {
-        this.Http.post('http://localhost:8100/processTransaction?'+transferdata, '',requestOptions)
+        this.Http.post('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata, '','')
             .subscribe(data => {
               this.resp = data["_body"]; 
               //console.log(data['_body']);
               this.cartSvc.checkoutresp=this.resp;
               document.getElementsByTagName("ion-content")[1].innerHTML = this.resp;
-              {
-
-              }
               //this.navCtrl.push(CheckoutPage);
             }, error => {
               console.log(error);
             });
           },2000);
-
   }
 }
 

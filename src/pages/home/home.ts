@@ -208,9 +208,7 @@ export class HomePage {
           var myvar=setTimeout(() => {
             loading.dismiss();
           }, 2000);
-
-          this.navCtrl.push(MenuPage);
-                 
+          this.navCtrl.push(MenuPage);        
         }
 
         myaccountpage()

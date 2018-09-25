@@ -7,6 +7,16 @@ page-cart {
     ion-title    {
         margin-left: 5px;
     }
+    .toolbar-background-md {
+        border-color: white;
+        background:white;
+    }
+
+    .toolbar-md {
+        padding: 4px;
+        min-height: 0;
+    }   
+    
 
     button {
         padding-top: 7px;

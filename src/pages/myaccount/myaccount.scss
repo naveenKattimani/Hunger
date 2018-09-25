@@ -1,3 +1,33 @@
 page-myaccount {
 
+    .toolbar-background-md {
+        border-color: white;
+        background:white;
+    }
+    .profile-image{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .toolbar-md {
+        padding: 4px;
+        min-height: 0;
+    }
+
+    ion-list {
+        border: 1px solid lightgrey;
+    }
+
+    h2 {
+        color: chocolate;
+        padding: 1px;
+        margin-left: auto;
+        margin-right: auto;
+        border-top: 5px solid rgb(233, 227, 227);
+        padding-top: 28px;
+    }
+
+    .scroll-content {
+        padding: 4px;
+    }
 }
