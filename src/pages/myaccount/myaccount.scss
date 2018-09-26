@@ -20,6 +20,7 @@ page-myaccount {
 
     h2 {
         color: chocolate;
+        font-size: 18px;
         padding: 1px;
         margin-left: auto;
         margin-right: auto;
@@ -29,5 +30,23 @@ page-myaccount {
 
     .scroll-content {
         padding: 4px;
+    }
+    .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
+        margin-left: 0;
+        margin-top: 0;
+        margin-bottom: 8px;
+        width: calc(100% - 8px);
+    }
+    
+    ion-label
+    {
+        font-size: 12px;
+    }
+
+    .ng-valid[required], .ng-valid.required  {
+    // border-left: 1px solid #42A948; /* green */
+    }
+    .ng-invalid:not(form)  {
+    // border-left: 1px solid #a94442; /* red */
     }
 }

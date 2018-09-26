@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController,NavParams, AlertController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Dialogs } from '@ionic-native/dialogs';
+import {MyaccountProvider} from '../../providers/myaccount/myaccount'
 
 @IonicPage()
 @Component({
@@ -16,9 +17,10 @@ export class MyaccountPage {
   address: any;
   showProfile: boolean;
   veryficationId;
+  userid;
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(public navCtrl: NavController, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController,private accountsvc:MyaccountProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: undefined,emailid:undefined};
   }
 
@@ -58,11 +60,15 @@ export class MyaccountPage {
     this.emailid=this.person.emailid;
     this.address = this.person.address;
     this.showProfile = true;
+    if(this.contactnumber!=undefined && this.contactnumber.length==10)
+    {
     this.signIn(this.contactnumber);
+    }
     if(this.notp==1)
     {
     localStorage.setItem('PERSON', JSON.stringify(this.person));
-    console.error("success");
+    this.accountsvc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,emailid:this.emailid,userid:this.userid})
+    console.error("success" + this.accountsvc.myaccounts[0]);
     }
     else
     {
@@ -76,7 +82,7 @@ export class MyaccountPage {
   signIn(phoneNumber: number){    
     this.notp=0;
     const appVerifier = this.recaptchaVerifier;
-    const phoneNumberString = "+" + phoneNumber;
+    const phoneNumberString = "+91" + phoneNumber;
     firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
       .then( confirmationResult => {
         // SMS sent. Prompt user to type the code from the message, then sign the
@@ -94,6 +100,7 @@ export class MyaccountPage {
               .then(function (result) {
                 // User signed in successfully.
                 console.log(result.user);
+                this.userid=result.user
                 this.notp=1;
                 // ...
               }).catch(function (error) {

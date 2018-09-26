@@ -30,6 +30,7 @@ import { AngularFireDatabaseModule,AngularFireDatabase, AngularFireList } from '
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/dbservice/firebasedb';
 import { Dialogs } from '@ionic-native/dialogs';
+import { MyaccountProvider } from '../providers/myaccount/myaccount';
 //import { HTTP } from 'ionic-native';
 
 
@@ -81,7 +82,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     NativeGeocoder,
     Network,
     FirebaseProvider,
-    Dialogs
+    Dialogs,
+    MyaccountProvider
     
     
   ]
