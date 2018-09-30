@@ -4,7 +4,7 @@
         
       </ion-navbar>
 
-      <h2>PROFILE</h2>
+      <h2>My Account</h2>
       
       <ion-list>
           <ion-item>
@@ -16,10 +16,6 @@
             <ion-input type="text" minlength="10" maxlength="10" [(ngModel)]="person.contactnumber" name="contactnumber" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label floating>Email ID</ion-label>
-            <ion-input type="text"  [(ngModel)]="person.emailid" name="emailid" required></ion-input>
-          </ion-item>
-          <ion-item>
               <ion-label floating>Address</ion-label>
               <ion-input type="text" [(ngModel)]="person.address" name="address" required></ion-input>
           </ion-item>
@@ -27,8 +23,8 @@
       </ion-list>
       <!-- <button color="secondary" ion-button block (click)="save()">Save</button> -->
       <button color="secondary" ion-button block type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Submit</button>
-      <button color="danger" ion-button block (click)="reset()">Reset</button>
-      <div id="phone-sign-in-recaptcha" ></div>
       
+      <!--div id="phone-sign-in-recaptcha" ></div-->      
     </form>
+    <button color="danger" ion-button block (click)="reset()">Reset</button>
 </ion-content>

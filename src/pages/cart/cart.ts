@@ -31,8 +31,14 @@ export class CartPage {
   resp="";
   public timeStampInMs;
   public checksum;
-
+  contactnum="";
   ncount: number;
+  person = JSON.parse(localStorage.getItem('PERSON'));
+    if (person){
+      this.contactnum=person.contactnumber;
+      console.log("ccccccccc"+this.contactnum);
+    }
+
   constructor(public navCtrl: NavController,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     
     this.cartSvc.updatetotal();
@@ -94,6 +100,10 @@ export class CartPage {
 
   checkout()
   {      
+    if(this.contactnum.length==0)
+    {
+
+    }
     this.timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
     console.log(this.timeStampInMs, Date.now());
     this.timeStampInMs=Date.now();
