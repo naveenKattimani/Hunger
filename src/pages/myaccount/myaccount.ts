@@ -53,12 +53,30 @@ export class MyaccountPage {
   }
 
   reset(){
-    this.person = {name: undefined, contactnumber: undefined, address: undefined};
-    localStorage.setItem('PERSON', JSON.stringify(this.person));
-    this.person.name="";
-    this.person.contactnumber="";
-    this.person.address="";
-    this.showProfile = false;
+
+    let promptt = this.alertCtrl.create({
+      title: 'Are you sure you want to remove account?',
+      buttons: [
+        { text: 'Cancel',
+          handler: data => { console.log('Cancel clicked'); }
+        },
+        { text: 'OK',
+          handler: data => {     
+            this.person = {name: undefined, contactnumber: undefined, address: undefined};
+            localStorage.setItem('PERSON', JSON.stringify(this.person));
+            this.person.name="";
+            this.person.contactnumber="";
+            this.person.address="";
+            this.showProfile = false;
+            //delete from firebase need to implement
+             }
+        }
+      ]
+    });
+   promptt.present();
+
+   
+    
   }
 
   save(){    
