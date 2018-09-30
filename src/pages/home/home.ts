@@ -15,6 +15,7 @@ import { MyaccountPage } from '../myaccount/myaccount';
 import { CartPage } from '../cart/cart';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
+import {MyaccountProvider} from '../../providers/myaccount/myaccount';
 
 declare var google: any;
 declare var google;
@@ -43,7 +44,7 @@ export class HomePage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     currentaddress: any;
-    constructor(public FirebaseProvider:FirebaseProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+    constructor(public FirebaseProvider:FirebaseProvider,public myacc:MyaccountProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
       
     }
  
@@ -53,6 +54,7 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
+      this.currentaddress="Select location.";
       this.openrestaurantPage();
       let loading = this.loadingCtrl.create({
         content: 'Loading...'
@@ -75,8 +77,9 @@ export class HomePage {
 
     openrestaurantPage(){
       this.nearbyPlaces=[];
+      this.restaurant.items=[];
       setTimeout(()=>
-      {this.initMap()},1000);
+      {this.initMap()},3000);
     }
 
     initMap(){
@@ -109,6 +112,8 @@ export class HomePage {
             {
             address=res[0].formatted_address;
             this.currentaddress=res[0].formatted_address;
+            this.myacc.currentaddess=this.currentaddress;
+            console.log("My address-----"+ this.currentaddress);
             }
           });
         
@@ -135,7 +140,7 @@ export class HomePage {
                   if(status==="OK")
                   {
                   address=res[0].formatted_address;
-                  //console.log("-----"+ res[0].formatted_address); // read data from here
+                  //console.log("My address-----"+ res[0].formatted_address); // read data from here
                   //console.log("-----"+address);
                   }
                   

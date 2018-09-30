@@ -3,8 +3,9 @@ import { IonicPage, NavController,NavParams, AlertController } from 'ionic-angul
 import firebase from 'firebase';
 import { Dialogs } from '@ionic-native/dialogs';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount'
-import {VerificationPage} from '../verification/verification'
 import { Firebase } from 'ionic-native';
+import { MapPage } from '../map/map';
+import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -12,19 +13,22 @@ import { Firebase } from 'ionic-native';
   selector: 'page-myaccount',
   templateUrl: 'myaccount.html',
 })
+
+
 export class MyaccountPage {
-  public person: {name: string, contactnumber: string, address: string};
+  public person: {name: string, contactnumber: string, address: string, landmark: string};
   name: any;
   contactnumber: any;
   //emailid:any;
   address: any;
+  landmark:any;
   showProfile: boolean;
   veryficationId;
   userid="";
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(public navCtrl: NavController,private accountsvc:MyaccountProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
-    this.person = {name: undefined, contactnumber: undefined, address: undefined};
+  constructor(public navCtrl: NavController,private myacc:MyaccountProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+    this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
   }
 
   ionViewDidLoad() {
@@ -49,6 +53,7 @@ export class MyaccountPage {
       this.contactnumber = this.person.contactnumber;
     //this.emailid=this.person.emailid;
       this.address = this.person.address;
+      this.landmark = this.person.landmark;
     }
   }
 
@@ -62,11 +67,12 @@ export class MyaccountPage {
         },
         { text: 'OK',
           handler: data => {     
-            this.person = {name: undefined, contactnumber: undefined, address: undefined};
+            this.person = {name: undefined, contactnumber: undefined, address: undefined,landmark: undefined};
             localStorage.setItem('PERSON', JSON.stringify(this.person));
             this.person.name="";
             this.person.contactnumber="";
             this.person.address="";
+            this.person.landmark="";
             this.showProfile = false;
             //delete from firebase need to implement
              }
@@ -83,6 +89,7 @@ export class MyaccountPage {
     this.name = this.person.name;
     this.contactnumber = "+91" + this.person.contactnumber;
     this.address = this.person.address;
+    this.landmark = this.person.landmark;
     this.showProfile = true;
     // if(this.contactnumber!=undefined && this.contactnumber.length==10)
     // {
@@ -140,11 +147,9 @@ export class MyaccountPage {
         this.reset();
         this.person = {name: undefined, contactnumber: undefined, address: undefined};
         localStorage.setItem('PERSON', JSON.stringify(this.person));
-        alert("failed");
       });     
    
   }
-
 
 // savedata(udata)
 //   {
@@ -156,8 +161,8 @@ export class MyaccountPage {
 //     if(udata.length>=10)
 //         {
 //         localStorage.setItem('PERSON', JSON.stringify(this.person));
-//         this.accountsvc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,userid:this.userid})
-//         console.error("success" + this.accountsvc.myaccounts[0]);
+//         this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,userid:this.userid})
+//         console.error("success" + this.myacc.myaccounts[0]);
 //         }
 //         else
 //         {

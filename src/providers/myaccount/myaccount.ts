@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MyaccountProvider {
   myaccounts: any[]=[];
+  currentaddess;
   constructor(public http: HttpClient) {
     console.log('Hello MyaccountProvider Provider');
   }
