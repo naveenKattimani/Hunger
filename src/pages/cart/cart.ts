@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NewTransactionPage } from '../instamojo/new_transaction';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController,Platform } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import {CheckoutPage} from '../checkout/checkout';
+import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
+import { HomePage } from '../home/home';
 
 //var Insta = require('instamojo-nodejs');
 //import { Http, Headers, RequestOptions } from '@angular/http';;
@@ -23,6 +25,7 @@ export class CartPage {
   //   });
   // }
   
+  browser;
   items=this.cartSvc.thecart;
   totalcartamount=0;
   packagingcharge=20;
@@ -39,7 +42,7 @@ export class CartPage {
       console.log("ccccccccc"+this.contactnum);
     }
 
-  constructor(public navCtrl: NavController,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
@@ -141,48 +144,76 @@ export class CartPage {
         //this.cartSvc.checksum=this.checksum;
         this.cartSvc.checksum=respdata;
         console.log("CHECKSUM = " + this.cartSvc.checksum);
-        this.paytmpage(this.cartSvc.checksum)
+        this.paytmpage(this.cartSvc.checksum,this.timeStampInMs)
         }, error => {
           console.log(error);
         });    
     }    
 
-    paytmpage(chcksum)
+    paytmpage(chcksum,timeStampInMs)
     {
+      
       let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append("Accept", 'application/json');
     const requestOptions = new RequestOptions({ headers: headers });
       var transferdata="MID=Foodie22607738817864&"
       //transferdata=transferdata+"REQUEST_TYPE=DEFAULT&"
-      transferdata=transferdata+"ORDER_ID="+this.timeStampInMs+"&"
+      transferdata=transferdata+"ORDER_ID="+timeStampInMs+"&"
       transferdata=transferdata+"CUST_ID=88667677778788&"
       transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
       transferdata=transferdata+"CHANNEL_ID=WAP&"
       transferdata=transferdata+"TXN_AMOUNT=25&"
       transferdata=transferdata+"WEBSITE=APPSTAGING&"    
-      // transferdata=transferdata+"MSISDN=9591317407&"
-      //transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
-      //transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
-      transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs+"&"
+      //transferdata=transferdata+"MSISDN=9591317407&"
+      // transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
+      // transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
+       transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs+"&"
       //transferdata=transferdata+"CHECKSUMHASH=qWebFKLhQPOCyYVOK/b/ngdeA+irG5Xlg80NzShs9WDzbToq3Nh3hXIy9BVTW5KZMihLfxwy6zP+aF7SMLIhhxGTy7dK/5hBWiKnqE4V0Zg=";
       transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
-    
-      setTimeout(()=>
-        {
-        this.Http.post('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata, '','')
-            .subscribe(data => {
-              this.resp = data["_body"]; 
-              //console.log(data['_body']);
-              this.cartSvc.checkoutresp=this.resp;
-              document.getElementsByTagName("ion-content")[1].innerHTML = this.resp;
-              //this.navCtrl.push(CheckoutPage);
-            }, error => {
-              console.log(error);
-            });
-          },2000);
+
+   
+        //let browser = this.iab.create('http://localhost:8100/processTransaction?'+transferdata,"_self",'');
+        window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no");
+ 
+        // this.browser = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self",'').on("loadstop")
+        //   .subscribe((ev: InAppBrowserEvent) => {
+        //       if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
+        //         console.log("payment failed");
+        //         this.closeBrowser();
+        //       }else if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
+        //         console.log("payment success");
+        //       }
+
+        //   });
+
+          
+
+
+
+      // setTimeout(()=>
+      //   {
+      //   this.Http.post('http://localhost:8100/processTransaction?'+transferdata, '',requestOptions)
+      //       .subscribe(data => {
+      //         this.resp = data['_body']; 
+      //         //this.resp = this.resp.replace(/'/g, '"');
+      //         //console.log(data['_body']);
+      //         this.cartSvc.checkoutresp=this.resp;
+      //         //document.getElementsByTagName("ion-content")[1].innerHTML = this.resp ;
+      //         this.navCtrl.push(CheckoutPage);
+      //       }, error => {
+      //         console.log(error);
+      //       });
+      //     },2000);
   }
+
+  closeBrowser(){
+    this.browser.close();
+  }
+
 }
+
+
 
 
     //   var myData = JSON.stringify({'MID':'Foodie22607738817864',

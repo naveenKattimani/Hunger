@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NewTransactionPage } from '../pages/instamojo/new_transaction'
-import {InAppBrowser} from '@ionic-native/in-app-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,6 +14,7 @@ import { Restaurants } from '../providers/restaurants/restaurants';
 import { Connectivity } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { Google_Maps } from '../providers/google-maps/google-maps';
+import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
 import{ MapPage } from '../pages/map/map';
 import{ MenuPage } from '../pages/menu/menu';
 import{ MyaccountPage } from '../pages/myaccount/myaccount';
@@ -83,8 +83,7 @@ import { MyaccountProvider } from '../providers/myaccount/myaccount';
     Network,
     FirebaseProvider,
     Dialogs,
-    MyaccountProvider
-    
+    MyaccountProvider,
     
   ]
 })
