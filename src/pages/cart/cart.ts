@@ -119,7 +119,7 @@ export class CartPage {
     // headers.append("Pragma", 'no-cache');
     const requestOptions = new RequestOptions({ headers: headers });
 
-    var link = 'http://localhost/foodie/pgRedirect.php';
+    var link = 'http://192.168.0.6/foodie/pgRedirect.php';
 
 
     var gencheksumparams="MID=Foodie22607738817864&"
@@ -128,7 +128,7 @@ export class CartPage {
     gencheksumparams=gencheksumparams+"CUST_ID=88667677778788&"
     gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
     gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
-    gencheksumparams=gencheksumparams+"TXN_AMOUNT=25&"
+    gencheksumparams=gencheksumparams+"TXN_AMOUNT="+this.totalamount+"&"
     gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
     gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs
                 
@@ -163,7 +163,7 @@ export class CartPage {
       transferdata=transferdata+"CUST_ID=88667677778788&"
       transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
       transferdata=transferdata+"CHANNEL_ID=WAP&"
-      transferdata=transferdata+"TXN_AMOUNT=25&"
+      transferdata=transferdata+"TXN_AMOUNT="+this.totalamount+"&"
       transferdata=transferdata+"WEBSITE=APPSTAGING&"    
       //transferdata=transferdata+"MSISDN=9591317407&"
       // transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
@@ -173,22 +173,19 @@ export class CartPage {
       transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
 
    
-        //let browser = this.iab.create('http://localhost:8100/processTransaction?'+transferdata,"_self",'');
-        window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no");
+        //let browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_self","location=no");
+        //window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no");
  
-        // this.browser = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self",'').on("loadstop")
-        //   .subscribe((ev: InAppBrowserEvent) => {
-        //       if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
-        //         console.log("payment failed");
-        //         this.closeBrowser();
-        //       }else if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
-        //         console.log("payment success");
-        //       }
+        this.browser = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self",'location=no').on("loadstop")
+          .subscribe((ev: InAppBrowserEvent) => {
+              if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
+                console.log("----------------payment sucess");
+                this.closeBrowser();
+              }else if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
+                console.log("-------------payment failed");
+              }
 
-        //   });
-
-          
-
+          });
 
 
       // setTimeout(()=>
