@@ -57,8 +57,7 @@ export class MyaccountPage {
     }
   }
 
-  reset(){
-
+  delete(){
     let promptt = this.alertCtrl.create({
       title: 'Are you sure you want to remove account?',
       buttons: [
@@ -75,14 +74,18 @@ export class MyaccountPage {
             this.person.landmark="";
             this.showProfile = false;
             //delete from firebase need to implement
-             }
+            
+            var user = firebase.auth().currentUser;
+                if (user) {
+                  user.delete();
+                  this.presentAlert("user deleted");
+                }
+
+          }
         }
       ]
     });
-   promptt.present();
-
-   
-    
+   promptt.present();  
   }
 
   save(){    
@@ -121,14 +124,35 @@ export class MyaccountPage {
           handler: data => {  
              code=data.confirmationCode;  
              var signInCredential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
-             firebase.auth().signInWithCredential(signInCredential).then((res) => {
-              console.log('success');
-              localStorage.setItem('PERSON', JSON.stringify(this.person));
-              }).catch(function (error) {
-                this.person = {name: undefined, contactnumber: undefined, address: undefined};
-                localStorage.setItem('PERSON', JSON.stringify(this.person));
-                  console.error("wrong phone");
-                });
+             //console.log("current user...."+ firebase.auth().currentUser.phoneNumber); 
+             
+             //this.presentAlert("current user " +firebase.auth().currentUser.phoneNumber);
+
+             var user = firebase.auth().currentUser;
+                if (user) {
+                  if (firebase.auth().currentUser.phoneNumber!=this.contactnumber)
+                    {
+                    firebase.auth().currentUser.updatePhoneNumber(signInCredential);   
+                    this.presentAlert("User updated");                 
+                    }
+                  localStorage.setItem('PERSON', JSON.stringify(this.person));
+                }              
+                else{                         
+                  firebase.auth().signInAndRetrieveDataWithCredential(signInCredential).then((res) => {
+                    if(res.additionalUserInfo.isNewUser)
+                    {
+                      this.presentAlert("User Created "+ res.user.phoneNumber);
+                    }
+                    console.log('success');
+                    localStorage.setItem('PERSON', JSON.stringify(this.person));
+                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.myacc.currentaddess,landmark: this.landmark,userid:res.user.uid})
+                  }).catch(function (error) {
+                    this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
+                    localStorage.setItem('PERSON', JSON.stringify(this.person));
+                      console.error("wrong phone");
+                    });
+              }
+              
           }
         }
       ]
@@ -149,6 +173,15 @@ export class MyaccountPage {
         localStorage.setItem('PERSON', JSON.stringify(this.person));
       });     
    
+  }
+
+  presentAlert(msg) {
+    let alert = this.alertCtrl.create({
+      title: 'User',
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 // savedata(udata)
