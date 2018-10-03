@@ -175,13 +175,18 @@ export class CartPage {
    
         //this.browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_blank","location=no");
         // window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no")
+        
         const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
         bb.on("loadstop")
           .subscribe((ev: InAppBrowserEvent) => {
               if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
                 console.log("----------------payment sucess");
+                this.Http.get(ev.url).subscribe(data => {
+                  var posts = data['_body'];
+                  //this.presentAlert(posts);                  
+                  });
                 bb.close();
-                this.presentAlert(ev.url);
+                
               }
           });
 
