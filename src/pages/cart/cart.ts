@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NewTransactionPage } from '../instamojo/new_transaction';
-import { IonicPage, NavController,Platform } from 'ionic-angular';
+import { IonicPage, AlertController,NavController,Platform } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
@@ -42,7 +42,7 @@ export class CartPage {
       console.log("ccccccccc"+this.contactnum);
     }
 
-  constructor(public navCtrl: NavController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
@@ -173,20 +173,19 @@ export class CartPage {
       transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
 
    
-        //let browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_self","location=no");
-        //window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no");
- 
-        this.browser = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self",'location=no').on("loadstop")
+        //this.browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_blank","location=no");
+        // window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no")
+        const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
+        bb.on("loadstop")
           .subscribe((ev: InAppBrowserEvent) => {
               if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
                 console.log("----------------payment sucess");
-                this.closeBrowser();
-              }else if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
-                console.log("-------------payment failed");
+                bb.close();
+                this.presentAlert(ev.url);
               }
-
           });
 
+       
 
       // setTimeout(()=>
       //   {
@@ -206,6 +205,15 @@ export class CartPage {
 
   closeBrowser(){
     this.browser.close();
+  }
+
+  presentAlert(msg) {
+    let alert = this.alertCtrl.create({
+      title: 'User',
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
