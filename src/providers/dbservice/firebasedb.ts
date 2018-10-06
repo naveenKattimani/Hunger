@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import firebase from 'firebase';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
+import {CartServiceProvider} from '../../providers/cart-service/cart-service';
 
  
 @Injectable()
@@ -11,7 +12,14 @@ export class FirebaseProvider {
   recommendedname=new Array();
   dests=new Array();
   restaurantname;
-  constructor(public afd: AngularFireDatabase) {
+  contactnum;
+  person = JSON.parse(localStorage.getItem('PERSON'));
+    if (person){
+      this.contactnum=person.contactnumber;
+      console.log("ccccccccc"+this.contactnum);
+    }
+
+  constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider) {
     this.getrestaurants();
    }
 
@@ -76,7 +84,34 @@ export class FirebaseProvider {
     
   }
 
- 
+  placeorder(selectedrestaurantid,selectedrestaurant,orderid,thecart) {
+    var index=1;
+    var orderef = firebase.database().ref("OrderDetails/");
+    this.cartsvc.thecart.forEach(cartitem => {   
+          orderef.child(selectedrestaurantid).child(this.contactnum).child(orderid).child("item"+index).set({
+          OrderId:cartitem.OrderId,
+          name:cartitem.name,
+          cost:cartitem.cost,
+          quantity:cartitem.quantity,
+          Ordertype:cartitem.type,
+        });
+        index=index+1;
+     });
+  }
+
+  orderhistory(orderid,totalcartamount,packagingcharge,deliverycharge) {
+    var index=1;
+    var orderef = firebase.database().ref("OrderAmount/");
+    this.cartsvc.thecart.forEach(cartitem => {   
+          orderef.child(orderid).set({
+            contactnumber:this.contactnum,
+            totalcartamount:totalcartamount,
+            packagingcharge:packagingcharge,
+            deliverycharge:deliverycharge,
+        });
+        index=index+1;
+     });
+  }
 
   addItem(name) {
     this.afd.list('/shoppingItems/').push(name);

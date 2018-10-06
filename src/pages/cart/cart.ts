@@ -4,7 +4,8 @@ import { IonicPage, AlertController,NavController,Platform } from 'ionic-angular
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
-import {CheckoutPage} from '../checkout/checkout';
+import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
+import {Restaurants} from '../../providers/restaurants/restaurants';
 import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
 import { HomePage } from '../home/home';
 
@@ -18,13 +19,6 @@ import { HomePage } from '../home/home';
 })
 
 export class CartPage {
-  
-  // newTransaction() {
-  //   this.navCtrl.push(NewTransactionPage, {
-  //     amount: 10
-  //   });
-  // }
-  
   browser;
   items=this.cartSvc.thecart;
   totalcartamount=0;
@@ -42,7 +36,7 @@ export class CartPage {
       console.log("ccccccccc"+this.contactnum);
     }
 
-  constructor(public navCtrl: NavController,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
@@ -144,19 +138,24 @@ export class CartPage {
         //this.cartSvc.checksum=this.checksum;
         this.cartSvc.checksum=respdata;
         console.log("CHECKSUM = " + this.cartSvc.checksum);
-        this.paytmpage(this.cartSvc.checksum,this.timeStampInMs)
+        this.paytmpage(this.cartSvc.checksum,this.timeStampInMs);
+        //this.presentAlert(localStorage.getItem('response'));
         }, error => {
           console.log(error);
-        });    
+        });   
+        console.log("--------------");
+        //place order on successfull transaction
+        this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
+        this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);
     }    
 
     paytmpage(chcksum,timeStampInMs)
     {
       
       let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append("Accept", 'application/json');
-    const requestOptions = new RequestOptions({ headers: headers });
+      headers.append('Content-Type', 'application/json');
+      headers.append("Accept", 'application/json');
+      const requestOptions = new RequestOptions({ headers: headers });
       var transferdata="MID=Foodie22607738817864&"
       //transferdata=transferdata+"REQUEST_TYPE=DEFAULT&"
       transferdata=transferdata+"ORDER_ID="+timeStampInMs+"&"
@@ -181,16 +180,16 @@ export class CartPage {
           .subscribe((ev: InAppBrowserEvent) => {
               if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
                 console.log("----------------payment sucess");
-                this.Http.get(ev.url).subscribe(data => {
-                  var posts = data['_body'];
-                  //this.presentAlert(posts);                  
-                  });
+                this.presentAlert(document.getElementById('response').innerHTML);
+                bb.executeScript({
+                  code:"localStorage.setItem('response', document.getElementById('response'));"
+                }).then(function(values){
+                  this.presentAlert(localStorage.getItem('response'));
+                })
                 bb.close();
                 
               }
           });
-
-       
 
       // setTimeout(()=>
       //   {
