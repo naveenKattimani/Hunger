@@ -8,6 +8,8 @@ import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {Restaurants} from '../../providers/restaurants/restaurants';
 import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
 import { HomePage } from '../home/home';
+import { SMS } from '@ionic-native/sms';
+import { MyaccountPage } from '../myaccount/myaccount';
 
 //var Insta = require('instamojo-nodejs');
 //import { Http, Headers, RequestOptions } from '@angular/http';;
@@ -36,7 +38,7 @@ export class CartPage {
       console.log("ccccccccc"+this.contactnum);
     }
 
-  constructor(public navCtrl: NavController,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,private sms: SMS,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
@@ -47,6 +49,7 @@ export class CartPage {
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
     this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
+    //this.sms.send('9591317407', 'Hello world!');
   }
 
   incrementQty(item: any) {
@@ -99,10 +102,11 @@ export class CartPage {
   {      
     if(this.contactnum.length==0)
     {
-
+      this.presentAlert("To continue the checkout process, please create an account");
+      this.navCtrl.push(MyaccountPage);
     }
-    this.timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-    console.log(this.timeStampInMs, Date.now());
+    // this.timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+    // console.log(this.timeStampInMs, Date.now());
     this.timeStampInMs=Date.now();
     var transferdata;
     
@@ -139,19 +143,18 @@ export class CartPage {
         this.cartSvc.checksum=respdata;
         console.log("CHECKSUM = " + this.cartSvc.checksum);
         this.paytmpage(this.cartSvc.checksum,this.timeStampInMs);
+        console.log("--------------");
         //this.presentAlert(localStorage.getItem('response'));
+         //place order on successfull transaction
+         this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
+         this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);
         }, error => {
           console.log(error);
-        });   
-        console.log("--------------");
-        //place order on successfull transaction
-        this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
-        this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);
+        });          
     }    
 
     paytmpage(chcksum,timeStampInMs)
-    {
-      
+    {      
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append("Accept", 'application/json');
@@ -213,7 +216,6 @@ export class CartPage {
 
   presentAlert(msg) {
     let alert = this.alertCtrl.create({
-      title: 'User',
       subTitle: msg,
       buttons: ['OK']
     });

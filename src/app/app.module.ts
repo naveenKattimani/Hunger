@@ -31,6 +31,7 @@ import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/dbservice/firebasedb';
 import { Dialogs } from '@ionic-native/dialogs';
 import { MyaccountProvider } from '../providers/myaccount/myaccount';
+import { SMS } from '@ionic-native/sms';
 //import { HTTP } from 'ionic-native';
 
 
@@ -84,7 +85,7 @@ import { MyaccountProvider } from '../providers/myaccount/myaccount';
     FirebaseProvider,
     Dialogs,
     MyaccountProvider,
-    
+    SMS,
   ]
 })
 export class AppModule {}
