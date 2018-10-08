@@ -32,14 +32,15 @@ export class CartPage {
   public checksum;
   contactnum="";
   ncount: number;
-  person = JSON.parse(localStorage.getItem('PERSON'));
-    if (person){
-      this.contactnum=person.contactnumber;
-      console.log("ccccccccc"+this.contactnum);
-    }
+  person;
+  
 
   constructor(public navCtrl: NavController,private sms: SMS,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
-    
+    // this.person = JSON.parse(localStorage.getItem('PERSON'));
+    // if (this.person){
+    //   this.contactnum=this.person.contactnumber;
+    //   console.log("ccccccccc"+this.contactnum);
+    // }
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
   }
@@ -100,13 +101,13 @@ export class CartPage {
 
   checkout()
   {      
-    if(this.contactnum.length==0)
+    //this.presentAlert(this.FirebaseProvider.contactnum.toString().length);
+    if(this.FirebaseProvider.contactnum.toString().length<10)
     {
       this.presentAlert("To continue the checkout process, please create an account");
       this.navCtrl.push(MyaccountPage);
     }
-    // this.timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-    // console.log(this.timeStampInMs, Date.now());
+    else{
     this.timeStampInMs=Date.now();
     var transferdata;
     
@@ -146,11 +147,13 @@ export class CartPage {
         console.log("--------------");
         //this.presentAlert(localStorage.getItem('response'));
          //place order on successfull transaction
-         this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
-         this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);
+        //  this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
+        //  this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);       
+                
         }, error => {
           console.log(error);
-        });          
+        });     
+      }     
     }    
 
     paytmpage(chcksum,timeStampInMs)
@@ -183,16 +186,20 @@ export class CartPage {
           .subscribe((ev: InAppBrowserEvent) => {
               if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
                 console.log("----------------payment sucess");
-                this.presentAlert(document.getElementById('response').innerHTML);
-                bb.executeScript({
-                  code:"localStorage.setItem('response', document.getElementById('response'));"
-                }).then(function(values){
-                  this.presentAlert(localStorage.getItem('response'));
-                })
+                // this.presentAlert(document.getElementById('response').innerHTML);
+                // bb.executeScript({
+                //   code:"localStorage.setItem('response', document.getElementById('response'));"
+                // }).then(function(values){
+                //   this.presentAlert(localStorage.getItem('response'));
+                // })
+                this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
+                this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);       
                 bb.close();
                 
               }
-          });
+          }), error => {
+                    console.log(error);
+                  };
 
       // setTimeout(()=>
       //   {

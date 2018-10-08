@@ -94,6 +94,8 @@ export class MyaccountPage {
     this.address = this.person.address;
     this.landmark = this.person.landmark;
     this.showProfile = true;
+    this.myacc.contactnum=this.person.contactnumber;
+    
     // if(this.contactnumber!=undefined && this.contactnumber.length==10)
     // {
     //   var pp=this.signIn(this.contactnumber,(_res) => 

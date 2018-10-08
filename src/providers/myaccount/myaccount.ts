@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 export class MyaccountProvider {
   myaccounts: any[]=[];
   currentaddess;
+  contactnum="";
   constructor(public http: HttpClient) {
     console.log('Hello MyaccountProvider Provider');
   }

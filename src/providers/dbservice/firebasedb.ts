@@ -13,13 +13,14 @@ export class FirebaseProvider {
   dests=new Array();
   restaurantname;
   contactnum;
-  person = JSON.parse(localStorage.getItem('PERSON'));
+
+
+  constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider) {
+    let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){
       this.contactnum=person.contactnumber;
       console.log("ccccccccc"+this.contactnum);
     }
-
-  constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider) {
     this.getrestaurants();
    }
 
@@ -86,7 +87,7 @@ export class FirebaseProvider {
 
   placeorder(selectedrestaurantid,selectedrestaurant,orderid,thecart) {
     var index=1;
-    var orderef = firebase.database().ref("OrderDetails/");
+    var orderef = firebase.database().ref("OrderDetails/");   
     this.cartsvc.thecart.forEach(cartitem => {   
           orderef.child(selectedrestaurantid).child(this.contactnum).child(orderid).child("item"+index).set({
           OrderId:cartitem.OrderId,
