@@ -4,10 +4,10 @@
         <ion-grid>
           <ion-row class="searchheader">
             <ion-col col-1>
-              <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="float:left;padding-left:2px;padding-bottom: 14px"name="pin" ></ion-icon></button>
+              <button (click)="openmapPage()" class='selectloc' text-wrap><ion-icon style="float:left;padding-left:2px;padding-bottom: 14px"name="pin" ></ion-icon></button>
             </ion-col>
             <ion-col col-7 right>
-               <p (click)="openmapPage()" style="padding-left:4%;padding-top:10%;font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
+               <p (click)="openmapPage()" class='selectedloc'>{{currentaddress}}</p>
             </ion-col>
             <ion-col col-2>
               <button (click)="mycartpage()"><ion-icon name="cart"></ion-icon></button>
@@ -42,11 +42,11 @@
             <img class="restautantimage" src={{place.img_id}}>
         </ion-col>
         <ion-col col-8>
-            <a  style="font-weight: bold; font-size: 12px;text-shadow: 1px 1px 1px rgb(182, 137, 137);">{{place.name}}</a>
-            <p style="font-size: 12px;">{{place.desc}}</p>
+            <a  class="restaurantname">{{place.name}}</a>
+            <p class="restaurantdetail">{{place.desc}}</p>
             <br/>
-            <p style="border-bottom: 0.1px solid grey;border-width: thin;">***</p>
-            <p style="font-size: 10px;padding-left:80%;">{{place.distance}}KM</p>
+            <p class='restaurantrating'>***</p>
+            <p class='restaurantdistance'>{{place.distance}}KM</p>
         </ion-col>      
     </ion-row>
   </ion-item>

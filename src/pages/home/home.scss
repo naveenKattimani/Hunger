@@ -15,6 +15,13 @@ page-home {
         float: centre;
     }
 
+    .selectloc{
+        font-weight: bold; font-size: 10px;text-align: left;
+    }
+    .selectedloc{
+        padding-left:4%;padding-top:10%;font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%;
+    }
+
     .item-md {
         /* padding-left: 16px; */
         padding: 0;
@@ -97,6 +104,25 @@ page-home {
         height: 82px;
     }
 
+    .restaurantname
+    {
+        font-weight: bold; font-size: 13px;text-shadow: 1px 1px 3px rgb(182, 137, 137);
+    }
+
+    .restaurantdetail
+    {
+        font-size: 12px;
+    }
+
+    .restaurantrating
+    {
+        border-bottom: 0.1px solid grey;border-width: thin;
+    }
+
+    .restaurantdistance
+    {
+        font-size: 1rem;padding-left:75%;
+    }
     .list-md {
          margin: 0; 
     }

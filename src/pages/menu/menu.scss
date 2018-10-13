@@ -9,8 +9,8 @@ page-menu {
     padding: 1px;
     margin-left: auto;
     margin-right: auto;
-    border-top: 18px solid rgb(233, 227, 227);
-    border-bottom: 18px solid rgb(233, 227, 227);
+    border-top: 18px solid #b2d0e2;
+    border-bottom: 18px solid #b2d0e2;
     padding-top: 28px;
 }
     
@@ -80,9 +80,9 @@ page-menu {
 
     .item-md.item-block .item-inner {
         //padding-right: -3px;
-        border-bottom: 1px solid #dedede;
+        border-bottom: 1px solid #b2d0e2;
         //height: 95px;
-        border: 2px solid lightgrey;
+        border: 2px solid #b2d0e2;
         //padding-bottom: 50px;
         //display: table;
         padding-right: 0;
@@ -166,23 +166,37 @@ page-menu {
         background-color: white;
     }
 
-    .button-clear-md {
+    .addbutton {
         border-color: transparent;
         color: black;
         background-color: transparent;
         -webkit-box-shadow: none;
         box-shadow: none;
         opacity: 1;
-        border: 1px solid;
+        //border: 1px solid #b2d0e2;
         width: 70px;
-        height: 19px;
+        height: 18px;
         background-color: rgb(237, 252, 237);
-        box-shadow: 0 0 5px 1px grey;
         font-weight: normal;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
     }
 
+    .btn-border
+    {
+        border-color: transparent;
+        color: black;background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        font-weight: normal;
+        width:79%;
+        top:0;
+        bottom:0;
+        margin:0;
+        background-color: rgb(237, 252, 237);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
+    }
    ion-item {
         height: 6em; /* <- this can be whatever you need */
         }
@@ -218,7 +232,7 @@ page-menu {
         width: 25% !important;
         max-width: 25% !important;
         justify-content: center;
-        border: solid 1px #e8ebf0;
+        border: solid 1px #b2d0e2;
         background-color: #ffffff;
         text-align: center;
       }

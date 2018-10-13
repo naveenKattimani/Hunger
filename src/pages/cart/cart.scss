@@ -18,7 +18,7 @@ page-cart {
     }   
     
     .toplist {
-        border-bottom: 2px dotted lawngreen;
+        //border-bottom: 2px dotted lawngreen;
     }
 
     button {
@@ -33,7 +33,7 @@ page-cart {
         font-size: 18px;
         font-weight: bold;
         color: chocolate;
-        border-bottom: 18px rgb(219, 209, 209) solid;
+        border-bottom: 18px  #b2d0e2 solid;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 
@@ -84,7 +84,6 @@ page-cart {
         -webkit-box-shadow: none;
         box-shadow: none;
         opacity: 1;
-        border: 1px solid;
         width: 70px;
         height: 20px;
         padding-top: 2px;
@@ -134,7 +133,7 @@ page-cart {
         width: 25% !important;
         max-width: 25% !important;
         justify-content: center;
-        border: solid 1px #e8ebf0;
+        border: solid 1px  #b2d0e2;
         background-color: #ffffff;
         text-align: center;
       }
@@ -168,7 +167,7 @@ page-cart {
     }
 
     .cartitems{
-        border-bottom: 1px solid #e8ebf0;
+        border-bottom: 1px solid  #b2d0e2;
     }
 
     .bottompane

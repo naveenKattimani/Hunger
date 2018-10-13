@@ -27,8 +27,9 @@
       
       <ion-list no-lines>
           <ng-template ngFor let-dest [ngForOf]="FirebaseProvider.dests">
-          <ion-item-divider >
-            <div class="categoryclass">{{dest.type}}</div></ion-item-divider>
+
+            <div class="categoryclass">{{dest.type}}</div>
+
           <ion-item class="itemmenu" *ngFor="let item of dest.items; let i = index">
             <ion-row>
                 <ion-col col-1>
@@ -40,9 +41,11 @@
               <ion-col col-4 class="buttonalign">
                 <br>
                 <button class="addbutton" ion-button clear (click)="incrementQty(item)" *ngIf="item.quantity==0" >Add </button>      
-                <button clear (click)="decrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="remove-circle" ></ion-icon></button>
-                <ion-badge class="itemsquantitybadge" *ngIf="item.quantity>0">{{item.quantity}}</ion-badge>
-                <button clear (click)="incrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="add-circle" ></ion-icon></button>
+                <div>
+                  <button clear (click)="decrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="remove-circle" ></ion-icon></button>
+                  <ion-badge class="itemsquantitybadge" *ngIf="item.quantity>0">{{item.quantity}}</ion-badge>
+                  <button clear (click)="incrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="add-circle" ></ion-icon></button>
+                </div>  
               </ion-col>
             </ion-row>      
           </ion-item>
