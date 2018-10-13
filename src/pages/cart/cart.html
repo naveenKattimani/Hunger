@@ -3,8 +3,8 @@
     <ion-navbar>
     <ion-title></ion-title>
     </ion-navbar>
-    <ion-list >
-      <div *ngIf="items.length" class="restaurantheader">{{restaurant.selectedrestaurant}}</div>
+    <ion-list class="toplist">
+      <div *ngIf="items.length>0" class="restaurantheader">{{restaurant.selectedrestaurant}}</div>
       <ion-item class="cartitems" *ngFor="let item of items; let i = index">
         
         <ion-row>
@@ -23,8 +23,8 @@
           <div>No items in cart. please add the items from menu</div>
       </ion-item>
     </ion-list>
-    <ion-list> 
-      <ion-item style="height:50%" *ngIf="items.length>0">
+    <ion-list no-line> 
+      <ion-item class='bottompane' *ngIf="items.length>0">
             <div class="restaurantbillheader">Restaurant Bill</div>
           <ion-row  >
                 
@@ -42,8 +42,9 @@
                     <div>{{packagingcharge}} Rs</div><br>                
                     <div>{{deliverycharge}} Rs</div><br>           
                 </ion-col>              
-          </ion-row> 
-          <div style="border-bottom: 1px solid #e8ebf0;"></div>     
+          </ion-row>
+        </ion-item>     
+          <ion-item  *ngIf="items.length>0" class="totalpay">
             <ion-row>
                 <ion-col col-8 class='totalpayleft'>
                     <div>To Pay: </div><br>           
@@ -57,7 +58,8 @@
                     <button class='checkout' ion-button (click)="checkout()">Checkout </button>           
                 </ion-col>              
             </ion-row>
-        </ion-item>  
+        </ion-item>
+         
     </ion-list>
   </ion-content>
    

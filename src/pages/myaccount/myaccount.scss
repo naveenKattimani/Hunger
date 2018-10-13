@@ -12,21 +12,22 @@ page-myaccount {
     .toolbar-md {
         padding: 4px;
         min-height: 0;
+        padding-bottom: 13px;
+        border-bottom: 16px solid lightgray;
     }
 
-    ion-list {
+    .myacc {
         border: 3px solid rgb(184, 173, 221);
         box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        margin: 9px 7px 16px;
     }
 
     h2 {
         color: chocolate;
         font-size: 18px;
-        padding: 1px;
+        padding: 4px;
         margin-left: auto;
         margin-right: auto;
-        border-top: 5px solid rgb(233, 227, 227);
-        padding-top: 28px;
         text-shadow: 1px 3px 3px rgb(189, 166, 166);
     }
 
@@ -36,8 +37,9 @@ page-myaccount {
     }
 
     .scroll-content {
-        padding: 4px;
+        padding: 0;
     }
+
     .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
         margin-left: 0;
         margin-top: 0;
@@ -72,10 +74,8 @@ page-myaccount {
     .button{
         text-shadow: 1px 3px 3px rgb(189, 166, 166);
         box-shadow: 1px 3px 3px rgb(189, 166, 166);
-    }
-
-    .delete{
-        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        margin: 7px;
+        width: 95%;
     }
 
     .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {

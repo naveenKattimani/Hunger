@@ -40,7 +40,7 @@ page-menu {
     }
 
     ion-icon {
-        font-size: 1.5em;
+        font-size: 1.2em;
         color:darkslategray;
         float: right;
     }
@@ -58,6 +58,11 @@ page-menu {
         height: 55%;
         box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
         padding:0;
+    }
+
+    .recbuttons
+    {
+        padding-top:3px;
     }
 
     .itemmenu{
@@ -112,7 +117,7 @@ page-menu {
     }
     .recommendtitle {
         font-size: 10px;
-        padding: 0 4px;
+        padding: 8px 0 0 4px;
         margin: 0;
     }
     
@@ -132,7 +137,7 @@ page-menu {
     display: inline-block;
     min-width: 10px;
     font-size: 1rem;
-    line-height: 1;
+    line-height: 0;
     white-space: nowrap;
     vertical-align: baseline;
     margin-left: 25px;
@@ -147,7 +152,7 @@ page-menu {
         display: inline-block;
         min-width: 16px;
         font-size: 1rem;
-        line-height: 1;
+        line-height: 0;
         white-space: nowrap;
         vertical-align: super;
         margin-left: 0; 
@@ -170,7 +175,7 @@ page-menu {
         opacity: 1;
         border: 1px solid;
         width: 70px;
-        height: 20px;
+        height: 19px;
         background-color: rgb(237, 252, 237);
         box-shadow: 0 0 5px 1px grey;
         font-weight: normal;
@@ -251,5 +256,5 @@ page-menu {
     min-height: -webkit-fill-available;
     background: #eee;
     /* contain: strict; */
-}
+    }
 }
