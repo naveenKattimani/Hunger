@@ -1,7 +1,7 @@
  
   <ion-content >
     <ion-navbar>
-        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="cartSvc.thecart.length>0 ? 'white' : 'darklategrey'" name="cart"></ion-icon></button>
+        <button (click)="mycartpage()" class="carticon"><ion-icon name="cart"><ion-badge class='cartbadge' *ngIf="cartSvc.thecart.length>0">{{cartSvc.thecart.length}}</ion-badge></ion-icon></button>
         <button (click)="Homepage()" class="carticon"><ion-icon name="home"></ion-icon></button>
     </ion-navbar>
     <div class="restaurantheader">{{restaurantname}}</div>

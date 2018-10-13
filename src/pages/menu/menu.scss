@@ -12,7 +12,28 @@ page-menu {
     border-top: 18px solid #b2d0e2;
     border-bottom: 18px solid #b2d0e2;
     padding-top: 28px;
-}
+    }
+
+    .cartbadge
+    {
+        position: absolute;
+        top: -7px;
+        right: 0;
+        font-size: 10px;
+        opacity: 1;
+        height: 12px;
+        margin-right: 2.2rem;
+        text-shadow: 1px 3px 3px rgb(182, 137, 137);
+        box-shadow: 1px 3px 3px rgb(182, 137, 137);
+    }
+
+    .badge-md {
+        border-radius: 9px;
+        color: #fff;
+        background-color: #488aff;
+        padding-top: 5px;
+        width: 27px;
+    }
     
     .restaurantheader {
         padding-left: 4%;

@@ -32,6 +32,10 @@ export class MenuPage {
     //console.log('ionViewDidLoad MainPage');
   }
 
+  changeBackground()
+  {
+    return(this.cartSvc.thecart.length>0 ? 'green' : 'darklategrey');
+  }
   
   
   // items = [
