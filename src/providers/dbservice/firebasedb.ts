@@ -100,7 +100,7 @@ export class FirebaseProvider {
      });
   }
 
-  orderhistory(orderid,totalcartamount,packagingcharge,deliverycharge) {
+  orderhistory(orderid,totalcartamount,packagingcharge,deliverycharge,orderdate) {
     var index=1;
     var orderef = firebase.database().ref("OrderAmount/");
     this.cartsvc.thecart.forEach(cartitem => {   
@@ -109,6 +109,7 @@ export class FirebaseProvider {
             totalcartamount:totalcartamount,
             packagingcharge:packagingcharge,
             deliverycharge:deliverycharge,
+            orderdate:orderdate,
         });
         index=index+1;
      });

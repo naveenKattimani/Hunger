@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NewTransactionPage } from '../instamojo/new_transaction';
-import { IonicPage, AlertController,NavController,Platform } from 'ionic-angular';
+import { IonicPage, AlertController,NavController,Platform, DateTime } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {Restaurants} from '../../providers/restaurants/restaurants';
+import {MyaccountProvider} from '../../providers/myaccount/myaccount';
 import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
 import { HomePage } from '../home/home';
 import { SMS } from '@ionic-native/sms';
@@ -35,7 +36,7 @@ export class CartPage {
   person;
   ninapp=false;
 
-  constructor(public navCtrl: NavController,private sms: SMS,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     // this.person = JSON.parse(localStorage.getItem('PERSON'));
     // if (this.person){
     //   this.contactnum=this.person.contactnumber;
@@ -101,13 +102,13 @@ export class CartPage {
 
   checkout()
   {      
+    console.log(">>>>>"+this.myacc.contactnum);
+    console.log(">>>>>"+undefined);
+    console.log(">>>>>"+this.myacc.contactnum==="undefined");
+    console.log(">>>>>"+typeof new String(this.myacc.contactnum)==="undefined");
     //this.presentAlert(this.FirebaseProvider.contactnum.toString().length);
-    if(this.FirebaseProvider.contactnum.toString().length<10)
+    if(this.myacc.contactnum!==undefined)
     {
-      this.presentAlert("To continue the checkout process, please create an account");
-      this.navCtrl.push(MyaccountPage);
-    }
-    else{
     this.timeStampInMs=Date.now();
     var transferdata;
     
@@ -152,7 +153,12 @@ export class CartPage {
         }, error => {
           console.log(error);
         });     
-      }     
+      }   
+      else{  
+      this.presentAlert("To continue the checkout process, please create an account");
+      this.navCtrl.push(MyaccountPage);
+      }
+    
     }    
 
   paytmpage(chcksum,timeStampInMs)
@@ -197,7 +203,7 @@ export class CartPage {
                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                 {
                   this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
-                  this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge);       
+                  this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,Date.now() );      
                 }
               })
 

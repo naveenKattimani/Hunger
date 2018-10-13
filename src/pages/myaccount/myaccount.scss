@@ -15,7 +15,8 @@ page-myaccount {
     }
 
     ion-list {
-        border: 3px solid lightgrey;
+        border: 3px solid rgb(184, 173, 221);
+        box-shadow: 1px 3px 3px rgb(189, 166, 166);
     }
 
     h2 {
@@ -26,6 +27,12 @@ page-myaccount {
         margin-right: auto;
         border-top: 5px solid rgb(233, 227, 227);
         padding-top: 28px;
+        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+    }
+
+    .locationaddress {
+        resize: vertical;
+        font-size: 10px;
     }
 
     .scroll-content {
@@ -60,6 +67,27 @@ page-myaccount {
     }
     .ng-invalid:not(form)  {
     // border-left: 1px solid #a94442; /* red */
+    }
+
+    .button{
+        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+    }
+
+    .delete{
+        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+    }
+
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: lightgrey;
+        -webkit-box-shadow: inset 0 -1px 0 0 lightgrey;
+        box-shadow: inset 0 -1px 0 0 lightgrey;
+    }
+    
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: lightgrey;
+        -webkit-box-shadow: inset 0 -1px 0 0 lightgrey;
+        box-shadow: inset 0 -1px 0 0 lightgrey;
     }
 
     

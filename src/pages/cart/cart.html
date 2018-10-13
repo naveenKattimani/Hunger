@@ -4,7 +4,9 @@
     <ion-title></ion-title>
     </ion-navbar>
     <ion-list >
-      <ion-item *ngFor="let item of items; let i = index">
+      <div *ngIf="items.length" class="restaurantheader">{{restaurant.selectedrestaurant}}</div>
+      <ion-item class="cartitems" *ngFor="let item of items; let i = index">
+        
         <ion-row>
           <ion-col col-8><br>{{item.name}}<br>{{item.cost}}Rs</ion-col><br>
           <ion-col col-4>
@@ -17,31 +19,45 @@
         </ion-row>      
       </ion-item>
         
-      <ion-item style="height:50%" *ngIf="items.length==0">
+      <ion-item style="height:50%;" *ngIf="items.length==0">
           <div>No items in cart. please add the items from menu</div>
       </ion-item>
-
+    </ion-list>
+    <ion-list> 
       <ion-item style="height:50%" *ngIf="items.length>0">
-          <ion-row >
-            <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 0.9">
+            <div class="restaurantbillheader">Restaurant Bill</div>
+          <ion-row  >
+                
+            <ion-col col-8 class="restaurantbillleft">
                 <br>
-                <div>Total items in cart: {{items.length}}</div><br>
-                <div>Ordered amount: {{totalcartamount}} Rs</div><br>
-                <div>Packaging charge: {{packagingcharge}} Rs</div><br>                
-                <div>Delivery Charge: {{deliverycharge}} Rs</div><br>           
-            </ion-col>              
-          </ion-row>      
+                <div>Total items in cart: </div><br>
+                <div>Total amount: </div><br>
+                <div>Restaurant Packaging charge: </div><br>                
+                <div>Delivery Charge: </div><br>           
+            </ion-col>
+            <ion-col col-4 class="restaurantbillright">
+                    <br>
+                    <div>{{items.length}}</div><br>
+                    <div>{{totalcartamount}} Rs</div><br>
+                    <div>{{packagingcharge}} Rs</div><br>                
+                    <div>{{deliverycharge}} Rs</div><br>           
+                </ion-col>              
+          </ion-row> 
+          <div style="border-bottom: 1px solid #e8ebf0;"></div>     
             <ion-row>
-                <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 1">
-                    <div>Total Amount: {{totalamount}}</div><br>           
+                <ion-col col-8 class='totalpayleft'>
+                    <div>To Pay: </div><br>           
+                </ion-col>
+                <ion-col col-4 class='totalpayright'>
+                    <div>{{totalamount}}</div><br>           
                 </ion-col>              
             </ion-row>
             <ion-row>
-                <ion-col style="text-align: right; margin-right:10px;margin-top: 10px;line-height: 1">
-                    <button ion-button (click)="checkout()">Checkout </button>           
+                <ion-col >
+                    <button class='checkout' ion-button (click)="checkout()">Checkout </button>           
                 </ion-col>              
             </ion-row>
         </ion-item>  
     </ion-list>
   </ion-content>
-  
+   

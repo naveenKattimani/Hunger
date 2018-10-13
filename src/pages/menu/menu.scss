@@ -20,6 +20,7 @@ page-menu {
         font-weight: bold;
         color: chocolate;
         padding-bottom: 5%;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 
     .categoryclass
@@ -30,15 +31,17 @@ page-menu {
         color: #ab662b;
         padding-top: 1%;
         text-transform: uppercase;
+        text-shadow: 1px 1px 3px rgb(182, 137, 137);
     }
     button.show-back-button {
         display: inline-block;
         margin-left: auto;
+        
     }
 
     ion-icon {
         font-size: 1.5em;
-        color:black;
+        color:darkslategray;
         float: right;
     }
 
@@ -50,16 +53,24 @@ page-menu {
         padding-left: 20px;
     }
     
+    .recommended_boxshadow
+    {
+        height: 55%;
+        box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
+        padding:0;
+    }
 
-    .item-md {
+    .itemmenu{
         padding-left: 3px;
-        padding-right: 0;
+    }
+
+    .item-md {        
         position: relative;
         font-size: 1rem;
         font-weight: normal;
         text-transform: none;
         color: #000;
-        background-color: #fff;
+        background-color: #ffff;
     }
 
     .item-md.item-block .item-inner {
@@ -79,8 +90,8 @@ page-menu {
     }
 
     .recommended_box{
-        padding-left: 3px;
-        padding-right: 0;
+        //padding-left: 3px;
+        padding: 0;
         position: relative;
         font-size: 1rem;
         font-weight: normal;
@@ -126,6 +137,7 @@ page-menu {
     vertical-align: baseline;
     margin-left: 25px;
     margin-top: 15px;
+    color: darkslategray;
     color: white;
     }
 
@@ -137,9 +149,9 @@ page-menu {
         font-size: 1rem;
         line-height: 1;
         white-space: nowrap;
-        vertical-align: baseline;
+        vertical-align: super;
         margin-left: 0; 
-        color: black;
+        color: darkslategray;
         background-color: white;
     }
 
@@ -159,10 +171,11 @@ page-menu {
         border: 1px solid;
         width: 70px;
         height: 20px;
-
         background-color: rgb(237, 252, 237);
         box-shadow: 0 0 5px 1px grey;
         font-weight: normal;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
     }
 
    ion-item {

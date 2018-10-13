@@ -72,6 +72,7 @@ export class MyaccountPage {
             this.person.contactnumber="";
             this.person.address="";
             this.person.landmark="";
+            this.myacc.contactnum="";
             this.showProfile = false;
             //delete from firebase need to implement
             

@@ -16,7 +16,7 @@
           </ion-item>
           <ion-item>
               <ion-label floating>Current Location</ion-label>
-              <ion-textarea type="text" maxLength="500" [(ngModel)]="person.address" name="address" readonly></ion-textarea>
+              <ion-textarea class="locationaddress" type="text" maxLength="500" [(ngModel)]="person.address" name="address" readonly></ion-textarea>
           </ion-item>
           <ion-item>
             <ion-label floating>Landmark</ion-label>
@@ -25,10 +25,10 @@
           
       </ion-list>
       <!-- <button color="secondary" ion-button block (click)="save()">Save</button> -->
-      <button color="secondary" ion-button block type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Save</button>
+      <button ion-button block type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Save</button>
       
       <!--div id="phone-sign-in-recaptcha" ></div-->      
     </form>
-    <button color="danger" ion-button block (click)="delete()">Delete</button>
+    <button class="delete"  ion-button block (click)="delete()">Delete</button>
       
 </ion-content>

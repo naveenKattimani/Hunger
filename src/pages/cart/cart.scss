@@ -25,6 +25,15 @@ page-cart {
         padding-left: 8px;
     }
 
+    .restaurantheader {
+        padding: 5% 5%;
+        font-size: 18px;
+        font-weight: bold;
+        color: chocolate;
+        border-bottom: 18px rgb(219, 209, 209) solid;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
     ion-badge {
             /* padding: 2px 2px; */
     text-align: center;
@@ -37,9 +46,11 @@ page-cart {
     margin-left: 25px;
     margin-top: 15px;
     color: white;
+    color: darkslategray;
     }
 
     .itemsquantitybadge {
+        
         padding: 0;
         text-align: center;
         display: inline-block;
@@ -49,7 +60,7 @@ page-cart {
         white-space: nowrap;
         vertical-align: baseline;
         margin-left: 0; 
-        color: black;
+        color: darkslategray;
         background-color: white;
     }
 
@@ -146,5 +157,36 @@ page-cart {
     }
     .additems {
         margin-left: 10%;
+    }
+
+    .cartitems{
+        border-bottom: 1px solid #e8ebf0;
+    }
+
+    .restaurantbillheader{
+        font-size: 15px;font-weight: bold;
+    }
+    .restaurantbillleft{
+        text-align: left; margin-top: 10px;line-height: 0.9;
+    }
+
+    .restaurantbillright{
+        text-align: right; margin-top: 10px;line-height: 0.9;
+    }
+
+    .totalpayleft{
+        font-weight: bold;font-size: 13px;text-align: left;margin-top: 10px;line-height: 1;
+    }
+    .totalpayright{
+        font-weight: bold;font-size: 13px;text-align: right;margin-top: 10px;line-height: 1;
+    }
+
+    .checkout{
+        float: right;
+        margin-top: 10px;
+        line-height: 1;
+        border-radius: 5px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 }

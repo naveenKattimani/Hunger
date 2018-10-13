@@ -25,14 +25,13 @@ page-home {
         color: #000;
         background-color:color($colors,danger);
         height:0;
-        box-shadow: none;
         width: 100%;
     }
 
     ion-icon {
         font-size: 25px;
         padding-left: 15px;
-        color:black;
+        color:darkslategrey
     }
 
     button {
@@ -51,13 +50,17 @@ page-home {
     .item-md p {
         font-size: 1.2rem;
         text-overflow: inherit;
-        color: rgb(0, 0, 0);
-        width:110%;
+        color:darkslategray;
+
     }
 
+    .col{
+        padding:0;
+    }
     .searchbar-md {
         background: inherit;
-        padding: 0;
+        padding: 1%;
+        left: 1%;
     }
     .searchbar-md .searchbar-input {
         padding: 4px 48px;
@@ -69,7 +72,7 @@ page-home {
    }
     .searchlist
     {
-        padding:2%;
+        padding-left: 2%;
         background-color:#e4dddd;
         height:7em;
         text-align: left;
@@ -99,6 +102,7 @@ page-home {
     }
     .label-md {
         margin: 0;
+        box-shadow: 1px 3px 3px rgba(0,0,0,0.5);
     }
 
     .scroll-content {

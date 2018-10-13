@@ -1,7 +1,7 @@
  
   <ion-content >
     <ion-navbar>
-        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="this.cartSvc.thecart.length>0 ? 'name' : 'dark'" name="cart"></ion-icon></button>
+        <button (click)="mycartpage()" class="carticon"><ion-icon [color]="cartSvc.thecart.length>0 ? 'white' : 'darklategrey'" name="cart"></ion-icon></button>
         <button (click)="Homepage()" class="carticon"><ion-icon name="home"></ion-icon></button>
     </ion-navbar>
     <div class="restaurantheader">{{restaurantname}}</div>
@@ -10,10 +10,10 @@
         <div class="recommended"> Recommended</div>
         <ion-row wrap>
           <ion-col col-6 *ngFor="let item of FirebaseProvider.recommendedname; let i = index">              
-              <ion-item class="recommended_box">   
-                  <img src="assets/imgs/{{item.OrderId}}.png">
+              <ion-item class="recommended_boxshadow">   
+                  <img class="recommended_box" src="assets/imgs/{{item.OrderId}}.png">
               </ion-item>
-              <p class="recommendtitle">{{item.name}}</p>
+              <p class="recommendtitle">{{item.name}}<br> {{item.cost}}Rs</p>
               <button class="addbutton" ion-button clear (click)="incrementQty(item)" *ngIf="item.quantity==0" >Add </button>      
                 <button clear (click)="decrementQty(item)" *ngIf="item.quantity>0"><ion-icon name="remove-circle" ></ion-icon></button>
                 <ion-badge class="itemsquantitybadge" *ngIf="item.quantity>0">{{item.quantity}}</ion-badge>
@@ -27,7 +27,7 @@
           <ng-template ngFor let-dest [ngForOf]="FirebaseProvider.dests">
           <ion-item-divider >
             <div class="categoryclass">{{dest.type}}</div></ion-item-divider>
-          <ion-item *ngFor="let item of dest.items; let i = index">
+          <ion-item class="itemmenu" *ngFor="let item of dest.items; let i = index">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon class="listbullet" name="radio-button-on"></ion-icon>

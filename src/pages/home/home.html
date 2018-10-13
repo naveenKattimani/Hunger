@@ -3,19 +3,18 @@
       <ion-item>
         <ion-grid>
           <ion-row class="searchheader">
-            <ion-col col-2>
+            <ion-col col-1>
               <button (click)="openmapPage()" style="font-weight: bold; font-size: 10px;text-align: left" text-wrap><ion-icon style="float:left;padding-left:2px;padding-bottom: 14px"name="pin" ></ion-icon></button>
             </ion-col>
-            <ion-col col-6 right>
-               <p style="padding-top:20px;font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
+            <ion-col col-7 right>
+               <p (click)="openmapPage()" style="padding-left:4%;padding-top:10%;font-size: 12px;float:left;overflow: hidden;text-overflow: ellipsis;width:100%">{{currentaddress}}</p>
             </ion-col>
             <ion-col col-2>
               <button (click)="mycartpage()"><ion-icon name="cart"></ion-icon></button>
             </ion-col>
             <ion-col col-2>
               <button (click)="myaccountpage()"><ion-icon name="contact" ></ion-icon></button>
-            </ion-col>
-            
+            </ion-col>            
           </ion-row>
         </ion-grid>  
       </ion-item>
@@ -36,14 +35,14 @@
       <div class="warnmesaage">No restaurants nearby you.</div>
   </div>
   <ion-list *ngIf="nearbyPlaces.length>0">
-    <ion-item class="searchlist" *ngFor = "let place of nearbyPlaces">
+    <ion-item (click)="openrestaurantmenu(place.name,place.r_id)" class="searchlist" *ngFor = "let place of nearbyPlaces">
         
       <ion-row class="searchlistinner">
         <ion-col col-4>
             <img class="restautantimage" src={{place.img_id}}>
         </ion-col>
         <ion-col col-8>
-            <a (click)="openrestaurantmenu(place.name,place.r_id)" style="font-weight: bold; font-size: 12px;">{{place.name}}</a>
+            <a  style="font-weight: bold; font-size: 12px;text-shadow: 1px 1px 1px rgb(182, 137, 137);">{{place.name}}</a>
             <p style="font-size: 12px;">{{place.desc}}</p>
             <br/>
             <p style="border-bottom: 0.1px solid grey;border-width: thin;">***</p>
