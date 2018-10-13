@@ -59,7 +59,7 @@ page-cart {
         display: inline-block;
         min-width: 16px;
         font-size: 1.3rem;
-        line-height: 1;
+        line-height: 0;
         white-space: nowrap;
         vertical-align: baseline;
         margin-left: 0; 
@@ -74,6 +74,8 @@ page-cart {
     .badge-md-light {
         color: #000;
         background-color: white;
+        margin:0;
+        padding-left: 40px;
     }
 
     .button-clear-md {
@@ -100,11 +102,11 @@ page-cart {
     ion-icon {
         font-size: 1.2em;
         color: darkslategrey;
-        padding-bottom: 30px
+        padding-bottom: 5px
     }
 
-    ion-item {
-        height: 6em; /* <- this can be whatever you need */
+    .toplist ion-item {
+        height: 4em; /* <- this can be whatever you need */
         }
 
         .item-md ion-avatar img {
@@ -153,7 +155,7 @@ page-cart {
         padding-left: 10px;
         white-space: normal;
         max-width: 100%;
-    
+        
     }
     .item-md ion-avatar img {
         overflow: hidden;
@@ -167,7 +169,7 @@ page-cart {
     }
 
     .cartitems{
-        border-bottom: 1px solid  #b2d0e2;
+        border-bottom: 1px dotted #b2d0e2;
     }
 
     .bottompane
@@ -184,7 +186,7 @@ page-cart {
 
     .restaurantbillright{
         text-align: right; margin-top: 10px;line-height: 0.9;
-        padding-right: 12px
+        margin-left: -12px;
     }
 
     .totalpayleft{
@@ -198,14 +200,27 @@ page-cart {
     .checkout{
         float: right;
         margin-top: 10px;
+        margin-right: 5px;
+        margin-top: 35px;
+        max-height: 30px;
         line-height: 1;
         border-radius: 5px;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
+    
     .totalpay
     {
-        border-top: 1px solid lightgrey;
         padding-top: 5px;
+    }
+
+    .payamt
+    {
+        background-color: #9cf79a;
+        border: 1px dashed #e2d0d1;
+        border-radius: 10px;
+        padding: 0;
+        margin-right: 5px;
+        box-shadow: 1px 3px 3px rgba(0,0,0,0.5);   
     }
 }

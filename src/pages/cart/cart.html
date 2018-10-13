@@ -30,10 +30,10 @@
                 
             <ion-col col-8 class="restaurantbillleft">
                 <br>
-                <div>Total items in cart: </div><br>
-                <div>Total amount: </div><br>
-                <div>Restaurant Packaging charge: </div><br>                
-                <div>Delivery Charge: </div><br>           
+                <div>Total items in cart </div><br>
+                <div>Total amount </div><br>
+                <div>Restaurant Packaging charge </div><br>                
+                <div>Delivery Charge  </div><br>           
             </ion-col>
             <ion-col col-4 class="restaurantbillright">
                     <br>
@@ -45,12 +45,12 @@
           </ion-row>
         </ion-item>     
           <ion-item  *ngIf="items.length>0" class="totalpay">
-            <ion-row>
+            <ion-row class="payamt">
                 <ion-col col-8 class='totalpayleft'>
-                    <div>To Pay: </div><br>           
+                    <div>To Pay </div><br>           
                 </ion-col>
                 <ion-col col-4 class='totalpayright'>
-                    <div>{{totalamount}}</div><br>           
+                    <div>{{totalamount }} Rs</div><br>           
                 </ion-col>              
             </ion-row>
             <ion-row>
