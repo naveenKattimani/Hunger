@@ -9,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HTTP } from '@ionic-native/http';
 import { Google_Maps } from '../../providers/google-maps/google-maps';
-import { LoadingController } from 'ionic-angular'
+import { LoadingController,Slides } from 'ionic-angular'
 import { MenuPage } from '../menu/menu';
 import { MyaccountPage } from '../myaccount/myaccount';
 import { CartPage } from '../cart/cart';
@@ -36,6 +36,14 @@ var myplace = {lat: 0, lng: 0};
 
 export class HomePage {
 
+  slideData = [
+  { image: "assets/imgs/1.jpg" },
+  { image: "assets/imgs/2.jpg" },
+  { image: "assets/imgs/3.jpg" },
+  { image: "assets/imgs/4.jpg" },
+  { image: "assets/imgs/5.jpg" },
+  { image: "assets/imgs/6.jpg" }]
+  
   searchTerm: string = '';
     items: any;
     service: any;
@@ -44,12 +52,14 @@ export class HomePage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     currentaddress: any;
+    @ViewChild(Slides) slides: Slides;
     constructor(public FirebaseProvider:FirebaseProvider,public myacc:MyaccountProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
       
     }
  
     ionViewDidLoad() {
       //this.openrestaurantPage();  
+      this.slides.autoplayDisableOnInteraction = false;
       console.log(this.restaurant.restaurantnames);
     }
 
@@ -62,7 +72,7 @@ export class HomePage {
       loading.present();    
       var myvar=setTimeout(() => {
         loading.dismiss();
-      }, 4000);
+      }, 2000);
       
       return true;
     }
@@ -212,7 +222,7 @@ export class HomePage {
           loading.present();    
           var myvar=setTimeout(() => {
             loading.dismiss();
-          }, 2000);
+          }, 1000);
           this.navCtrl.push(MenuPage);        
         }
 
@@ -227,4 +237,8 @@ export class HomePage {
           this.navCtrl.push(CartPage);
           //console.log("----accountpage");
         }
+
+        slidesChanged() {
+        }
+      
 }

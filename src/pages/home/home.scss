@@ -15,6 +15,18 @@ page-home {
         float: centre;
     }
 
+    ion-slides {
+        display: block;
+        width: 100%;
+        height: 25%;
+    }
+
+    .swiper-pagination-clickable .swiper-pagination-bullet {
+        cursor: pointer;
+        float: none;
+    }
+
+
     .selectloc{
         font-weight: bold; font-size: 10px;text-align: left;
     }
@@ -30,7 +42,7 @@ page-home {
         font-weight: normal;
         text-transform: none;
         color: #000;
-        background-color:color($colors,danger);
+        background-color:#4179e2;
         height:0;
         width: 100%;
     }
@@ -41,9 +53,15 @@ page-home {
         color:darkslategrey
     }
 
+    .slider
+    {
+        border: 1px solid rgb(136, 133, 167);
+        margin-bottom: 5px;
+    }
+
     button {
         zoom: 1;
-        background-color: color($colors,danger);
+        background-color: #4179e2;
         float:left;
         padding-top: 15px;
     }
@@ -58,12 +76,12 @@ page-home {
         font-size: 1.2rem;
         text-overflow: inherit;
         color:darkslategray;
-
     }
 
     .col{
         padding:0;
     }
+    
     .searchbar-md {
         background: inherit;
         padding: 1%;
@@ -72,21 +90,22 @@ page-home {
     .searchbar-md .searchbar-input {
         padding: 4px 48px;
         border-radius: 5px;
-        font-size: 1.6rem;
-        font-weight: 400;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: normal;
         line-height: 3rem;
-        color: #141414;
+        color: #3c3636;
    }
     .searchlist
     {
         padding-left: 2%;
-        background-color:#e4dddd;
+        background-color:white;
         height:7em;
         text-align: left;
     }
 
     .searchlistinner {
-        border: 1px solid grey;
+        border: 1px solid #b2d0e2;
         background-color: white;
     }
 
@@ -116,9 +135,24 @@ page-home {
 
     .restaurantrating
     {
-        border-bottom: 0.1px solid grey;border-width: thin;
+        border-bottom: 0.1px solid #b2d0e2;
+        border-width: thin;
     }
 
+    .divider
+    {
+        border-bottom: 1px solid #b2d0e2;
+        padding :10px 10px 0 10px; 
+        margin:0;
+        font-size: 15px;
+        font-weight: bold;
+        color: chocolate;
+    }
+
+    .list-md .item-block .item-inner {
+        border-bottom: 1px solid #b2d0e2;
+    }
+    
     .restaurantdistance
     {
         font-size: 1rem;padding-left:75%;
@@ -133,6 +167,7 @@ page-home {
 
     .scroll-content {
         //background-color: #e4dddd;
+        background-color: white;
     }
 
     .warnmesaage

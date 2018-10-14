@@ -31,6 +31,16 @@
       </ion-item>
   </ion-list>
   <div #map id="map"></div> 
+
+
+  <ion-slides class="slider" autoplay="3000" loop="true" speed="3000">
+    <ion-slide *ngFor="let slide of slideData">
+      <img src="{{slide.image}}" />
+    </ion-slide>
+  </ion-slides>
+  
+  <div class='divider'>Restarurants nearby</div>
+
   <div *ngIf="nearbyPlaces.length==0">
       <div class="warnmesaage">No restaurants nearby you.</div>
   </div>

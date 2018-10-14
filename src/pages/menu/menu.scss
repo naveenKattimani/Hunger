@@ -60,6 +60,14 @@ page-menu {
         
     }
 
+    .col {
+        padding: 0;
+        padding-left: 10px;
+        white-space: normal;
+        max-width: 100%;
+        
+    }
+
     ion-icon {
         font-size: 1.2em;
         color:darkslategray;
@@ -150,6 +158,7 @@ page-menu {
         //padding-top: 7px;
         zoom: 1;
         background-color: white;
+        padding: 3px;
     }
 
     ion-badge {
