@@ -23,14 +23,13 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import{CartServiceProvider} from '../providers/cart-service/cart-service'
 import { HTTP } from '@ionic-native/http';
-import { importType } from '@angular/compiler/src/output/output_ast';
-import {CheckoutPage} from '../pages/checkout/checkout'
 import { FIREBASE_CONFIG } from '../../src/environment/environment';
 import { AngularFireDatabaseModule,AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/dbservice/firebasedb';
 import { Dialogs } from '@ionic-native/dialogs';
 import { MyaccountProvider } from '../providers/myaccount/myaccount';
+import { OrdertransactionPage } from '../pages/ordertransaction/ordertransaction';
 import { SMS } from '@ionic-native/sms';
 //import { HTTP } from 'ionic-native';
 
@@ -45,7 +44,7 @@ import { SMS } from '@ionic-native/sms';
     MenuPage,
     MyaccountPage,
     CartPage,
-    CheckoutPage
+    OrdertransactionPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +65,7 @@ import { SMS } from '@ionic-native/sms';
     MenuPage,
     MyaccountPage,
     CartPage,
-    CheckoutPage,
+    OrdertransactionPage
   ],
   providers: [
       InAppBrowser,

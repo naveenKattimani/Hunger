@@ -6,6 +6,8 @@ import {MyaccountProvider} from '../../providers/myaccount/myaccount'
 import { Firebase } from 'ionic-native';
 import { MapPage } from '../map/map';
 import { HomePage } from '../home/home';
+import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
+import { Restaurants } from '../../providers/restaurants/restaurants';
 
 
 @IonicPage()
@@ -27,11 +29,13 @@ export class MyaccountPage {
   userid="";
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(public navCtrl: NavController,private myacc:MyaccountProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
+    this.FirebaseProvider.getorders('foodie-20006');
   }
 
   ionViewDidLoad() {
+    
     //this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   //  this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('phone-sign-in-recaptcha', {
   //   'size': 'invisible',
@@ -42,9 +46,7 @@ export class MyaccountPage {
   //   'expired-callback': function() {
   //     // Reset reCAPTCHA?
   //   }
-
   // }); 
-
    
    let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){
@@ -75,7 +77,7 @@ export class MyaccountPage {
             this.myacc.contactnum="";
             this.showProfile = false;
             //delete from firebase need to implement
-            
+            //localStorage.clear();
             var user = firebase.auth().currentUser;
                 if (user) {
                   user.delete();
@@ -95,18 +97,7 @@ export class MyaccountPage {
     this.address = this.person.address;
     this.landmark = this.person.landmark;
     this.showProfile = true;
-    this.myacc.contactnum=this.person.contactnumber;
-    
-    // if(this.contactnumber!=undefined && this.contactnumber.length==10)
-    // {
-    //   var pp=this.signIn(this.contactnumber,(_res) => 
-    //   {
-    //     console.log('huzzah, I\'m done!'+ _res);
-    //     this.savedata(_res)
-       
-    //   })
-    // }
-    
+    this.myacc.contactnum=this.person.contactnumber;    
     // (<any>window).FirebasePlugin.verifyPhoneNumber(this.contactnumber, 60, function (credential) {
     //   let verificationId = credential.verificationId;
     //   //This is STEP 2 — passing verification ID to verify Page
@@ -168,8 +159,7 @@ export class MyaccountPage {
       // ask user to input verificationCode:
        verificationId = credential.verificationId;    
       //  var signInCredential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
-      //  firebase.auth().signInWithCredential(signInCredential);
-       
+      //  firebase.auth().signInWithCredential(signInCredential);       
       }, function(error) {
         this.reset();
         this.person = {name: undefined, contactnumber: undefined, address: undefined};

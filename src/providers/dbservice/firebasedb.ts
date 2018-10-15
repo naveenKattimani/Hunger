@@ -7,8 +7,12 @@ import {CartServiceProvider} from '../../providers/cart-service/cart-service';
  
 @Injectable()
 export class FirebaseProvider {
+  orderid;
+  txnstatus;
   restaurantsfb=new Array();
   itemname=new Array();
+  myorderhistory=new Array();
+  myorders=new Array();
   recommendedname=new Array();
   dests=new Array();
   restaurantname;
@@ -113,6 +117,33 @@ export class FirebaseProvider {
         });
         index=index+1;
      });
+  }
+
+  getorderhistory(selectedrestaurantid,ordernumber) {
+    //this.contactnum='9591317407';
+    var i=0;
+    let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/'+ordernumber);
+    ref.on('child_added', (snapshot)=>{
+      this.myorders[i]=new Array();
+      ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
+        console.log(">>>>>>>>>key---"+snapshot.key + ":value------" + snapshot.val());
+        this.myorders[i][snapshot.key]=snapshot.val();
+      })
+      i=i+1;
+    })
+    
+  }
+
+  getorders(selectedrestaurantid) {
+    //this.contactnum='9591317407';
+    var i=0;
+    let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/');
+    ref.on('child_added', (snapshot)=>{
+      console.log("----order number:"+snapshot.key);
+      this.getorderhistory(selectedrestaurantid,snapshot.key)
+      
+      i=i+1;
+    })
   }
 
   addItem(name) {

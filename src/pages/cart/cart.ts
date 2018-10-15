@@ -11,6 +11,8 @@ import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-nativ
 import { HomePage } from '../home/home';
 import { SMS } from '@ionic-native/sms';
 import { MyaccountPage } from '../myaccount/myaccount';
+import { OrdertransactionPage } from '../ordertransaction/ordertransaction';
+import { LoadingController,Slides } from 'ionic-angular'
 
 //var Insta = require('instamojo-nodejs');
 //import { Http, Headers, RequestOptions } from '@angular/http';;
@@ -31,12 +33,12 @@ export class CartPage {
   resp="";
   public timeStampInMs;
   public checksum;
-  contactnum="";
+  contactnum;
   ncount: number;
   person;
   ninapp=false;
 
-  constructor(public navCtrl: NavController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
     // this.person = JSON.parse(localStorage.getItem('PERSON'));
     // if (this.person){
     //   this.contactnum=this.person.contactnumber;
@@ -106,10 +108,16 @@ export class CartPage {
     console.log(">>>>>"+undefined);
     console.log(">>>>>"+this.myacc.contactnum==="undefined");
     console.log(">>>>>"+typeof new String(this.myacc.contactnum)==="undefined");
-    //this.presentAlert(this.FirebaseProvider.contactnum.toString().length);
-    if(this.myacc.contactnum!==undefined)
+    
+    // this.timeStampInMs=Date.now();
+    // this.FirebaseProvider.orderid=this.timeStampInMs;
+    // this.navCtrl.push(OrdertransactionPage);
+    //this.presentAlert(this.myacc.contactnum);
+
+    if(this.FirebaseProvider.contactnum!==undefined)
     {
     this.timeStampInMs=Date.now();
+    this.FirebaseProvider.orderid=this.timeStampInMs;
     var transferdata;
     
     let headers = new Headers();
@@ -144,6 +152,15 @@ export class CartPage {
         //this.cartSvc.checksum=this.checksum;
         this.cartSvc.checksum=respdata;
         console.log("CHECKSUM = " + this.cartSvc.checksum);
+        
+        let loading = this.loadingCtrl.create({
+          content: 'Loading...'
+        });    
+        loading.present();    
+        var myvar=setTimeout(() => {
+          loading.dismiss();
+        }, 1000);
+
         this.paytmpage(this.cartSvc.checksum,this.timeStampInMs);
         console.log("--------------");
         //this.presentAlert(localStorage.getItem('response'));
@@ -157,6 +174,7 @@ export class CartPage {
       else{  
       this.presentAlert("To continue the checkout process, please create an account");
       this.navCtrl.push(MyaccountPage);
+      //this.navCtrl.push(OrdertransactionPage);
       }
     
     }    
@@ -202,9 +220,17 @@ export class CartPage {
                 //this.presentAlert(respdata);
                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                 {
+                  this.FirebaseProvider.txnstatus=1;
                   this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
                   this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,Date.now() );      
+                  this.cartSvc.thecart=[];
+                  this.navCtrl.push(OrdertransactionPage);
                 }
+                if (respdata.indexOf("STATUS=TXN_FAILURE")>-1)
+                {
+                  this.FirebaseProvider.txnstatus=0;
+                  this.navCtrl.push(OrdertransactionPage);
+                }                
               })
 
               

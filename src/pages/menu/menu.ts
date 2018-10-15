@@ -5,7 +5,8 @@ import{CartServiceProvider} from '../../providers/cart-service/cart-service'
 import { LoadingController } from 'ionic-angular'
 import { CartPage } from '../cart/cart';
 import { HomePage } from '../home/home';
-import {FirebaseProvider} from '../../providers/dbservice/firebasedb'
+import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
+import { OrdertransactionPage } from '../ordertransaction/ordertransaction';
 
 @Component({
   selector: 'page-menu',

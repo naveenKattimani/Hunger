@@ -1,0 +1,22 @@
+<!--
+  Generated template for the OrdertransactionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <div *ngIf="txnstatus==1" class="successmessage">Your Order has been placed successfully.</div>
+  <div *ngIf="txnstatus==1" ><ion-icon class="successmark" name="checkmark-circle"></ion-icon></div>
+  
+  <div *ngIf="txnstatus==0" class="successmessage">Transaction Failed.</div>
+  <div *ngIf="txnstatus==0" ><ion-icon class="failmark" name="close-circle"></ion-icon></div>
+  
+
+  <div  class="ordernum">Order Number:{{orderid}}</div>
+  <div class="deliveryheader">Delivery address:</div>
+  <div class="address">{{currentaddess}}</div>
+  
+  <button *ngIf="txnstatus==1" ion-button (click)="closeorderpage()" class="closebtn">Close</button>
+  <button *ngIf="txnstatus==0" ion-button (click)="backorderpage()" class="closebtn">Close</button>
+
+</ion-content>

@@ -30,4 +30,15 @@
     </form>
     <button class="delete"  ion-button block (click)="delete()">Delete</button>
       
+    <h2>My Orders</h2>
+    <ion-list >
+      <ion-item  *ngFor="let item of FirebaseProvider.myorderhistory; let i = index">
+          <ion-item  *ngFor="let item1 of item; let j = index">
+              <ion-row>
+                <ion-col col-8>{{item1.name}}</ion-col><br>
+                <ion-col col-4>{{item1.cost}}Rs</ion-col>
+              </ion-row>      
+            </ion-item>      
+      </ion-item>
+    </ion-list>
 </ion-content>
