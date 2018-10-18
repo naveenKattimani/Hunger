@@ -19,7 +19,7 @@ import { HomePage } from '../home/home';
 export class OrdertransactionPage {
   orderid=this.FirebaseProvider.orderid;
   txnstatus=this.FirebaseProvider.txnstatus;
-  currentaddess=this.myacc.currentaddess;
+  currentaddess=this.FirebaseProvider.currentaddess;
   
   constructor(public navCtrl: NavController,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, public navParams: NavParams) {
     console.log("????" + this.orderid+ this.currentaddess);

@@ -198,7 +198,7 @@ export class HomePage {
           });
           var myvar=setTimeout(() => {
             loading.dismiss();
-           }, 3000);
+           }, 2000);
            
           }, (error) => {
             //console.log(error);

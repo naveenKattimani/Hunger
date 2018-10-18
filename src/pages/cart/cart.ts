@@ -205,12 +205,16 @@ export class CartPage {
   
       //this.browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_blank","location=no");
       // window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no")
-      
+     let loading = this.loadingCtrl.create({
+        content: 'Loading...'
+      });
+
       const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
       bb.on("loadstart")
         .subscribe((ev: InAppBrowserEvent) => {
             if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
               console.log("----------------payment sucess");
+              loading.present();
               bb.close();
               var txnchecksum = 'https://restaurantpay-219614.appspot.com/TxnStatus?';
               txnchecksum=txnchecksum+"ORDER_ID="+this.timeStampInMs+"&"
@@ -219,6 +223,9 @@ export class CartPage {
                 data = data["_body"]; 
                 var respdata=data.toString();
                 //this.presentAlert(respdata);
+                var myvar=setTimeout(() => {
+                  loading.dismiss();
+                 }, 4000);
                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                 {
                   this.FirebaseProvider.txnstatus=1;
