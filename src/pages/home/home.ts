@@ -20,6 +20,7 @@ import {MyaccountProvider} from '../../providers/myaccount/myaccount';
 declare var google: any;
 declare var google;
 var address="";
+let loading;
 let map: any;
 let options = {
   enableHighAccuracy: true,
@@ -66,13 +67,13 @@ export class HomePage {
     ionViewCanEnter():boolean {
       this.currentaddress="Select location.";
       this.openrestaurantPage();
-      let loading = this.loadingCtrl.create({
+      loading = this.loadingCtrl.create({
         content: 'Loading...'
       });    
-      loading.present();    
-      var myvar=setTimeout(() => {
-        loading.dismiss();
-      }, 2000);
+      //loading.present();    
+      // var myvar=setTimeout(() => {
+      //   loading.dismiss();
+      // }, 2000);
       
       return true;
     }
@@ -89,11 +90,13 @@ export class HomePage {
       this.nearbyPlaces=[];
       this.restaurant.items=[];
       setTimeout(()=>
-      {this.initMap()},3000);
+      {this.initMap()},1000);
     }
 
     initMap(){
+        loading.present();
         navigator.geolocation.getCurrentPosition((location) => {
+          
           console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
           console.log("this.Google_Maps.newplace.lng  "+ this.Google_Maps.newplace.lng);
           if (this.Google_Maps.newplace.lat==0)
@@ -128,10 +131,14 @@ export class HomePage {
           });
         
         var service = new google.maps.places.PlacesService(map);     
-           
+        loading.dismiss();   
+        loading = this.loadingCtrl.create({
+          content: 'Loading...'
+        });
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
-        service.nearbySearch({
+          loading.present();
+          service.nearbySearch({
           location: {lat: myplace.lat, lng: myplace.lng},
           radius: 10000,
           type: ["restaurant"],
@@ -168,7 +175,8 @@ export class HomePage {
                         this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         
                       }
-                    });                  
+                    });  
+                    loading.dismiss();                
                 });
                     
                   // console.log("-----"+address);
