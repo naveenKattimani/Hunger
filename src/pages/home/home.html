@@ -39,10 +39,10 @@
     </ion-slide>
   </ion-slides>
   
-  <div class='divider'>Restarurants nearby</div>
+  <div class='divider'>Restaurants nearby</div>
 
   <div *ngIf="nearbyPlaces.length==0">
-      <div class="warnmesaage">No restaurants nearby you.</div>
+      <div class="warnmesaage">Not avaialable.</div>
   </div>
   <ion-list *ngIf="nearbyPlaces.length>0">
     <ion-item (click)="openrestaurantmenu(place.name,place.r_id)" class="searchlist" *ngFor = "let place of nearbyPlaces">

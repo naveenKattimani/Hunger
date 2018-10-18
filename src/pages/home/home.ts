@@ -161,9 +161,9 @@ export class HomePage {
                   //console.log("-----"+address);
                   }
                   
-                  this.restaurant.availablerestaurants.forEach((arr1)=>
-                    {
-                       console.log("----"+arr1.place_id +"---"+serachrestaurant['place_id'])
+                  // this.restaurant.availablerestaurants.forEach((arr1)=>
+                  //   {
+                  //      console.log("----"+arr1.place_id +"---"+serachrestaurant['place_id'])
                       // console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                       //if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
                       if(arr1.place_id===serachrestaurant['place_id'])
@@ -175,7 +175,7 @@ export class HomePage {
                         this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         
                       }
-                    });  
+                    //});  
                     loading.dismiss();                
                 });
                     
