@@ -131,13 +131,13 @@ export class HomePage {
           });
         
         var service = new google.maps.places.PlacesService(map);     
-        loading.dismiss();   
-        loading = this.loadingCtrl.create({
-          content: 'Loading...'
-        });
+        // loading.dismiss();   
+        // loading = this.loadingCtrl.create({
+        //   content: 'Loading...'
+        // });
+        // loading.present();
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
-          loading.present();
           service.nearbySearch({
           location: {lat: myplace.lat, lng: myplace.lng},
           radius: 10000,
@@ -176,7 +176,7 @@ export class HomePage {
                         
                       }
                     //});  
-                    loading.dismiss();                
+                                    
                 });
                     
                   // console.log("-----"+address);
@@ -185,10 +185,13 @@ export class HomePage {
               }
             });
           });
+          var myvar=setTimeout(() => {
+           }, 3000);
+          loading.dismiss(); 
           }, (error) => {
             //console.log(error);
           }, options);
-                  
+               
         }
 
         // calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
