@@ -171,10 +171,21 @@ export class HomePage {
                         console.log("----avialbale restaurants"+arr1.place_id.toUpperCase())
                       console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
-                        this.nearbyPlaces.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                        //this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                         this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
-                        
-                      }
+                          var nsearch=0;
+                          this.nearbyPlaces.forEach(element => {
+                            if(element.place_id===serachrestaurant['place_id'])
+                            {
+                              nsearch=1;
+                            }
+                          });
+                          if (nsearch===0)
+                          {
+                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                          
+                          }
+                        }
                     //});  
                                     
                 });
@@ -186,13 +197,15 @@ export class HomePage {
             });
           });
           var myvar=setTimeout(() => {
+            loading.dismiss();
            }, 3000);
-          loading.dismiss(); 
+           
           }, (error) => {
             //console.log(error);
           }, options);
                
         }
+
 
         // calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
         //   //console.log(lat1+"--"+lat2+"--"+long1+"--"+long2+"--");
