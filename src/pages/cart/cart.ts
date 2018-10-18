@@ -127,7 +127,7 @@ export class CartPage {
     // headers.append("Pragma", 'no-cache');
     const requestOptions = new RequestOptions({ headers: headers });
 
-    var link = 'http://192.168.0.6/foodie/pgRedirect.php';
+    var link = 'https://restaurantpay-219614.appspot.com/pgRedirect';
 
 
     var gencheksumparams="MID=Foodie22607738817864&"
@@ -212,7 +212,7 @@ export class CartPage {
             if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
               console.log("----------------payment sucess");
               bb.close();
-              var txnchecksum = 'http://192.168.0.6/foodie/TxnStatus.php?';
+              var txnchecksum = 'https://restaurantpay-219614.appspot.com/TxnStatus?';
               txnchecksum=txnchecksum+"ORDER_ID="+this.timeStampInMs+"&"
               this.Http.post(txnchecksum, '','')
               .subscribe(data => {
