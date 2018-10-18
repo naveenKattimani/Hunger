@@ -31,7 +31,6 @@ export class MyaccountPage {
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
-    this.FirebaseProvider.getorders('foodie-20006');
   }
 
   ionViewDidLoad() {
@@ -74,7 +73,7 @@ export class MyaccountPage {
             this.person.contactnumber="";
             this.person.address="";
             this.person.landmark="";
-            this.myacc.contactnum="";
+            this.FirebaseProvider.contactnum=undefined;
             this.showProfile = false;
             //delete from firebase need to implement
             //localStorage.clear();
@@ -97,7 +96,7 @@ export class MyaccountPage {
     this.address = this.person.address;
     this.landmark = this.person.landmark;
     this.showProfile = true;
-    this.myacc.contactnum=this.person.contactnumber;    
+       
     // (<any>window).FirebasePlugin.verifyPhoneNumber(this.contactnumber, 60, function (credential) {
     //   let verificationId = credential.verificationId;
     //   //This is STEP 2 — passing verification ID to verify Page
@@ -130,6 +129,7 @@ export class MyaccountPage {
                     this.presentAlert("User updated");                 
                     }
                   localStorage.setItem('PERSON', JSON.stringify(this.person));
+                  this.FirebaseProvider.contactnum=this.person.contactnumber; 
                 }              
                 else{                         
                   firebase.auth().signInAndRetrieveDataWithCredential(signInCredential).then((res) => {
@@ -140,8 +140,10 @@ export class MyaccountPage {
                     console.log('success');
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
                     this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.myacc.currentaddess,landmark: this.landmark,userid:res.user.uid})
+                    this.FirebaseProvider.contactnum=this.person.contactnumber; 
                   }).catch(function (error) {
                     this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
+                    this.FirebaseProvider.contactnum=undefined; 
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
                       console.error("wrong phone");
                     });
