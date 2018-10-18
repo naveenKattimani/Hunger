@@ -30,7 +30,7 @@ export class MyaccountPage {
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
-    this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
+    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};
   }
 
   ionViewDidLoad() {
@@ -139,10 +139,10 @@ export class MyaccountPage {
                     }
                     console.log('success');
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
-                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.myacc.currentaddess,landmark: this.landmark,userid:res.user.uid})
+                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.FirebaseProvider.currentaddess,landmark: this.landmark,userid:res.user.uid})
                     this.FirebaseProvider.contactnum=this.person.contactnumber; 
                   }).catch(function (error) {
-                    this.person = {name: undefined, contactnumber: undefined, address: this.myacc.currentaddess,landmark: undefined};
+                    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};
                     this.FirebaseProvider.contactnum=undefined; 
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
                       console.error("wrong phone");

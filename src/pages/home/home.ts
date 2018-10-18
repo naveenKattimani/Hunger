@@ -122,7 +122,7 @@ export class HomePage {
             {
             address=res[0].formatted_address;
             this.currentaddress=res[0].formatted_address;
-            this.myacc.currentaddess=this.currentaddress;
+            this.FirebaseProvider.currentaddess=this.currentaddress;
             console.log("My address-----"+ this.currentaddress);
             }
           });

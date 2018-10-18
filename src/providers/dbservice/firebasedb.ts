@@ -17,6 +17,7 @@ export class FirebaseProvider {
   dests=new Array();
   restaurantname;
   contactnum;
+  public currentaddess;
 
 
   constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider) {
