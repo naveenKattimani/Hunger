@@ -181,6 +181,7 @@ export class CartPage {
 
   paytmpage(chcksum,timeStampInMs)
   {      
+	chcksum=chcksum.replace(/\+/g,"%2B");
     this.ninapp=false;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
