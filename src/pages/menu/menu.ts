@@ -117,5 +117,11 @@ export class MenuPage {
     {
       this.navCtrl.push(HomePage);
     }
+
+    toggleSection(i) {
+      console.log("detss---"+this.FirebaseProvider.dests[i].type);
+      this.FirebaseProvider.dests[i].open = !this.FirebaseProvider.dests[i].open;
+    }
+  
 }
 

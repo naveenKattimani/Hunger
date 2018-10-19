@@ -46,7 +46,7 @@ page-menu {
 
     .categoryclass
     {
-        padding-left: 3%;
+        //padding-left: 3%;
         font-size: 14px;
         font-weight: bold;
         color: #ab662b;
@@ -303,5 +303,27 @@ page-menu {
     min-height: -webkit-fill-available;
     background: #eee;
     /* contain: strict; */
+    }
+
+
+    .toggleicon{
+        color: #567f90;
+        float: left;
+        padding-top: 5px;
+    }
+
+
+    .accordion-list {
+        background: color($colors, light);
+        height: 100%;
+    }
+    .section  {
+        background: #fff;
+        color: #000;
+        margin-bottom: 4px;
+        display:none;
+    }
+    .section-active {
+        color: #fff;
     }
 }

@@ -25,12 +25,23 @@
       </ion-grid>
       
       
-      <ion-list no-lines>
-          <ng-template ngFor let-dest [ngForOf]="FirebaseProvider.dests">
-
-            <div class="categoryclass">{{dest.type}}</div>
-
-          <ion-item class="itemmenu" *ngFor="let item of dest.items; let i = index">
+      <ion-list no-lines >
+          <ng-template ngFor let-dest let-i="index" [ngForOf]="FirebaseProvider.dests">
+          <ion-item no-padding> 
+              <ion-row>
+                  <ion-col col-1>
+                      <ion-icon (click)="toggleSection(i)" class="toggleicon" name="arrow-forward" *ngIf="!dest.open"></ion-icon>
+                      <ion-icon  (click)="toggleSection(i)" class="toggleicon" name="arrow-down" *ngIf="dest.open"></ion-icon>
+                  </ion-col>
+                  <ion-col col-11>
+                      <!-- <div class="categoryclass">{{dest.type}}</div> -->
+                      <div (click)="toggleSection(i)" class="categoryclass"  *ngIf="!dest.open">{{dest.type}}</div>
+                      <div  (click)="toggleSection(i)" class="categoryclass"  *ngIf="dest.open">{{dest.type}}</div>
+                  </ion-col>
+                
+              </ion-row>
+          </ion-item> 
+          <ion-item [ngClass]="{'section-active': dest.open, 'section': !dest.open}" class="itemmenu" *ngFor="let item of dest.items; let i = index">
             <ion-row>
                 <ion-col col-1>
                     <ion-icon class="listbullet" name="radio-button-on"></ion-icon>
