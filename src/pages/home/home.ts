@@ -73,6 +73,7 @@ export class HomePage {
     ionViewDidLoad() { 
       this.slides.autoplayDisableOnInteraction = false;
       console.log(this.restaurant.restaurantnames);
+      
     }
 
     ionViewCanEnter():boolean {
@@ -81,11 +82,6 @@ export class HomePage {
       loading = this.loadingCtrl.create({
         content: 'Loading...'
       });    
-      loading.present();    
-      var myvar=setTimeout(() => {
-        loading.dismiss();
-      }, 3000);
-      
       return true;
     }
     
@@ -108,7 +104,7 @@ export class HomePage {
             error => console.log('Error requesting location permissions', error)
           );
         }}) 
-       //this.navCtrl.push(MapPage)      
+      // this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
@@ -200,10 +196,10 @@ export class HomePage {
                           });
                           if (nsearch===0)
                           {
-                            firebase.storage().ref().child(arr1.r_id+'.jpg').getDownloadURL().then(url => arr1.img_id = url); 
+                            //firebase.storage().ref().child(arr1.r_id+'.jpg').getDownloadURL().then(url => arr1.img_id = url); 
           
-                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:arr1.img_id});
-                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:arr1.img_id});
+                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
+                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
                           }
                         }
                     //});  

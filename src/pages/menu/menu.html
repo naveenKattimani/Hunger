@@ -11,7 +11,7 @@
         <ion-row wrap>
           <ion-col col-6 *ngFor="let item of FirebaseProvider.recommendedname; let i = index">              
               <ion-item class="recommended_boxshadow">   
-                  <img class="recommended_box" src={{item.url}}>
+                  <img class="recommended_box" src="assets/imgs/{{item.OrderId}}.jpg">
               </ion-item>
               <p class="recommendtitle">{{item.name  }}  -{{item.cost}}Rs</p>
               <div class="recbuttons">
@@ -30,8 +30,8 @@
           <ion-item no-padding> 
               <ion-row>
                   <ion-col col-1>
-                      <ion-icon (click)="toggleSection(i)" class="toggleicon" name="arrow-forward" *ngIf="!dest.open"></ion-icon>
-                      <ion-icon  (click)="toggleSection(i)" class="toggleicon" name="arrow-down" *ngIf="dest.open"></ion-icon>
+                      <ion-icon (click)="toggleSection(i)" class="toggleicon" name="arrow-dropright-circle" *ngIf="!dest.open"></ion-icon>
+                      <ion-icon  (click)="toggleSection(i)" class="toggleicon" name="arrow-dropdown-circle" *ngIf="dest.open"></ion-icon>
                   </ion-col>
                   <ion-col col-11>
                       <!-- <div class="categoryclass">{{dest.type}}</div> -->

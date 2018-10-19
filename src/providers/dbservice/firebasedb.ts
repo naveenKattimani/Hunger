@@ -60,7 +60,7 @@ export class FirebaseProvider {
       //recommended items
       if (this.itemname[i].recommended=="1")
         {
-          firebase.storage().ref().child(this.itemname[i].OrderId+'.jpg').getDownloadURL().then(url => this.srcurl = url); 
+          //firebase.storage().ref().child(this.itemname[i].OrderId+'.jpg').getDownloadURL().then(url => this.srcurl = url); 
           this.itemname[i].url=this.srcurl;      
           this.recommendedname.push(this.itemname[i]);
         }
