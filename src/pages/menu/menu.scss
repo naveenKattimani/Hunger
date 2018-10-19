@@ -313,17 +313,10 @@ page-menu {
     }
 
 
-    .accordion-list {
-        background: color($colors, light);
-        height: 100%;
-    }
     .section  {
-        background: #fff;
-        color: #000;
-        margin-bottom: 4px;
         display:none;
     }
-    .section-active {
-        color: #fff;
+    .section-active { 
+        display:block;
     }
 }
