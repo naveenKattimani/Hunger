@@ -17,6 +17,7 @@ import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import firebase from 'firebase';
 
 declare var google: any;
 declare var google;
@@ -80,10 +81,10 @@ export class HomePage {
       loading = this.loadingCtrl.create({
         content: 'Loading...'
       });    
-      //loading.present();    
-      // var myvar=setTimeout(() => {
-      //   loading.dismiss();
-      // }, 2000);
+      loading.present();    
+      var myvar=setTimeout(() => {
+        loading.dismiss();
+      }, 3000);
       
       return true;
     }
@@ -107,7 +108,7 @@ export class HomePage {
             error => console.log('Error requesting location permissions', error)
           );
         }}) 
-      // this.navCtrl.push(MapPage)      
+       //this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
@@ -132,8 +133,6 @@ export class HomePage {
           {
           myplace.lat=this.Google_Maps.newplace.lat;
           myplace.lng=this.Google_Maps.newplace.lng;
-          //this.Google_Maps.newplace.lat=0;
-          //this.Google_Maps.newplace.lat=0;
           }
           
           var distkm;          
@@ -154,12 +153,7 @@ export class HomePage {
             }
           });
         
-        var service = new google.maps.places.PlacesService(map);     
-        // loading.dismiss();   
-        // loading = this.loadingCtrl.create({
-        //   content: 'Loading...'
-        // });
-        // loading.present();
+        var service = new google.maps.places.PlacesService(map);  
         loading.present();
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
@@ -206,8 +200,10 @@ export class HomePage {
                           });
                           if (nsearch===0)
                           {
-                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
-                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
+                            firebase.storage().ref().child(arr1.r_id+'.jpg').getDownloadURL().then(url => arr1.img_id = url); 
+          
+                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:arr1.img_id});
+                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:arr1.img_id});
                           }
                         }
                     //});  

@@ -26,7 +26,6 @@ export class MenuPage {
     this.restaurantname=this.Restaurant.selectedrestaurant;
     this.restaurantid=this.Restaurant.selectedrestaurantid;
     this.items=this.FirebaseProvider.itemname;
-    //console.log("---"+ this.restaurantname);
   }
 
   ionViewDidLoad() {
@@ -37,7 +36,6 @@ export class MenuPage {
   {
     return(this.cartSvc.thecart.length>0 ? 'green' : 'darklategrey');
   }
-  
   
   // items = [
   //   {type:'burgers',title:'wow stanadard',cost:"25",quantity:0,orderID:'101',recommended:'1'},
@@ -50,7 +48,6 @@ export class MenuPage {
   // ];
 
   itemSelected(item: string) {
-    //console.log("Selected Item", item);
   }
   
     incrementQty(item: any) {

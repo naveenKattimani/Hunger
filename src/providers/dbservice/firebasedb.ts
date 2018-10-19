@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import firebase from 'firebase';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
@@ -18,9 +18,10 @@ export class FirebaseProvider {
   restaurantname;
   contactnum;
   public currentaddess;
+  public srcurl;
 
 
-  constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider) {
+  constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider,public zone:NgZone) {
     let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){
       this.contactnum=person.contactnumber;
@@ -30,14 +31,11 @@ export class FirebaseProvider {
    }
 
   getrestaurants() {
-    //return this.afd.list('/restaurants/foodie_2005');
     var i=0;
     let ref = firebase.database().ref('/restaurants');
     ref.on('child_added', (snapshot)=>{
-      //console.log("-------restaurant ID"+snapshot.key);
       this.restaurantsfb[i]=new Array();
       ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
-        //console.log("key---"+snapshot.key + ":value------" + snapshot.val());
         this.restaurantsfb[i][snapshot.key]=snapshot.val();
       })
       i=i+1;
@@ -45,8 +43,6 @@ export class FirebaseProvider {
   }
 
   getmenu(restaurantid) {
-    //return this.afd.list('/restaurants/foodie_2005');
-    
     this.itemname=[];
     this.dests=[];
     this.recommendedname=[];
@@ -57,39 +53,36 @@ export class FirebaseProvider {
     let ref = firebase.database().ref('/Menu').child(restaurantid);
     ref.on('child_added', (snapshot)=>{
       listlength=snapshot.numChildren();
-      //console.log("-------restaurant ID"+snapshot.key);
       this.itemname[i]=new Array();
       ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
-        //console.log("key---"+snapshot.key + ":value------" + snapshot.val());
         this.itemname[i][snapshot.key]=snapshot.val();
       })
       //recommended items
       if (this.itemname[i].recommended=="1")
         {
+          firebase.storage().ref().child(this.itemname[i].OrderId+'.jpg').getDownloadURL().then(url => this.srcurl = url); 
+          this.itemname[i].url=this.srcurl;      
           this.recommendedname.push(this.itemname[i]);
         }
-      //item lists;
-        console.log(">>-----length"+listlength +"---" + i);      
-        
           if (!itemsbytype[this.itemname[i].type]) {
-            itemsbytype[this.itemname[i].type] = [];      }
+            itemsbytype[this.itemname[i].type] = [];      
+          }
           itemsbytype[this.itemname[i].type].push(this.itemname[i]);
-          //console.log("-----------"+ itemsbytype[item.type][0].title);
-          this.dests=[];
-          // if (listlength==i)
-          // {
-            console.log(">>-----inside if"+listlength +"---" + i);   
+          this.dests=[]; 
             for (let dest in itemsbytype) {
-              //console.log("-----------"+ dest);
-              this.dests.push({type: dest, items: itemsbytype[dest]});     
-              //console.log("----------->>"+ this.dests.length); 
+              this.dests.push({type: dest, items: itemsbytype[dest]}); 
             }
-          //}
       i=i+1;
-    })
-    
+    })    
   }
 
+  display(name)
+  {
+    firebase.storage().ref().child(name+'.jpg').getDownloadURL().then(function(url) {                        
+     this.srcurl=url;       
+                 
+   });
+  }
   placeorder(selectedrestaurantid,selectedrestaurant,orderid,thecart) {
     var index=1;
     var orderef = firebase.database().ref("OrderDetails/");   
@@ -121,13 +114,11 @@ export class FirebaseProvider {
   }
 
   getorderhistory(selectedrestaurantid,ordernumber) {
-    //this.contactnum='9591317407';
     var i=0;
     let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/'+ordernumber);
     ref.on('child_added', (snapshot)=>{
       this.myorders[i]=new Array();
       ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
-        console.log(">>>>>>>>>key---"+snapshot.key + ":value------" + snapshot.val());
         this.myorders[i][snapshot.key]=snapshot.val();
       })
       i=i+1;
@@ -136,7 +127,6 @@ export class FirebaseProvider {
   }
 
   getorders(selectedrestaurantid) {
-    //this.contactnum='9591317407';
     var i=0;
     let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/');
     ref.on('child_added', (snapshot)=>{
