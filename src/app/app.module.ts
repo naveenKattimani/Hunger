@@ -31,7 +31,7 @@ import { Dialogs } from '@ionic-native/dialogs';
 import { MyaccountProvider } from '../providers/myaccount/myaccount';
 import { OrdertransactionPage } from '../pages/ordertransaction/ordertransaction';
 import { SMS } from '@ionic-native/sms';
-//import { HTTP } from 'ionic-native';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
 
 
@@ -85,6 +85,7 @@ import { SMS } from '@ionic-native/sms';
     Dialogs,
     MyaccountProvider,
     SMS,
+    LocationAccuracy,
   ]
 })
 export class AppModule {}

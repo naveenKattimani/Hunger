@@ -27,6 +27,7 @@
     "@ionic-native/google-maps": "^4.12.0",
     "@ionic-native/http": "^4.12.2",
     "@ionic-native/in-app-browser": "^4.15.0",
+    "@ionic-native/location-accuracy": "^4.16.0",
     "@ionic-native/native-geocoder": "^4.12.2",
     "@ionic-native/network": "^4.12.2",
     "@ionic-native/sms": "^4.15.0",
@@ -53,6 +54,7 @@
     "cordova-plugin-nativegeocoder": "^3.1.2",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-paytm": "0.0.4",
+    "cordova-plugin-request-location-accuracy": "^2.2.3",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sms-plugin": "^0.1.13",
@@ -101,7 +103,8 @@
       },
       "cordova-plugin-dialogs": {},
       "cordova-plugin-firebase": {},
-      "cordova-sms-plugin": {}
+      "cordova-sms-plugin": {},
+      "cordova-plugin-request-location-accuracy": {}
     },
     "platforms": [
       "browser",

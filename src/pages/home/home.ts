@@ -16,6 +16,7 @@ import { CartPage } from '../cart/cart';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
 declare var google: any;
 declare var google;
@@ -54,12 +55,21 @@ export class HomePage {
     map: any;
     currentaddress: any;
     @ViewChild(Slides) slides: Slides;
-    constructor(public FirebaseProvider:FirebaseProvider,public myacc:MyaccountProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
-      
+    constructor(public FirebaseProvider:FirebaseProvider,private locationAccuracy: LocationAccuracy,public myacc:MyaccountProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        if(canRequest) {
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            () =>{
+              setTimeout(()=>
+              {this.initMap()},200);              
+            console.log("success") 
+            },
+            error => console.log('Error requesting location permissions', error)
+          );
+        }})   
     }
  
-    ionViewDidLoad() {
-      //this.openrestaurantPage();  
+    ionViewDidLoad() { 
       this.slides.autoplayDisableOnInteraction = false;
       console.log(this.restaurant.restaurantnames);
     }
@@ -83,7 +93,21 @@ export class HomePage {
     }   
 
      openmapPage(){
-      this.navCtrl.push(MapPage)      
+      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        if(canRequest) {
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            () =>{
+              setTimeout(()=>
+              {this.initMap()},100);
+              setTimeout(()=>
+              {this.navCtrl.push(MapPage);},200);
+              
+            console.log("success") 
+            },
+            error => console.log('Error requesting location permissions', error)
+          );
+        }}) 
+      // this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
@@ -94,7 +118,7 @@ export class HomePage {
     }
 
     initMap(){
-        loading.present();
+        
         navigator.geolocation.getCurrentPosition((location) => {
           
           console.log("this.Google_Maps.newplace.lat  "+ this.Google_Maps.newplace.lat);
@@ -136,6 +160,7 @@ export class HomePage {
         //   content: 'Loading...'
         // });
         // loading.present();
+        loading.present();
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
           service.nearbySearch({
@@ -172,7 +197,6 @@ export class HomePage {
                       console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
                         //this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
-                        this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                           var nsearch=0;
                           this.nearbyPlaces.forEach(element => {
                             if(element.place_id===serachrestaurant['place_id'])
@@ -183,7 +207,7 @@ export class HomePage {
                           if (nsearch===0)
                           {
                             this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
-                          
+                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.png'});
                           }
                         }
                     //});  
