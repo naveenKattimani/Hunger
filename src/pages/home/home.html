@@ -55,7 +55,13 @@
             <a  class="restaurantname">{{place.name}}</a>
             <p class="restaurantdetail">{{place.desc}}</p>
             <br/>
-            <p class='restaurantrating'>***</p>
+            <!-- <p class='restaurantrating'>Rating*:{{place.rating}}</p> -->
+            <p class='restaurantrating'>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <span class='ratingcolor' *ngFor="let star of place.rating">
+                    <i class="{{star}}"></i>
+                  </span>
+            </p>
             <p class='restaurantdistance'>{{place.distance}}KM</p>
         </ion-col>      
     </ion-row>

@@ -38,7 +38,7 @@ var myplace = {lat: 0, lng: 0};
 
 
 export class HomePage {
-
+  starList=[];
   slideData = [
   { image: "assets/imgs/1.jpg" },
   { image: "assets/imgs/2.jpg" },
@@ -183,6 +183,7 @@ export class HomePage {
                       //if(arr1.name.toUpperCase()===serachrestaurant.name.toUpperCase() && arr1.place_id===serachrestaurant['place_id'])
                       if(arr1.place_id===serachrestaurant['place_id'])
                       {
+                        console.log("-------ratings"+serachrestaurant.rating);
                         console.log("----avialbale restaurants"+arr1.place_id.toUpperCase())
                       console.log("----avialbale restaurants"+arr1.name.toUpperCase())
                         console.log("-----place id"+serachrestaurant.name.toUpperCase() + serachrestaurant['place_id']);
@@ -196,10 +197,16 @@ export class HomePage {
                           });
                           if (nsearch===0)
                           {
-                            //firebase.storage().ref().child(arr1.r_id+'.jpg').getDownloadURL().then(url => arr1.img_id = url); 
-          
-                            this.nearbyPlaces.push({name:serachrestaurant.name,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
-                            this.restaurant.items.push({name:serachrestaurant.name,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
+                            this.starList=[];
+                            for(i=1; i<=5; i++) {
+                              if(i<= serachrestaurant.rating) {
+                                this.starList.push("fa fa-star checked");
+                              } else {
+                                this.starList.push("fa fa-star");
+                              }
+                            }
+                            this.nearbyPlaces.push({name:serachrestaurant.name,rating:this.starList,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
+                            this.restaurant.items.push({name:serachrestaurant.name,rating:serachrestaurant.rating,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
                           }
                         }
                     //});  
