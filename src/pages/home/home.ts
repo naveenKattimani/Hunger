@@ -80,7 +80,8 @@ export class HomePage {
       this.currentaddress="Select location.";
       this.openrestaurantPage();
       loading = this.loadingCtrl.create({
-        content: 'Loading...'
+        spinner: 'bubbles',
+        content: 'Loading',
       });    
       return true;
     }
@@ -104,7 +105,7 @@ export class HomePage {
             error => console.log('Error requesting location permissions', error)
           );
         }}) 
-      // this.navCtrl.push(MapPage)      
+       //this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
