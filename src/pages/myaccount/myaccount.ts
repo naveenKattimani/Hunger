@@ -8,6 +8,7 @@ import { MapPage } from '../map/map';
 import { HomePage } from '../home/home';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import { Restaurants } from '../../providers/restaurants/restaurants';
+import { LoadingController } from 'ionic-angular'
 
 
 @IonicPage()
@@ -29,8 +30,19 @@ export class MyaccountPage {
   userid="";
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(public navCtrl: NavController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Loading',
+    });
+    loading.present();
+    //this.FirebaseProvider.getmyorderhistory();
+    var myvar=setTimeout(() => {
+      this.FirebaseProvider.getmyorderhistory();
+      this.FirebaseProvider.getorders();
+      loading.dismiss();
+     }, 3000);
   }
 
   ionViewDidLoad() {
@@ -46,7 +58,7 @@ export class MyaccountPage {
   //     // Reset reCAPTCHA?
   //   }
   // }); 
-   
+  this.FirebaseProvider.getmyorderhistory();
    let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){
       this.person = person;

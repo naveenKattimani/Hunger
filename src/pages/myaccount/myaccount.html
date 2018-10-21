@@ -32,13 +32,38 @@
       
     <h2>My Orders</h2>
     <ion-list >
-      <ion-item  *ngFor="let item of FirebaseProvider.myorderhistory; let i = index">
-          <ion-item  *ngFor="let item1 of item; let j = index">
+      <ion-item  *ngFor="let items of FirebaseProvider.myorders; let i = index">
               <ion-row>
-                <ion-col col-8>{{item1.name}}</ion-col><br>
-                <ion-col col-4>{{item1.cost}}Rs</ion-col>
-              </ion-row>      
-            </ion-item>      
+                <ion-col col-8>{{items.orderid}}</ion-col>
+                <ion-col col-4>{{items.orderdate}}</ion-col>
+              </ion-row>  
+
+              <ion-list   *ngFor="let gitem of FirebaseProvider.gorderdetails; let i = index">
+                <ion-item *ngIf="items.orderid==gitem.cartOrderId">
+                  <ion-row>
+                    <ion-col col-8>{{gitem.name}}</ion-col>
+                  </ion-row> 
+                </ion-item> 
+              </ion-list> 
+              
+              <ion-list>
+                  <ion-item>
+                      Address: {{items.address}}
+                  </ion-item> 
+                  <ion-item>
+                      Packagaing charge: {{items.packagingcharge}}
+                  </ion-item>
+                  <ion-item>
+                      Delivery Charge: {{items.deliverycharge}}
+                  </ion-item> 
+                  <ion-item>
+                      Total Cart Amount: {{items.totalcartamount}}
+                  </ion-item>
+              </ion-list>
+
+              
+                             
+         
       </ion-item>
     </ion-list>
 </ion-content>

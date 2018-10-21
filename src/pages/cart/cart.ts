@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NewTransactionPage } from '../instamojo/new_transaction';
 import { IonicPage, AlertController,NavController,Platform, DateTime } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
@@ -229,8 +228,8 @@ export class CartPage {
                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                 {
                   this.FirebaseProvider.txnstatus=1;
-                  this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.timeStampInMs,this.cartSvc.thecart);
-                  this.FirebaseProvider.orderhistory(this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,Date.now() );      
+                  this.FirebaseProvider.placeorder(this.timeStampInMs,this.cartSvc.thecart);
+                  this.FirebaseProvider.orderhistory(this.restaurant.selectedrestaurantid,this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,DateTime );      
                   this.cartSvc.thecart=[];
                   this.navCtrl.push(OrdertransactionPage);
                 }

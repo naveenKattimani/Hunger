@@ -72,8 +72,7 @@ export class HomePage {
  
     ionViewDidLoad() { 
       this.slides.autoplayDisableOnInteraction = false;
-      console.log(this.restaurant.restaurantnames);
-      
+      console.log(this.restaurant.restaurantnames);      
     }
 
     ionViewCanEnter():boolean {
@@ -265,7 +264,8 @@ export class HomePage {
           this.catsvc.thecart=[]; 
           
           let loading = this.loadingCtrl.create({
-            content: 'Loading...'
+            spinner: 'bubbles',
+            content: 'Loading',
           });    
           loading.present();    
           var myvar=setTimeout(() => {

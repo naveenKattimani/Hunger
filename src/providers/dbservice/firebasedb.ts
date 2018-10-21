@@ -3,6 +3,7 @@ import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import firebase from 'firebase';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 import {CartServiceProvider} from '../../providers/cart-service/cart-service';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
  
 @Injectable()
@@ -13,6 +14,7 @@ export class FirebaseProvider {
   itemname=new Array();
   myorderhistory=new Array();
   myorders=new Array();
+  gorderdetails=new Array();
   recommendedname=new Array();
   dests=new Array();
   restaurantname;
@@ -83,58 +85,154 @@ export class FirebaseProvider {
                  
    });
   }
-  placeorder(selectedrestaurantid,selectedrestaurant,orderid,thecart) {
+  placeorder(orderid,thecart) {
     var index=1;
     var orderef = firebase.database().ref("OrderDetails/");   
     this.cartsvc.thecart.forEach(cartitem => {   
-          orderef.child(selectedrestaurantid).child(this.contactnum).child(orderid).child("item"+index).set({
+          orderef.child(orderid).child("item"+index).set({
           OrderId:cartitem.OrderId,
           name:cartitem.name,
           cost:cartitem.cost,
           quantity:cartitem.quantity,
           Ordertype:cartitem.type,
+          
         });
         index=index+1;
      });
   }
 
-  orderhistory(orderid,totalcartamount,packagingcharge,deliverycharge,orderdate) {
-    var index=1;
-    var orderef = firebase.database().ref("OrderAmount/");
-    this.cartsvc.thecart.forEach(cartitem => {   
-          orderef.child(orderid).set({
-            contactnumber:this.contactnum,
-            totalcartamount:totalcartamount,
-            packagingcharge:packagingcharge,
-            deliverycharge:deliverycharge,
-            orderdate:orderdate,
-        });
-        index=index+1;
-     });
+  orderhistory(selectedrestaurantid,orderid,totalcartamount,packagingcharge,deliverycharge,orderdate) {
+    var orderef = firebase.database().ref("OrderHistory/");  
+      orderef.child(orderid).set({
+        contactnumber:this.contactnum,
+        totalcartamount:totalcartamount,
+        packagingcharge:packagingcharge,
+        deliverycharge:deliverycharge,
+        orderdate:orderdate,
+        address:this.currentaddess,
+        restaurantid:selectedrestaurantid
+    });
   }
 
-  getorderhistory(selectedrestaurantid,ordernumber) {
+  getmyorderhistory() {
+    this.contactnum='9591317407';
     var i=0;
-    let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/'+ordernumber);
+    var nflag;
+    this.myorders=[];
+    let ref = firebase.database().ref('/OrderHistory/');
     ref.on('child_added', (snapshot)=>{
+      var orderid=snapshot.key;      
       this.myorders[i]=new Array();
-      ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{
-        this.myorders[i][snapshot.key]=snapshot.val();
+      nflag=0;
+      ref.child(snapshot.key+'/').on('child_added', (snapshot)=>{ 
+        
+        if (snapshot.key=="contactnumber" && snapshot.val()==this.contactnum)
+        {
+          //console.log(snapshot.key);
+          nflag=1;
+          this.myorders[i].orderid=orderid;
+          //console.log('orderid'+orderid);
+          firebase.database().ref('/OrderHistory/'+ orderid +'/').on('child_added', (snapshot)=>{
+            switch(snapshot.key)
+            {
+            case ('orderdate'):
+              this.myorders[i].orderdate=snapshot.val();
+              break
+            case ('address'):
+              this.myorders[i].address=snapshot.val();
+              break
+            case ('restaurantid'):
+              this.myorders[i].restaurantid=snapshot.val();
+              break
+            case ('packagingcharge'):
+              this.myorders[i].packagingcharge=snapshot.val();
+              break
+            case ('deliverycharge'):
+              this.myorders[i].deliverycharge=snapshot.val();
+              break
+            case ('totalcartamount'):
+              this.myorders[i].totalcartamount=snapshot.val();
+              break
+            }            
+          });  
+        }  
+              
       })
+      if(nflag==1)
       i=i+1;
-    })
-    
+    })    
   }
 
-  getorders(selectedrestaurantid) {
+  getorders() {
+    for(var i=0;i<this.myorders.length;i++) {
+      console.log('====='+this.myorders[i].orderid);
+      this.getorderhistory(this.myorders[i].orderid);
+    }
+  }
+
+  getorderhistory(e1) {
+    var myorderdetails=[];
     var i=0;
-    let ref = firebase.database().ref('/OrderDetails/'+selectedrestaurantid+'/'+this.contactnum+'/');
-    ref.on('child_added', (snapshot)=>{
-      console.log("----order number:"+snapshot.key);
-      this.getorderhistory(selectedrestaurantid,snapshot.key)
-      
-      i=i+1;
-    })
+    var l=0;
+    //var e1=this.myorders[0].orderid;
+    //this.myorders.forEach(function(el) {
+        //this.myorderdetails[i]=new Array();
+        //console.log('orderid---------------'+e1);
+        var ref=firebase.database().ref('/OrderDetails/');
+        return(ref.child(e1 +'/').on('child_added', (snapshot)=>{    
+           //console.log('key---------------'+snapshot.key);
+           myorderdetails[i]=new Array();
+           myorderdetails[i].cartOrderId=e1;
+          ref.child(e1 +'/'+snapshot.key+'/').on('child_added', (snapshot)=>{ 
+            // console.log('key---------------'+snapshot.key);
+            // console.log('OrderId'==snapshot.key);
+            // console.log('---------------'+i);
+            switch(snapshot.key)
+            {
+            case ('OrderId'):
+              //console.log('--------------in-'+snapshot.key);
+              myorderdetails[i].OrderId=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].OrderId);
+              break;
+            case ('Ordertype'):
+              //console.log('--------------in-'+snapshot.key);
+              myorderdetails[i].Ordertype=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].Ordertype);
+              break;
+            case ('cost'):
+              //console.log('--------------in-'+snapshot.key);
+              myorderdetails[i].cost=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].cost);
+              break;
+            case ('name'):
+              //console.log('--------------in-'+snapshot.key);
+              myorderdetails[i].name=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].name);
+              break;
+            case ('quantity'):
+              //console.log('--------------in-'+snapshot.key);
+              myorderdetails[i].quantity=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].quantity);
+              break;
+            }
+          })
+        this.pushorder(myorderdetails[i])      
+        i=i+1; 
+      }));
+      //});
+  }
+
+  pushorder(myorderdetails)
+  {
+    var i=this.gorderdetails.length;
+    this.gorderdetails[i]=new Array();
+    this.gorderdetails[i]['OrderId']=myorderdetails.OrderId;
+    this.gorderdetails[i].Ordertype=myorderdetails.Ordertype;
+    this.gorderdetails[i].cost=myorderdetails.cost;
+    this.gorderdetails[i].name=myorderdetails.name;
+    this.gorderdetails[i].quantity=myorderdetails.quantity;
+    this.gorderdetails[i].cartOrderId=myorderdetails.cartOrderId;
+    console.log('--------------in-'+i+'>>>'+this.gorderdetails[i]['OrderId']+this.gorderdetails[i].name);
   }
 
   addItem(name) {
