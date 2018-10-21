@@ -227,9 +227,16 @@ export class CartPage {
                  }, 4000);
                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                 {
+                  var currentdate = new Date();
+                  var datetime = currentdate.getDate() + "/"
+                  + (currentdate.getMonth()+1)  + "/" 
+                  + currentdate.getFullYear() + " "  
+                  + currentdate.getHours() + ":"  
+                  + currentdate.getMinutes() + ":" 
+                  + currentdate.getSeconds();
                   this.FirebaseProvider.txnstatus=1;
                   this.FirebaseProvider.placeorder(this.timeStampInMs,this.cartSvc.thecart);
-                  this.FirebaseProvider.orderhistory(this.restaurant.selectedrestaurantid,this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,DateTime );      
+                  this.FirebaseProvider.orderhistory(this.restaurant.selectedrestaurantid,this.timeStampInMs,this.totalcartamount,this.packagingcharge,this.deliverycharge,datetime );      
                   this.cartSvc.thecart=[];
                   this.navCtrl.push(OrdertransactionPage);
                 }
