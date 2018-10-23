@@ -164,6 +164,7 @@ export class FirebaseProvider {
   }
 
   getorders() {
+    this.gorderdetails=[];
     for(var i=0;i<this.myorders.length;i++) {
       console.log('====='+this.myorders[i].orderid);
       this.getorderhistory(this.myorders[i].orderid);

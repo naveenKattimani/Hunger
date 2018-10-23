@@ -155,7 +155,7 @@ export class HomePage {
         {
           service.nearbySearch({
           location: {lat: myplace.lat, lng: myplace.lng},
-          radius: 10000,
+          radius: 3000,
           type: ["restaurant"],
           name:arr1.name,
           }, (results,status,pagination) => {

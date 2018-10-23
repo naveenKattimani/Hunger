@@ -112,7 +112,7 @@ export class CartPage {
     // this.FirebaseProvider.orderid=this.timeStampInMs;
     // this.navCtrl.push(OrdertransactionPage);
     //this.presentAlert(this.myacc.contactnum);
-
+    
     if(this.FirebaseProvider.contactnum!==undefined)
     {
     this.timeStampInMs=Date.now();

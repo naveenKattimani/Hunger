@@ -45,6 +45,8 @@ export class MyaccountPage {
      }, 3000);
   }
 
+  
+
   ionViewDidLoad() {
     
     //this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
