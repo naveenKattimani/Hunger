@@ -153,7 +153,7 @@ export class MyaccountPage {
                     }
                     console.log('success');
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
-                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.FirebaseProvider.currentaddess,landmark: this.landmark,userid:res.user.uid})
+                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark,userid:res.user.uid})
                     this.FirebaseProvider.contactnum=this.person.contactnumber; 
                   }).catch(function (error) {
                     this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};

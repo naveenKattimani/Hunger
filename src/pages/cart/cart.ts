@@ -38,11 +38,10 @@ export class CartPage {
   ninapp=false;
 
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
-    // this.person = JSON.parse(localStorage.getItem('PERSON'));
-    // if (this.person){
-    //   this.contactnum=this.person.contactnumber;
-    //   console.log("ccccccccc"+this.contactnum);
-    // }
+    this.person = JSON.parse(localStorage.getItem('PERSON'));
+    if (this.person){
+      this.FirebaseProvider.landmark=this.person.landmark;
+    }
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
   }
@@ -113,7 +112,7 @@ export class CartPage {
     // this.navCtrl.push(OrdertransactionPage);
     //this.presentAlert(this.myacc.contactnum);
     
-    if(this.FirebaseProvider.contactnum!==undefined)
+    if(this.FirebaseProvider.contactnum!==undefined && this.FirebaseProvider.currentaddess!==undefined)
     {
     this.timeStampInMs=Date.now();
     this.FirebaseProvider.orderid=this.timeStampInMs;

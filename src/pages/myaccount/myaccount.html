@@ -31,7 +31,10 @@
     <button class="delete"  ion-button block (click)="delete()">Delete</button>
       
     <h2>My Orders</h2>
-    <ion-list no-line class='myorders'>
+    <div class='noorders' *ngIf="FirebaseProvider.gorderdetails.length==0">
+        No Orders
+    </div>
+    <ion-list *ngIf="FirebaseProvider.myorders.length>0 && FirebaseProvider.gorderdetails.length>0" no-line class='myorders'>
       <ion-item   *ngFor="let items of FirebaseProvider.myorders; let i = index">
               <ion-row class='itemheight'>
                 <ion-col class='ordername' col-6>{{items.orderid}}</ion-col>
@@ -46,29 +49,29 @@
                   </ion-row> 
                 </ion-item> 
               </ion-list> 
-              <div class='pricedetails'>
+              <div  class='deliveryprice' >
                 <div >
                   <ion-row>
-                    <ion-col col-6>Packagaing charge:</ion-col>
-                    <ion-col col-4>{{items.packagingcharge}}RS</ion-col> 
+                    <ion-col col-9>Packagaing charge:</ion-col>
+                    <ion-col class='price' col-3>{{items.packagingcharge}}RS</ion-col> 
                   </ion-row>                  
                 </div>
                 <div >
                   <ion-row>
-                    <ion-col col-6>Delivery Charge:</ion-col>
-                    <ion-col col-4>{{items.deliverycharge}}Rs</ion-col> 
+                    <ion-col col-9>Delivery Charge:</ion-col>
+                    <ion-col class='price' col-3>{{items.deliverycharge}}Rs</ion-col> 
                   </ion-row>
                 </div>
                 <div >
                   <ion-row>
-                    <ion-col col-6>Total Cart Amount:</ion-col>
-                    <ion-col col-4>{{items.totalcartamount}}Rs</ion-col>
+                    <ion-col col-9>Total Cart Amount:</ion-col>
+                    <ion-col class='price' col-3>{{items.totalcartamount}}Rs</ion-col>
                   </ion-row>
               </div>
                 <div >
                   <ion-row>
-                    <ion-col col-6>Total Amount Paid:</ion-col>
-                    <ion-col col-4>{{items.totalcartamount+items.deliverycharge+items.packagingcharge}}Rs</ion-col> 
+                    <ion-col col-9>Total Amount Paid:</ion-col>
+                    <ion-col class='price' col-3>{{items.totalcartamount+items.deliverycharge+items.packagingcharge}}Rs</ion-col> 
                   </ion-row>
                 </div>
                 

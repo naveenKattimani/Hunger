@@ -98,8 +98,8 @@
     <allow-navigation href="http://localhost:8100" />
     <plugin name="cordova-sms-plugin" spec="^0.1.13" />
     <plugin name="cordova-plugin-request-location-accuracy" spec="^2.2.3" />
+    <allow-navigation href="http://172.26.4.1:8100" />
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="6.3.0" />
-    <allow-navigation href="http://172.26.4.1:8100" />
 </widget>

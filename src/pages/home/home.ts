@@ -57,27 +57,27 @@ export class HomePage {
     currentaddress: any;
     @ViewChild(Slides) slides: Slides;
     constructor(public FirebaseProvider:FirebaseProvider,private locationAccuracy: LocationAccuracy,public myacc:MyaccountProvider,public catsvc:CartServiceProvider,public navCtrl: NavController, public loadingCtrl: LoadingController,private Google_Maps:Google_Maps,private restaurant:Restaurants, private nativeGeocoder: NativeGeocoder,private geolocation: Geolocation,public dataService: Restaurants,private ngZone: NgZone) {
+   
+    }
+ 
+    ionViewDidLoad() { 
+      this.slides.autoplayDisableOnInteraction = false;
+    }
+
+    ionViewCanEnter():boolean {
+      this.currentaddress="Select location.";
       this.locationAccuracy.canRequest().then((canRequest: boolean) => {
         if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
               setTimeout(()=>
-              {this.initMap()},200);              
+              {this.openrestaurantPage();},1000);              
             console.log("success") 
             },
             error => console.log('Error requesting location permissions', error)
           );
         }})   
-    }
- 
-    ionViewDidLoad() { 
-      this.slides.autoplayDisableOnInteraction = false;
-      console.log(this.restaurant.restaurantnames);      
-    }
 
-    ionViewCanEnter():boolean {
-      this.currentaddress="Select location.";
-      this.openrestaurantPage();
       loading = this.loadingCtrl.create({
         spinner: 'bubbles',
         content: 'Loading',

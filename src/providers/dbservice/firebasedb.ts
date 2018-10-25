@@ -20,6 +20,7 @@ export class FirebaseProvider {
   restaurantname;
   contactnum;
   public currentaddess;
+  public landmark;
   public srcurl;
 
 
@@ -109,13 +110,13 @@ export class FirebaseProvider {
         packagingcharge:packagingcharge,
         deliverycharge:deliverycharge,
         orderdate:orderdate,
-        address:this.currentaddess,
+        address:this.currentaddess + ", LandMark:" + this.landmark,
         restaurantid:selectedrestaurantid
     });
   }
 
   getmyorderhistory() {
-    this.contactnum='9591317407';
+
     var i=0;
     var nflag;
     this.myorders=[];
