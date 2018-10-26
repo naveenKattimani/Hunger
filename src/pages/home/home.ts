@@ -70,18 +70,12 @@ export class HomePage {
         if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
-              setTimeout(()=>
-              {this.openrestaurantPage();},1000);              
+              this.openrestaurantPage();            
             console.log("success") 
             },
             error => console.log('Error requesting location permissions', error)
           );
-        }})   
-
-      loading = this.loadingCtrl.create({
-        spinner: 'bubbles',
-        content: 'Loading',
-      });    
+        }})       
       return true;
     }
     
@@ -104,17 +98,23 @@ export class HomePage {
             error => console.log('Error requesting location permissions', error)
           );
         }}) 
-       //this.navCtrl.push(MapPage)      
+      //this.initMap()
+      //this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){
       this.nearbyPlaces=[];
-      this.restaurant.items=[];
-      setTimeout(()=>
-      {this.initMap()},1000);
+      this.restaurant.items=[];    
+      this.initMap()
     }
 
     initMap(){
+
+        loading = this.loadingCtrl.create({
+          spinner: 'bubbles',
+          content: 'Loading',
+        });
+        loading.present();
         
         navigator.geolocation.getCurrentPosition((location) => {
           
@@ -221,7 +221,7 @@ export class HomePage {
           });
           var myvar=setTimeout(() => {
             loading.dismiss();
-           }, 2000);
+           }, 1000);
            
           }, (error) => {
             //console.log(error);
@@ -269,9 +269,10 @@ export class HomePage {
           });    
           loading.present();    
           var myvar=setTimeout(() => {
+            this.navCtrl.push(MenuPage); 
             loading.dismiss();
           }, 1000);
-          this.navCtrl.push(MenuPage);        
+          // this.navCtrl.push(MenuPage);        
         }
 
         myaccountpage()
