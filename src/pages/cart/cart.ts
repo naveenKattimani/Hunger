@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, AlertController,NavController,Platform, DateTime } from 'ionic-angular';
 import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
-import {Http, Headers, RequestOptions } from '@angular/http';
+//import {Http, Headers, RequestOptions } from '@angular/http';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {Restaurants} from '../../providers/restaurants/restaurants';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount';
@@ -11,7 +11,8 @@ import { HomePage } from '../home/home';
 import { SMS } from '@ionic-native/sms';
 import { MyaccountPage } from '../myaccount/myaccount';
 import { OrdertransactionPage } from '../ordertransaction/ordertransaction';
-import { LoadingController,Slides } from 'ionic-angular'
+import { LoadingController,Slides } from 'ionic-angular';
+import { HTTP } from '@ionic-native/http';
 
 //var Insta = require('instamojo-nodejs');
 //import { Http, Headers, RequestOptions } from '@angular/http';;
@@ -37,7 +38,7 @@ export class CartPage {
   person;
   ninapp=false;
 
-  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:Http) {
+  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:HTTP) {
     this.person = JSON.parse(localStorage.getItem('PERSON'));
     if (this.person){
       this.FirebaseProvider.landmark=this.person.landmark;
@@ -118,12 +119,12 @@ export class CartPage {
     this.FirebaseProvider.orderid=this.timeStampInMs;
     var transferdata;
     
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append("Accept", 'application/json');
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append("Accept", 'application/json');
     //headers.append("Cache-Control", 'no-cache');
     // headers.append("Pragma", 'no-cache');
-    const requestOptions = new RequestOptions({ headers: headers });
+    //const requestOptions = new RequestOptions({ headers: headers });
 
     var link = 'https://restaurantpay-219614.appspot.com/pgRedirect';
 
@@ -139,12 +140,14 @@ export class CartPage {
     gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.timeStampInMs
                 
     link = link+"?" + gencheksumparams;
-
+    
     this.Http.post(link, '','')
-      .subscribe(data => {
+      .then(data => {
         //console.log(data);
-        data = data["_body"]; 
-        var respdata=data.toString();
+        
+        //data = data["_body"]; 
+        //this.presentAlert(data.data);
+        var respdata=data.data;
         this.checksum=respdata.substring(respdata.indexOf('CHECKSUMHASH" value="')+21,respdata.length)
         this.checksum=this.checksum.substring(0,this.checksum.indexOf('">'));
         //this.cartSvc.checksum=this.checksum;
@@ -179,12 +182,13 @@ export class CartPage {
 
   paytmpage(chcksum,timeStampInMs)
   {      
+    //this.presentAlert('in paytm page')
 	chcksum=chcksum.replace(/\+/g,"%2B");
     this.ninapp=false;
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append("Accept", 'application/json');
-    const requestOptions = new RequestOptions({ headers: headers });
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append("Accept", 'application/json');
+    // const requestOptions = new RequestOptions({ headers: headers });
     var transferdata="MID=Foodie22607738817864&"
     //transferdata=transferdata+"REQUEST_TYPE=DEFAULT&"
     transferdata=transferdata+"ORDER_ID="+timeStampInMs+"&"
@@ -210,6 +214,7 @@ export class CartPage {
       const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
       bb.on("loadstart")
         .subscribe((ev: InAppBrowserEvent) => {
+          //this.presentAlert(ev.url);
             if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+timeStampInMs){
               console.log("----------------payment sucess");
               loading.present();
@@ -217,9 +222,9 @@ export class CartPage {
               var txnchecksum = 'https://restaurantpay-219614.appspot.com/TxnStatus?';
               txnchecksum=txnchecksum+"ORDER_ID="+this.timeStampInMs+"&"
               this.Http.post(txnchecksum, '','')
-              .subscribe(data => {
-                data = data["_body"]; 
-                var respdata=data.toString();
+              .then(data => {
+                //data = data["_body"]; 
+                var respdata=data.data;
                 //this.presentAlert(respdata);
                 var myvar=setTimeout(() => {
                   loading.dismiss();

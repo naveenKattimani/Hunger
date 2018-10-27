@@ -98,8 +98,8 @@ export class HomePage {
             error => console.log('Error requesting location permissions', error)
           );
         }}) 
-      //this.initMap()
-      //this.navCtrl.push(MapPage)      
+      // this.initMap()
+      // this.navCtrl.push(MapPage)      
     }
 
     openrestaurantPage(){

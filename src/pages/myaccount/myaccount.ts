@@ -3,7 +3,7 @@ import { IonicPage, NavController,NavParams, AlertController } from 'ionic-angul
 import firebase from 'firebase';
 import { Dialogs } from '@ionic-native/dialogs';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount'
-import { Firebase } from 'ionic-native';
+
 import { MapPage } from '../map/map';
 import { HomePage } from '../home/home';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';

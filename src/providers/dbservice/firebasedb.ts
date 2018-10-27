@@ -116,7 +116,7 @@ export class FirebaseProvider {
   }
 
   getmyorderhistory() {
-    
+    //this.contactnum='9591317407'
     var i=0;
     var nflag;
     this.myorders=[];

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Network } from 'ionic-native';
+import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
 import 'rxjs/add/operator/map';
  
@@ -15,27 +15,27 @@ export class Connectivity {
   }
  
   isOnline(): boolean {
-    if(this.onDevice && Network.type){
-      return Network.type != 'none';
-    } else {
-      return navigator.onLine;
-    }
+    // if(this.onDevice && Network.type){
+    //   return Network.type != 'none';
+    // } else {
+       return navigator.onLine;
+    // }
   }
  
   isOffline(): boolean {
-    if(this.onDevice && Network.type){
-      return Network.type == 'none';
-    } else {
-      return !navigator.onLine;  
-    }
+    // if(this.onDevice && Network.type){
+    //   return Network.type == 'none';
+    // } else {
+       return !navigator.onLine;  
+    // }
   }
 
   watchOnline(): any {
-    return Network.onConnect();
+   // return Network.onConnect();
   }
  
   watchOffline(): any {
-    return Network.onDisconnect();
+   // return Network.onDisconnect();
   }
  
 }

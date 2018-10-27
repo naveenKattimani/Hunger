@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Connectivity } from '../connectivity/connectivity';
-import { Geolocation, GoogleMapsEvent } from 'ionic-native';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Geolocation } from '@ionic-native/geolocation'
  
 declare var google;
 
@@ -21,7 +21,7 @@ export class Google_Maps {
   markerlatlong: any;
   newplace = {lat: 0, lng: 0};
  
-  constructor(public connectivityService: Connectivity,private http: Http) {
+  constructor(public connectivityService: Connectivity,public geolocation:Geolocation,private http: Http) {
  
   }
  
@@ -70,7 +70,7 @@ export class Google_Maps {
  
     this.mapInitialised = true; 
     return new Promise((resolve) => { 
-      Geolocation.getCurrentPosition().then((position) => {
+      this.geolocation.getCurrentPosition().then((position) => {
         var lat= position.coords.latitude;
         var lng= position.coords.longitude;
         if (this.newplace.lat!=0)
