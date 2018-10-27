@@ -1,18 +1,21 @@
 {
   "name": "Food",
-  "app_id": "",
+  "integrations": {
+    "cordova": {}
+  },
   "proxies": [
     {
-      "path": ["/processTransaction"],
+      "path": [
+        "/processTransaction"
+      ],
       "proxyUrl": "https://securegw-stage.paytm.in/theia/processTransaction"
     },
     {
-      "path": ["/paytmCallback"],
+      "path": [
+        "/paytmCallback"
+      ],
       "proxyUrl": "https://securegw-stage.paytm.in/theia/paytmCallback"
     }
-	],
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+  ],
+  "type": "ionic-angular"
 }

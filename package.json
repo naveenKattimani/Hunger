@@ -38,7 +38,7 @@
     "angular2": "^2.0.0-beta.0",
     "angularfire2": "^5.0.1",
     "card.io.cordova.mobilesdk": "^2.1.0",
-    "cordova-android": "6.3.0",
+    "cordova-android": "6.4.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^4.5.5",
     "cordova-plugin-add-swift-support": "^1.7.2",
@@ -76,6 +76,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.11",
+    "@ionic/lab": "1.0.11",
     "postcss": "6.0.14",
     "typescript": "^2.3.4"
   },
