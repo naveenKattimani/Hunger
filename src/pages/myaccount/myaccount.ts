@@ -45,7 +45,6 @@ export class MyaccountPage {
      }, 3000);
   }
 
-  
 
   ionViewDidLoad() {
     
@@ -67,6 +66,7 @@ export class MyaccountPage {
       this.name = this.person.name;
       this.contactnumber = this.person.contactnumber;
     //this.emailid=this.person.emailid;
+      this.person.address=this.FirebaseProvider.currentaddess;
       this.address = this.person.address;
       this.landmark = this.person.landmark;
     }

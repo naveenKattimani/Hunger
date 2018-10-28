@@ -8,34 +8,36 @@ declare var Connection;
 @Injectable()
 export class Connectivity {
  
-  onDevice: boolean;
+  onandroidDevice: boolean;
+  oniosdDevice: boolean;
  
-  constructor(public platform: Platform){
-    this.onDevice = this.platform.is('cordova');
+  constructor(public platform: Platform,private network: Network){
+    this.onandroidDevice = this.platform.is('android');
+    this.oniosdDevice = this.platform.is('ios');
   }
  
   isOnline(): boolean {
-    // if(this.onDevice && Network.type){
-    //   return Network.type != 'none';
-    // } else {
+    if((this.onandroidDevice||this.oniosdDevice) && this.network.type){
+      return this.network.type != 'none';
+    } else {
        return navigator.onLine;
-    // }
+    }
   }
  
   isOffline(): boolean {
-    // if(this.onDevice && Network.type){
-    //   return Network.type == 'none';
-    // } else {
+    if((this.onandroidDevice||this.oniosdDevice) && this.network.type){
+      return this.network.type == 'none';
+    } else {
        return !navigator.onLine;  
-    // }
+    }
   }
 
   watchOnline(): any {
-   // return Network.onConnect();
+    return this.network.onConnect();
   }
  
   watchOffline(): any {
-   // return Network.onDisconnect();
+    return this.network.onDisconnect();
   }
  
 }
