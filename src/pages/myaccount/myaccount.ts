@@ -31,7 +31,7 @@ export class MyaccountPage {
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
-    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};
+    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading',

@@ -48,5 +48,21 @@ page-map {
             padding-top: 120%;
             padding-left: 5%;
         }
+        .landmark{
+            margin-left: 0.25%;
+            height: 5%;
+            position: absolute;
+            /* padding-left: 0.25%; */
+            margin-top: 155%;
+            z-index: 126;
+        }
+
+        .landmarktext {
+            overflow: auto;
+            height: auto;
+            width: 201%;
+            font: inherit;
+            border: 2px solid limegreen;
+        }
        
       }
