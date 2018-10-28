@@ -21,6 +21,7 @@ export class FirebaseProvider {
   contactnum;
   public currentaddess;
   public landmark;
+  public houseno;
   public srcurl;
 
 
@@ -110,7 +111,7 @@ export class FirebaseProvider {
         packagingcharge:packagingcharge,
         deliverycharge:deliverycharge,
         orderdate:orderdate,
-        address:this.currentaddess + ", LandMark:" + this.landmark,
+        address:"HouseNo: " + this.houseno + " "+ this.currentaddess + ", LandMark:" + this.landmark,
         restaurantid:selectedrestaurantid
     });
   }

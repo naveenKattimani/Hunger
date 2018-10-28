@@ -31,7 +31,7 @@ export class MyaccountPage {
   notp=0;
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
-    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
+    this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading',
@@ -66,7 +66,7 @@ export class MyaccountPage {
       this.name = this.person.name;
       this.contactnumber = this.person.contactnumber;
     //this.emailid=this.person.emailid;
-      this.person.address=this.FirebaseProvider.currentaddess;
+      this.person.address="HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess;
       this.address = this.person.address;
       this.landmark = this.person.landmark;
     }
@@ -153,10 +153,10 @@ export class MyaccountPage {
                     }
                     console.log('success');
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
-                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark,userid:res.user.uid})
+                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark,userid:res.user.uid})
                     this.FirebaseProvider.contactnum=this.person.contactnumber; 
                   }).catch(function (error) {
-                    this.person = {name: undefined, contactnumber: undefined, address: this.FirebaseProvider.currentaddess,landmark: undefined};
+                    this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: undefined};
                     this.FirebaseProvider.contactnum=undefined; 
                     localStorage.setItem('PERSON', JSON.stringify(this.person));
                       console.error("wrong phone");

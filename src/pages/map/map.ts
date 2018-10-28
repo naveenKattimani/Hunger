@@ -15,6 +15,7 @@ declare var google;
 
 export class MapPage {
   landmark;
+  houseno;
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
  
@@ -36,7 +37,14 @@ export class MapPage {
   ionViewDidLeave()
   {
     this.fbprovider.landmark=this.landmark;
+    if(this.houseno===undefined)
+    { this.fbprovider.houseno="--";
+      }
+    else{this.fbprovider.houseno=this.houseno;
+    }
+    
     console.log('landmark in map is:'+ this.fbprovider.landmark);
+    console.log('housenumber is is:'+ this.fbprovider.houseno);
   }
 
     searchtext(value){
@@ -79,6 +87,7 @@ export class MapPage {
       if(status==="OK")
       {
       this.fbprovider.currentaddess=res[0].formatted_address;
+      
       HomePage.prototype.currentaddress=this.fbprovider.currentaddess;
       console.log("My address----->>----"+ HomePage.prototype.currentaddress);
       }

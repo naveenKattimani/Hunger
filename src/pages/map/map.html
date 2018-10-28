@@ -16,15 +16,36 @@
       <ion-item>
          <ion-input id="places" type="search"  placeholder="Search" (input)='searchtext($event.target.value)'></ion-input>       
      </ion-item>
+     <ion-grid class='moredetails'>  
+        <ion-row> 
+            <ion-col>
+                <ion-label>Add More Details:</ion-label>
+            </ion-col>     
+        </ion-row>
+        <ion-row> 
+          <ion-col col-2>
+              <ion-label>House No:</ion-label>
+            </ion-col>
+          <ion-col col-10>
+              <ion-input id="houseno" type="text" [(ngModel)]="houseno" ></ion-input>
+          </ion-col>
+        </ion-row> 
+         <ion-row> 
+          <ion-col col-2>
+              <ion-label>Landmark:</ion-label>
+          </ion-col>
+          <ion-col col-10>
+              <ion-input id="landmark" type="text" [(ngModel)]="landmark" ></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
      <div  class="locateiconlayout">
         <button ion-fab mini (click)="myLocation()">
           <ion-icon name="locate"></ion-icon>
         </button>
       </div>
-      <ion-item>
-          <ion-input id="landmark" type="text" [(ngModel)]="landmark"  placeholder="Enter Landmark"></ion-input>       
-      </ion-item>
+      
       
   <div #map id="map"></div>
  
