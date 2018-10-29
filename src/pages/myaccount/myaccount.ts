@@ -68,6 +68,7 @@ export class MyaccountPage {
     //this.emailid=this.person.emailid;
       this.person.address="HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess;
       this.address = this.person.address;
+      this.person.landmark = this.FirebaseProvider.landmark;
       this.landmark = this.person.landmark;
     }
   }

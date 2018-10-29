@@ -39,10 +39,10 @@ export class CartPage {
   ninapp=false;
 
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,private sms: SMS,private myacc:MyaccountProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public alertCtrl:AlertController,public platform: Platform,private iab: InAppBrowser,public cartSvc:CartServiceProvider,public httpClient: HttpClient,public Http:HTTP) {
-    this.person = JSON.parse(localStorage.getItem('PERSON'));
-    if (this.person){
-      this.FirebaseProvider.landmark=this.person.landmark;
-    }
+    // this.person = JSON.parse(localStorage.getItem('PERSON'));
+    // if (this.person){
+    //   this.FirebaseProvider.landmark=this.person.landmark;
+    // }
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
   }
