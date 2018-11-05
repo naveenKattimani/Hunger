@@ -65,13 +65,21 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
+      loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Loading',
+      });
+      loading.present();
       this.currentaddress="Select location.";
       this.locationAccuracy.canRequest().then((canRequest: boolean) => {
         if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
-              this.openrestaurantPage();            
-            console.log("success") 
+              setTimeout(() => {
+                this.openrestaurantPage();
+                loading.dismiss();
+              }, 5000);
+                
             },
             error => console.log('Error requesting location permissions', error)
           );
@@ -109,12 +117,6 @@ export class HomePage {
     }
 
     initMap(){
-
-        loading = this.loadingCtrl.create({
-          spinner: 'bubbles',
-          content: 'Loading',
-        });
-        loading.present();
         
         navigator.geolocation.getCurrentPosition((location) => {
           
@@ -133,11 +135,11 @@ export class HomePage {
           
           var distkm;          
           map = new google.maps.Map(this.mapElement.nativeElement, {
-          center: {lat: myplace.lat, lng: myplace.lng},
-          zoom: 15
-        });
+            center: {lat: myplace.lat, lng: myplace.lng},
+            zoom: 15
+            });
 
-        let geocoder = new google.maps.Geocoder;
+          let geocoder = new google.maps.Geocoder;
           let latlng = {lat: myplace.lat, lng: myplace.lng};
           geocoder.geocode({'location': latlng},(res, status) => {
             if(status==="OK")
@@ -150,7 +152,6 @@ export class HomePage {
           });
         
         var service = new google.maps.places.PlacesService(map);  
-        loading.present();
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
           service.nearbySearch({
@@ -219,9 +220,7 @@ export class HomePage {
               }
             });
           });
-          var myvar=setTimeout(() => {
-            loading.dismiss();
-           }, 1000);
+          
            
           }, (error) => {
             //console.log(error);
@@ -262,16 +261,7 @@ export class HomePage {
           this.restaurant.selectedrestaurantid=restaurantid;
           this.FirebaseProvider.getmenu(restaurantid);
           this.catsvc.thecart=[]; 
-          
-          let loading = this.loadingCtrl.create({
-            spinner: 'bubbles',
-            content: 'Loading',
-          });    
-          loading.present();    
-          var myvar=setTimeout(() => {
-            this.navCtrl.push(MenuPage); 
-            loading.dismiss();
-          }, 1000);
+        
           // this.navCtrl.push(MenuPage);        
         }
 
