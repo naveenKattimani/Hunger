@@ -22,7 +22,7 @@ export class MenuPage {
   itemsbytype = new Array();
   dests = [];
   items;
-  constructor(public cartSvc:CartServiceProvider,public FirebaseProvider:FirebaseProvider,public loadingCtrl: LoadingController,public navCtrl: NavController,public Restaurant:Restaurants,public navParams: NavParams) {
+  constructor(public cartSvc:CartServiceProvider,private restaurant:Restaurants,public FirebaseProvider:FirebaseProvider,public loadingCtrl: LoadingController,public navCtrl: NavController,public Restaurant:Restaurants,public navParams: NavParams) {
     this.restaurantname=this.Restaurant.selectedrestaurant;
     this.restaurantid=this.Restaurant.selectedrestaurantid;
     this.items=this.FirebaseProvider.itemname;
@@ -112,7 +112,7 @@ export class MenuPage {
 
     Homepage()
     {
-      this.navCtrl.push(HomePage);
+      this.navCtrl.pop();
     }
 
     toggleSection(i) {

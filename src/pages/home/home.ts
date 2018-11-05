@@ -65,25 +65,29 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
-      loading = this.loadingCtrl.create({
-        spinner: 'bubbles',
-        content: 'Loading',
-      });
-      loading.present();
-      this.currentaddress="Select location.";
-      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-        if(canRequest) {
-          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-            () =>{
-              setTimeout(() => {
-                this.openrestaurantPage();
-                loading.dismiss();
-              }, 5000);
-                
-            },
-            error => console.log('Error requesting location permissions', error)
-          );
-        }})       
+      if(this.restaurant.firsttimeload==false)
+      {
+        loading = this.loadingCtrl.create({
+          spinner: 'bubbles',
+          content: 'Loading',
+        });
+        loading.present();
+        this.currentaddress="Select location.";
+        this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+          if(canRequest) {
+            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+              () =>{
+                setTimeout(() => {
+                  this.openrestaurantPage();
+                  this.restaurant.firsttimeload=true;
+                  loading.dismiss();
+                }, 5000);
+                  
+              },
+              error => console.log('Error requesting location permissions', error)
+            );
+          }})     
+      }  
       return true;
     }
     
@@ -96,6 +100,7 @@ export class HomePage {
         if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
+              this.restaurant.firsttimeload=false;
               setTimeout(()=>
               {this.initMap()},100);
               setTimeout(()=>

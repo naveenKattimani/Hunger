@@ -15,7 +15,7 @@ export class Restaurants {
     selectedrestaurantid;
     restaurantnames: AngularFireList<any>;
     newItem = '';
-
+    firsttimeload=false;
  
     constructor(public http: Http,public firebaseProvider: FirebaseProvider) {        
         // this.availablerestaurants = [

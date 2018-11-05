@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount'
 import { HomePage } from '../home/home';
+import { Restaurants } from '../../providers/restaurants/restaurants';
 
 /**
  * Generated class for the OrdertransactionPage page.
@@ -21,7 +22,7 @@ export class OrdertransactionPage {
   txnstatus=this.FirebaseProvider.txnstatus;
   currentaddess=this.FirebaseProvider.currentaddess;
   
-  constructor(public navCtrl: NavController,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,private restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, public navParams: NavParams) {
     console.log("????" + this.orderid+ this.currentaddess);
   }
 
@@ -31,6 +32,7 @@ export class OrdertransactionPage {
 
   closeorderpage()
   {
+    this.restaurant.firsttimeload=false;
     this.navCtrl.setRoot(HomePage);   
   }
 
