@@ -16,7 +16,16 @@
       <ion-item>
          <ion-input id="places" type="search"  placeholder="Search" (input)='searchtext($event.target.value)'></ion-input>       
      </ion-item>
-     <ion-grid class='moredetails'>  
+     <div  class="locateiconlayout">
+      <button ion-fab mini (click)="myLocation()">
+        <ion-icon name="locate"></ion-icon>
+      </button>
+    </div>
+     <div #map id="map"></div>
+     
+
+      
+      <ion-grid class='moredetails'>  
         <ion-row> 
             <ion-col>
                 <ion-label>Add More Details:</ion-label>
@@ -39,14 +48,8 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
-     <div  class="locateiconlayout">
-        <button ion-fab mini (click)="myLocation()">
-          <ion-icon name="locate"></ion-icon>
-        </button>
-      </div>
       
       
-  <div #map id="map"></div>
+  
  
 </ion-content>
