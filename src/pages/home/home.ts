@@ -261,8 +261,15 @@ export class HomePage {
           this.restaurant.selectedrestaurantid=restaurantid;
           this.FirebaseProvider.getmenu(restaurantid);
           this.catsvc.thecart=[]; 
-        
-          // this.navCtrl.push(MenuPage);        
+          let loading = this.loadingCtrl.create({
+            spinner: 'bubbles',
+            content: 'Loading',
+          });    
+          loading.present();    
+          var myvar=setTimeout(() => {
+            this.navCtrl.push(MenuPage); 
+            loading.dismiss();
+          }, 1000);       
         }
 
         myaccountpage()
