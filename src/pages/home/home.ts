@@ -173,10 +173,10 @@ export class HomePage {
               for (var i = 0; i < results.length; i++) {   
                 //distkm=this.calculateDistance(myplace.lat,myplace.lng,results[i].geometry.location.lat(),results[i].geometry.location.lng())
                 // distkm=distkm.toFixed(2);
+                this.disttime='60 mins';
                 this.calulatetraveltime(results[i].geometry.location.lat(),results[i].geometry.location.lng(),myplace.lat,myplace.lng).then(result => { 
                   console.log('----------'+ result['resp'].rows[0].elements[0].duration.text);
                   //this.disttime=result['resp'].rows[0].elements[0].duration.text; 
-                  this.disttime='60 mins'
                 });
                 address="";
                 let geocoder = new google.maps.Geocoder;
