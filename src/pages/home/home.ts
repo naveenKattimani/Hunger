@@ -39,6 +39,7 @@ var myplace = {lat: 0, lng: 0};
 
 export class HomePage {
   starList=[];
+  public disttime;
   slideData = [
   { image: "assets/imgs/1.jpg" },
   { image: "assets/imgs/2.jpg" },
@@ -88,6 +89,7 @@ export class HomePage {
             );
           }})     
       }  
+      //this.openrestaurantPage();
       return true;
     }
     
@@ -138,7 +140,8 @@ export class HomePage {
           myplace.lng=this.Google_Maps.newplace.lng;
           }
           
-          var distkm;          
+          var distkm; 
+                   
           map = new google.maps.Map(this.mapElement.nativeElement, {
             center: {lat: myplace.lat, lng: myplace.lng},
             zoom: 15
@@ -155,7 +158,7 @@ export class HomePage {
             console.log("My address-----"+ this.currentaddress);
             }
           });
-        
+        this.disttime=[];
         var service = new google.maps.places.PlacesService(map);  
         this.restaurant.availablerestaurants.forEach((arr1)=>
         {
@@ -168,8 +171,13 @@ export class HomePage {
             pagination.nextPage();
             if (status === google.maps.places.PlacesServiceStatus.OK) {
               for (var i = 0; i < results.length; i++) {   
-                distkm=this.calculateDistance(results[i].geometry.location.lat(),myplace.lat,results[i].geometry.location.lng(),myplace.lng)
-                distkm=distkm.toFixed(2);
+                //distkm=this.calculateDistance(myplace.lat,myplace.lng,results[i].geometry.location.lat(),results[i].geometry.location.lng())
+                // distkm=distkm.toFixed(2);
+                this.calulatetraveltime(results[i].geometry.location.lat(),results[i].geometry.location.lng(),myplace.lat,myplace.lng).then(result => { 
+                  console.log('----------'+ result['resp'].rows[0].elements[0].duration.text);
+                  //this.disttime=result['resp'].rows[0].elements[0].duration.text; 
+                  this.disttime='60 mins'
+                });
                 address="";
                 let geocoder = new google.maps.Geocoder;
                 var serachrestaurant=results[i];
@@ -211,8 +219,8 @@ export class HomePage {
                                 this.starList.push("fa fa-star");
                               }
                             }
-                            this.nearbyPlaces.push({name:serachrestaurant.name,rating:this.starList,place_id:arr1.place_id,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
-                            this.restaurant.items.push({name:serachrestaurant.name,rating:serachrestaurant.rating,distance:distkm,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
+                            this.nearbyPlaces.push({name:serachrestaurant.name,rating:this.starList,place_id:arr1.place_id,distance:this.disttime,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
+                            this.restaurant.items.push({name:serachrestaurant.name,rating:serachrestaurant.rating,distance:this.disttime,desc:arr1.description,r_id:arr1.r_id,img_id:'assets/imgs/Restaurants/'+arr1.r_id+'.jpg'});
                           }
                         }
                     //});  
@@ -233,16 +241,6 @@ export class HomePage {
                
         }
 
-
-        // calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
-        //   //console.log(lat1+"--"+lat2+"--"+long1+"--"+long2+"--");
-        //   let p = 0.017453292519943295;    // Math.PI / 180
-        //   let c = Math.cos;
-        //   let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
-        //   let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
-        //   return dis;
-        // }
-
         rad = function(x) {
           return x * Math.PI / 180;
         };
@@ -259,6 +257,38 @@ export class HomePage {
           return d/1000; // returns the distance in meter
         };
 
+        calulatetraveltime(orglat,orglng,detslat,destlng)
+        {
+          var origin = new google.maps.LatLng(orglat,orglng);
+          var destination = new google.maps.LatLng(detslat, destlng);
+
+          var service = new google.maps.DistanceMatrixService();
+          return new Promise((resolve, reject) => {service.getDistanceMatrix(
+            {
+              origins: [origin],
+              destinations: [destination],
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.IMPERIAL,
+              drivingOptions: {
+                departureTime: new Date(Date.now() + 180000),  // for the time N milliseconds from now.
+              trafficModel:'bestguess' 
+              },
+              avoidHighways: false,
+              avoidTolls: false
+            },  (response, status)=> {
+              //console.log(response);
+              if (status == google.maps.DistanceMatrixStatus.OK) {
+                var origins = response.originAddresses;
+                var destinations = response.destinationAddresses;
+                //var distance=response.rows[0].elements[0].duration.text;
+                //console.log('distance--***--'+response.rows[0].elements[0].duration.text ); 
+                resolve({ resp: response });
+                                
+                  }
+            })
+          });
+        }
+        
         openrestaurantmenu(restaurantname,restaurantid)
         {
           console.log("----restaurant name"+ restaurantid)
@@ -292,4 +322,6 @@ export class HomePage {
         slidesChanged() {
         }
       
+
+        
 }
