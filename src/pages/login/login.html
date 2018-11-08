@@ -1,0 +1,27 @@
+	
+<ion-content class="login-content" no-padding>
+    <!-- <img src="../../assets/imgs/Login/login.png"/> -->
+  <!-- <div class='logotext'>Foodie</div> -->
+  <div class="login-box">
+    <form (ngSubmit)="login()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="Enter Phone number." name="contactnumber" [(ngModel)]="registerCredentials.contactnumber" required></ion-input>
+            </ion-item>
+            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+         </ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
+</ion-content>

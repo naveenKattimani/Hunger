@@ -30,8 +30,7 @@ import { MyaccountProvider } from '../providers/myaccount/myaccount';
 import { OrdertransactionPage } from '../pages/ordertransaction/ordertransaction';
 import { SMS } from '@ionic-native/sms';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
-
-
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
     MenuPage,
     MyaccountPage,
     CartPage,
-    OrdertransactionPage
+    OrdertransactionPage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +61,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
     MenuPage,
     MyaccountPage,
     CartPage,
-    OrdertransactionPage
+    OrdertransactionPage,
+    LoginPage,
   ],
   providers: [
       InAppBrowser,
