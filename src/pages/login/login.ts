@@ -23,21 +23,8 @@ export class LoginPage {
   constructor(public navctrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs, public alertCtrl:AlertController) {   
   }
 
-  ionViewCanEnter() {
-        // let loading;
-        // loading = this.loadingCtrl.create({
-        //   cssClass: 'myalert'
-        // });
-        // loading.present();
-        // firebase.auth().onAuthStateChanged( user => {
-        //   if (user) { loading.dismiss();this.navctrl.push(HomePage);}
-        // });
-        // setTimeout(() => {
-        //   loading.dismiss();
-        // }, 5000);
-  }
-
   login() {
+    this.showLoading();
     if (this.registerCredentials.contactnumber === null) {
       return false;
     } else {
@@ -45,8 +32,9 @@ export class LoginPage {
         var verificationId;
         var code ;//= inputField.value.toString();
         let promptt = this.alertCtrl.create({
-          title: 'Enter the Confirmation code',
-          inputs: [{ name: 'confirmationCode', placeholder: 'Confirmation Code' }],
+          title: 'Enter the OTP recieved on your mobile.',
+          inputs: [{ name: 'confirmationCode', placeholder: 'OTP' }],
+          cssClass:'alertCustomCss',
           buttons: [
             { text: 'Cancel',
               handler: data => { console.log('Cancel clicked'); }
@@ -59,7 +47,8 @@ export class LoginPage {
                         console.log('success');
                         localStorage.setItem('PERSON', JSON.stringify(this.registerCredentials));
                         this.FirebaseProvider.contactnum=this.registerCredentials.contactnumber; 
-                        this.navctrl.setRoot(HomePage);
+                        this.loading.dismissAll();
+                        this.navctrl.push(HomePage);                        
                       }).catch(function (error) {
                         this.registerCredentials = {contactnumber: undefined};
                         this.FirebaseProvider.contactnum=undefined; 

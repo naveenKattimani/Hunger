@@ -66,6 +66,7 @@ export class HomePage {
     }
 
     ionViewCanEnter():boolean {
+      setTimeout(() => {
       if(this.restaurant.firsttimeload==false)
       {
         loading = this.loadingCtrl.create({
@@ -76,12 +77,12 @@ export class HomePage {
         this.currentaddress="Select location.";
         this.locationAccuracy.canRequest().then((canRequest: boolean) => {
           if(canRequest) {
-            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_NO_POWER).then(
+            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
               () =>{
                 setTimeout(() => {
                   this.openrestaurantPage();
                   this.restaurant.firsttimeload=true;
-                  loading.dismiss();
+                  loading.dismissAll();
                 }, 5000);
                   
               },
@@ -89,6 +90,7 @@ export class HomePage {
             );
           }})     
       }  
+    }, 3000);
       //this.openrestaurantPage();
       return true;
     }

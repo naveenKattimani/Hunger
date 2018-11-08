@@ -90,14 +90,14 @@ export class MyaccountPage {
             this.person.landmark="";
             this.FirebaseProvider.contactnum=undefined;
             this.showProfile = false;
-            //delete from firebase need to implement
+            //delete from firebase need to implement-
             //localStorage.clear();
-            var user = firebase.auth().currentUser;
-                if (user) {
+            firebase.auth().onAuthStateChanged( user => {
+                if (user) { 
                   user.delete();
                   this.presentAlert("user deleted");
                 }
-
+              });
           }
         }
       ]

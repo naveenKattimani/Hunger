@@ -14,3 +14,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.alertCustomCss {
+    // alert modal page bg color. Warning this will remove the alert transparency
+    background-color: red; 
+
+    .alert-title {
+      font-size: 12px;
+    }
+
+    .alert-md .alert-wrapper {
+        border-radius: 2px;
+        max-width: 280px;
+        /* background-color: red; */
+        height: 184px;
+        background-color: #fafafa;
+        -webkit-box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .alert-md .alert-message, .alert-md .alert-input-group {
+        height: 0;
+    }
+  }  
