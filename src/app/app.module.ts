@@ -32,6 +32,7 @@ import { SMS } from '@ionic-native/sms';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { LoginPage } from '../pages/login/login';
 
+
 @NgModule({
   declarations: [
     MyApp,

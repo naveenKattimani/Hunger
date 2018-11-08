@@ -8,6 +8,7 @@ import { HomePage } from '../home/home';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import { Restaurants } from '../../providers/restaurants/restaurants';
 
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -18,22 +19,22 @@ export class LoginPage {
   loading: Loading;
   contactnumber;
   registerCredentials  = { contactnumber: '' };
-  
+
   constructor(public navctrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs, public alertCtrl:AlertController) {   
   }
 
   ionViewCanEnter() {
-        let loading;
-        loading = this.loadingCtrl.create({
-          cssClass: 'myalert'
-        });
-        loading.present();
-        firebase.auth().onAuthStateChanged( user => {
-          if (user) { loading.dismiss();this.navctrl.push(HomePage);}
-        });
-        setTimeout(() => {
-          loading.dismiss();
-        }, 5000);
+        // let loading;
+        // loading = this.loadingCtrl.create({
+        //   cssClass: 'myalert'
+        // });
+        // loading.present();
+        // firebase.auth().onAuthStateChanged( user => {
+        //   if (user) { loading.dismiss();this.navctrl.push(HomePage);}
+        // });
+        // setTimeout(() => {
+        //   loading.dismiss();
+        // }, 5000);
   }
 
   login() {

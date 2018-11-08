@@ -76,7 +76,7 @@ export class HomePage {
         this.currentaddress="Select location.";
         this.locationAccuracy.canRequest().then((canRequest: boolean) => {
           if(canRequest) {
-            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_NO_POWER).then(
               () =>{
                 setTimeout(() => {
                   this.openrestaurantPage();
