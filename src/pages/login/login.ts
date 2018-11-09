@@ -20,11 +20,11 @@ export class LoginPage {
   contactnumber;
   registerCredentials  = { contactnumber: '' };
 
-  constructor(public navctrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs, public alertCtrl:AlertController) {   
+  constructor(public navctrl: NavController,public loadingCtrl: LoadingController,public restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs, public alertCtrl:AlertController) {   
   }
 
   login() {
-    this.showLoading();
+    this.restaurant.firsttimelogin=true;
     if (this.registerCredentials.contactnumber === null) {
       return false;
     } else {
@@ -47,7 +47,6 @@ export class LoginPage {
                         console.log('success');
                         localStorage.setItem('PERSON', JSON.stringify(this.registerCredentials));
                         this.FirebaseProvider.contactnum=this.registerCredentials.contactnumber; 
-                        this.loading.dismissAll();
                         this.navctrl.push(HomePage);                        
                       }).catch(function (error) {
                         this.registerCredentials = {contactnumber: undefined};

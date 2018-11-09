@@ -76,6 +76,7 @@ export class MyaccountPage {
   delete(){
     let promptt = this.alertCtrl.create({
       title: 'Are you sure you want to remove account?',
+      cssClass:'myaccountalertCustomCss',
       buttons: [
         { text: 'Cancel',
           handler: data => { console.log('Cancel clicked'); }

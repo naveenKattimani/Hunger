@@ -65,7 +65,7 @@ export class HomePage {
       this.slides.autoplayDisableOnInteraction = false;
     }
 
-    ionViewCanEnter():boolean {
+    ionViewCanEnter():boolean {     
       setTimeout(() => {
       if(this.restaurant.firsttimeload==false)
       {
@@ -75,22 +75,27 @@ export class HomePage {
         });
         loading.present();
         this.currentaddress="Select location.";
-        this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-          if(canRequest) {
+        // this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        //   if(canRequest) {
             this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
               () =>{
                 setTimeout(() => {
                   this.openrestaurantPage();
                   this.restaurant.firsttimeload=true;
                   loading.dismissAll();
+                  if(this.restaurant.firsttimelogin==true)
+                  {
+                    this.restaurant.firsttimelogin=false;
+                    //this.navCtrl.push(MapPage);
+                  }
                 }, 5000);
                   
               },
               error => console.log('Error requesting location permissions', error)
             );
-          }})     
+          //}})     
       }  
-    }, 3000);
+    }, 1000);
       //this.openrestaurantPage();
       return true;
     }
@@ -100,8 +105,8 @@ export class HomePage {
     }   
 
      openmapPage(){
-      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-        if(canRequest) {
+      // this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      //   if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
               this.restaurant.firsttimeload=false;
@@ -114,7 +119,7 @@ export class HomePage {
             },
             error => console.log('Error requesting location permissions', error)
           );
-        }}) 
+       // }}) 
       // this.initMap()
       // this.navCtrl.push(MapPage)      
     }

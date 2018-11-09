@@ -36,4 +36,25 @@
     .alert-md .alert-message, .alert-md .alert-input-group {
         height: 0;
     }
+}
+
+    .myaccountalertCustomCss {
+        // alert modal page bg color. Warning this will remove the alert transparency
+        .alert-title {
+          font-size: 12px;
+        }
+    
+        .alert-md .alert-wrapper {
+            border-radius: 2px;
+            max-width: 280px;
+            /* background-color: red; */
+            height: 184px;
+            background-color: #fafafa;
+            -webkit-box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+        }
+    
+        .alert-md .alert-message, .alert-md .alert-input-group {
+            height: 0;
+        }
   }  
