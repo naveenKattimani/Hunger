@@ -19,7 +19,7 @@ export class MyApp {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
-
+      //this.rootPage=HomePage;
       firebase.auth().onAuthStateChanged( user => {
         if (user) {this.rootPage=HomePage;}
         else{this.rootPage=LoginPage;}

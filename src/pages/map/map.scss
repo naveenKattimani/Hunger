@@ -26,6 +26,8 @@ page-map {
             width: 100%;
             height: 70%;
             z-index: 100;
+            position: absolute;
+            margin-top:30%;
         }
 
         .toolbar-title-md {
@@ -33,18 +35,18 @@ page-map {
             font-size: 16px;
         }
 
-        .fab[mini] {
-            margin: 8px;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            position: absolute;
-            z-index: 200;
-        }
+        // .fab[mini] {
+        //     margin: 8px;
+        //     width: 40px;
+        //     height: 40px;
+        //     line-height: 40px;
+        //     position: relative;
+        //     z-index: 200;
+        // }
 
         .locateiconlayout{
             position: absolute;
-            padding-top: 315px;
+            padding-top: 95%;
             padding-left: 5%;
             z-index: 500;
         }
@@ -72,8 +74,12 @@ page-map {
 
         .moredetails{
             padding-left: 21px;
-            border: 2px solid limegreen;
-            height: 20%;
+            //margin-top:102%;
+            //border: 2px solid limegreen;
+            height: 120px;
+            position: fixed;
+            z-index: 600;
+            background-color: white;
         }
 
         .moredetails ion-input{
@@ -91,16 +97,16 @@ page-map {
             padding:0
         }
 
-        .row {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-flex-wrap: wrap;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            height: 30px;
-        }
+        // .row {
+        //     display: -webkit-box;
+        //     display: -webkit-flex;
+        //     display: -ms-flexbox;
+        //     display: flex;
+        //     -webkit-flex-wrap: wrap;
+        //     -ms-flex-wrap: wrap;
+        //     flex-wrap: wrap;
+        //     height: 30px;
+        // }
 
         .savebtn{
             float:right;

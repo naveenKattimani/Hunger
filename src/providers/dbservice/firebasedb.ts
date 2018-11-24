@@ -23,6 +23,7 @@ export class FirebaseProvider {
   public landmark;
   public houseno;
   public srcurl;
+  public adressname;
 
 
   constructor(public afd: AngularFireDatabase,public cartsvc:CartServiceProvider,public zone:NgZone) {
@@ -244,5 +245,16 @@ export class FirebaseProvider {
  
   removeItem(id) {
     this.afd.list('/shoppingItems/').remove(id);
+  }
+
+  saveadress(adressname1,landmark1,housenumber1,address1)
+  {
+    var orderef = firebase.database().ref("useraccount/");     
+          orderef.child(this.contactnum).set({
+          addressname:adressname1,
+          landmark:landmark1,
+          housenumber:housenumber1,
+          address:address1,   
+        });
   }
 }

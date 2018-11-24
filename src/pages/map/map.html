@@ -21,7 +21,7 @@
         <ion-icon name="locate"></ion-icon>
       </button>
     </div>
-     <div #map id="map"></div>
+    
      
 
       
@@ -31,7 +31,7 @@
                 <ion-label>Add More Details:</ion-label>
             </ion-col>    
             <ion-col col-3>
-              <button ion-button class='savebtn'>Save</button>
+              <button ion-button class='savebtn' (click)="saveaddress()">Save</button>
           </ion-col>  
         </ion-row>
         <ion-row> 
@@ -51,6 +51,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div #map id="map"></div>
       
       
   
