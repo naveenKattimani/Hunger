@@ -13,14 +13,14 @@
             <ion-label floating>Contact Number</ion-label>
             <ion-input type="text" minlength="10" maxlength="10" [(ngModel)]="person.contactnumber" name="contactnumber" required></ion-input>
           </ion-item>
-          <ion-item>
+          <!-- <ion-item>
               <ion-label floating>Current Location</ion-label>
               <ion-textarea class="locationaddress" type="text" maxLength="500" [(ngModel)]="person.address" name="address" readonly></ion-textarea>
-          </ion-item>
-          <ion-item>
+          </ion-item> -->
+          <!-- <ion-item>
             <ion-label floating>Landmark</ion-label>
             <ion-input type="text" [(ngModel)]="person.landmark" name="landmark"></ion-input>
-        </ion-item>
+        </ion-item> -->
       </ion-list>
       <!-- <button color="secondary" ion-button block (click)="save()">Save</button> -->
       <button ion-button block type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Save</button>
@@ -28,7 +28,24 @@
       <!--div id="phone-sign-in-recaptcha" ></div-->      
     </form>
     <button class="delete"  ion-button block (click)="delete()">Delete</button>
+    
     <h2>Address</h2>
+    <ion-list no-line>
+      <ion-item class='addressblock' *ngFor="let items of FirebaseProvider.myadress; let i = index">
+              <ion-row class='adresslabel'>
+                {{items.adressname}}
+              </ion-row>
+              <ion-row class='itemheight'>
+                <ion-col>House No: {{items.housenumber}}</ion-col>
+              </ion-row>
+              <ion-row class='itemheight'>
+                <ion-col>Address: {{items.address}}</ion-col>
+              </ion-row>               
+              <ion-row class='itemheight'>
+                <ion-col>Landmark: {{items.landmark}}</ion-col>
+              </ion-row>
+      </ion-item>
+    </ion-list>
 
     <h2>My Orders</h2>
     <div class='noorders' *ngIf="FirebaseProvider.gorderdetails.length==0">

@@ -119,7 +119,7 @@ export class MapPage {
             this.fbprovider.adressname="";
             if(data.address!="")
             {
-              this.fbprovider.adressname=JSON.stringify(data.address);
+              this.fbprovider.adressname=JSON.stringify(data.address).replace(/"/g, '');
             }
             
             console.log('name is :'+ this.fbprovider.adressname);

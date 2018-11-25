@@ -39,6 +39,7 @@ export class MyaccountPage {
     loading.present();
     //this.FirebaseProvider.getmyorderhistory();
     var myvar=setTimeout(() => {
+      this.FirebaseProvider.getaddress();
       this.FirebaseProvider.getmyorderhistory();
       this.FirebaseProvider.getorders();
       loading.dismiss();
@@ -59,6 +60,7 @@ export class MyaccountPage {
   //     // Reset reCAPTCHA?
   //   }
   // }); 
+  
   this.FirebaseProvider.getmyorderhistory();
    let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){

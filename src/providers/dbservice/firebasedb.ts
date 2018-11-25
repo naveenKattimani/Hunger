@@ -14,6 +14,7 @@ export class FirebaseProvider {
   itemname=new Array();
   myorderhistory=new Array();
   myorders=new Array();
+  myadress=[];
   gorderdetails=new Array();
   recommendedname=new Array();
   dests=new Array();
@@ -250,11 +251,46 @@ export class FirebaseProvider {
   saveadress(adressname1,landmark1,housenumber1,address1)
   {
     var orderef = firebase.database().ref("useraccount/");     
-          orderef.child(this.contactnum).set({
-          addressname:adressname1,
+          orderef.child(this.contactnum).child(adressname1).set({
           landmark:landmark1,
           housenumber:housenumber1,
           address:address1,   
         });
+  }
+
+  getaddress()
+  {
+    this.myadress=[];
+    this.contactnum='9591317407';
+    var i=0;
+    let ref = firebase.database().ref('/useraccount/'+this.contactnum+'/');
+    ref.on('child_added', (snapshot)=>{
+      console.log('--------------in1-'+snapshot.key);
+      var addressname=snapshot.key;   
+      this.myadress[i]=new Array(); 
+      this.myadress[i].adressname=addressname;
+      console.log('--------------in2-'+this.myadress[i].adressname);
+          ref.child(addressname+'/').on('child_added', (snapshot)=>{ 
+            switch(snapshot.key)
+            {
+            case ('landmark'):
+              //console.log('--------------in-'+snapshot.key);
+              this.myadress[i].landmark=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].OrderId);
+              break;
+            case ('housenumber'):
+              //console.log('--------------in-'+snapshot.key);
+              this.myadress[i].housenumber=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].OrderId);
+              break;
+            case ('address'):
+              //console.log('--------------in-'+snapshot.key);
+              this.myadress[i].address=snapshot.val();
+              //console.log('--------------in-'+myorderdetails[i].OrderId);
+              break;
+            }
+          })      
+        i=i+1; 
+      });
   }
 }
