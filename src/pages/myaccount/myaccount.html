@@ -29,8 +29,8 @@
     </form>
     <button class="delete"  ion-button block (click)="delete()">Delete</button>
     
-    <h2>Address</h2>
-    <ion-list no-line>
+    <h2 (click)="toggleaddress()"><ion-icon name="arrow-dropright-circle">My Address</ion-icon></h2>
+    <ion-list [ngClass]="{hideaddress: !opened}" no-line>
       <ion-item class='addressblock' *ngFor="let items of FirebaseProvider.myadress; let i = index">
               <ion-row class='adresslabel'>
                 {{items.adressname}}
@@ -47,11 +47,11 @@
       </ion-item>
     </ion-list>
 
-    <h2>My Orders</h2>
-    <div class='noorders' *ngIf="FirebaseProvider.gorderdetails.length==0">
+    <h2 (click)="toggleorder()"><ion-icon name="arrow-dropright-circle">My Orders</ion-icon></h2>
+    <div [ngClass]="{hideorders: !topened}" class='noorders' *ngIf="FirebaseProvider.gorderdetails.length==0">
         No Orders
     </div>
-    <ion-list *ngIf="FirebaseProvider.myorders.length>0 && FirebaseProvider.gorderdetails.length>0" no-line class='myorders'>
+    <ion-list [ngClass]="{hideorders: !topened}" *ngIf="FirebaseProvider.myorders.length>0 && FirebaseProvider.gorderdetails.length>0" no-line class='myorders'>
       <ion-item   class='orders' *ngFor="let items of FirebaseProvider.myorders; let i = index">
               <ion-row class='itemheight'>
                 <ion-col class='ordername' col-6>{{items.orderid}}</ion-col>

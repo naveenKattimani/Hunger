@@ -24,7 +24,7 @@ page-myaccount {
 
     h2 {
         color: chocolate;
-        font-size: 18px;
+        font-size: 16px;
         padding: 4px;
         margin-left: auto;
         margin-right: auto;
@@ -189,5 +189,13 @@ page-myaccount {
     .addressblock
     {
         border:3px solid  rgb(184, 173, 221);
+    }
+
+    .hideaddress {
+        display: none;
+    }
+
+    .hideorders {
+        display: none;
     }
 }

@@ -29,6 +29,10 @@ export class MyaccountPage {
   veryficationId;
   userid="";
   notp=0;
+  opened: Boolean = false;
+  topened: Boolean = false;
+  aopened: Boolean = false;
+  
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
@@ -196,6 +200,15 @@ export class MyaccountPage {
     });
     alert.present();
   }
+
+    toggleaddress () {
+      this.opened = !this.opened;
+    }
+
+    toggleorder()
+    {
+      this.topened = !this.topened;
+    }
 
 // savedata(udata)
 //   {
