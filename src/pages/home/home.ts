@@ -96,7 +96,7 @@ export class HomePage {
           }})     
       }  
     }, 1000);
-    //  this.openrestaurantPage();
+      //this.openrestaurantPage();
       return true;
     }
     

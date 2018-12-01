@@ -1,9 +1,12 @@
 <ion-content>
-    <form #bookForm="ngForm" (ngSubmit)="save()">
-      <ion-navbar>        
+    <ion-navbar>        
       </ion-navbar>
-
-      <h2>My Account</h2>
+  <h2 (click)="togglemyaccount()">
+      <ion-icon *ngIf="mopened==true" name="arrow-dropdown-circle"></ion-icon>
+    <ion-icon *ngIf="mopened==false" name="arrow-dropright-circle"></ion-icon>My Account</h2>
+  <div [ngClass]="{hidemyaccount: !mopened}">      
+    <form #bookForm="ngForm" (ngSubmit)="save()">
+      
          <ion-list class="myacc">
           <ion-item>
             <ion-label floating>Name</ion-label>
@@ -28,12 +31,20 @@
       <!--div id="phone-sign-in-recaptcha" ></div-->      
     </form>
     <button class="delete"  ion-button block (click)="delete()">Delete</button>
+  </div>
     
-    <h2 (click)="toggleaddress()"><ion-icon name="arrow-dropright-circle">My Address</ion-icon></h2>
+  <h2 (click)="toggleaddress()">
+      <ion-icon *ngIf="opened==true" name="arrow-dropdown-circle"></ion-icon>
+      <ion-icon *ngIf="opened==false" name="arrow-dropright-circle"></ion-icon>My Address</h2>
     <ion-list [ngClass]="{hideaddress: !opened}" no-line>
       <ion-item class='addressblock' *ngFor="let items of FirebaseProvider.myadress; let i = index">
               <ion-row class='adresslabel'>
-                {{items.adressname}}
+                <ion-col>
+                    {{items.adressname}}
+                </ion-col>
+                <ion-col style="text-align:right;color:darkslategrey">
+                    <ion-icon name="close"></ion-icon>
+                </ion-col>
               </ion-row>
               <ion-row class='itemheight'>
                 <ion-col>House No: {{items.housenumber}}</ion-col>
@@ -47,7 +58,9 @@
       </ion-item>
     </ion-list>
 
-    <h2 (click)="toggleorder()"><ion-icon name="arrow-dropright-circle">My Orders</ion-icon></h2>
+    <h2 (click)="toggleorder()">
+        <ion-icon *ngIf="topened==true" name="arrow-dropdown-circle"></ion-icon>
+        <ion-icon *ngIf="topened==false" name="arrow-dropright-circle"></ion-icon>My Orders</h2>
     <div [ngClass]="{hideorders: !topened}" class='noorders' *ngIf="FirebaseProvider.gorderdetails.length==0">
         No Orders
     </div>

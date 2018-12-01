@@ -32,6 +32,7 @@ export class MyaccountPage {
   opened: Boolean = false;
   topened: Boolean = false;
   aopened: Boolean = false;
+  mopened: Boolean = true;
   
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
@@ -208,6 +209,11 @@ export class MyaccountPage {
     toggleorder()
     {
       this.topened = !this.topened;
+    }
+
+    togglemyaccount()
+    {
+      this.mopened = !this.mopened;
     }
 
 // savedata(udata)
