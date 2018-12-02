@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Network } from '@ionic-native/network';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { checkoutdetailsPage } from '../pages/checkoutdetails/checkoutdetails';
 import { Restaurants } from '../providers/restaurants/restaurants';
 import { Connectivity } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
@@ -43,6 +44,7 @@ import { LoginPage } from '../pages/login/login';
     CartPage,
     OrdertransactionPage,
     LoginPage,
+    checkoutdetailsPage,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ import { LoginPage } from '../pages/login/login';
     CartPage,
     OrdertransactionPage,
     LoginPage,
+    checkoutdetailsPage,
   ],
   providers: [
       InAppBrowser,

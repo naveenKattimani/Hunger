@@ -1,0 +1,41 @@
+<ion-content>
+    <ion-navbar>        
+      </ion-navbar>
+     <div class="checkoutheader"checkoutheader> Checkout Details</div> 
+  <h2>Contact details</h2>     
+
+         <ion-list class="myacc">
+          <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="person.name" name="name" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Contact Number</ion-label>
+            <ion-input type="text" minlength="10" maxlength="10" [(ngModel)]="person.contactnumber" name="contactnumber" required></ion-input>
+          </ion-item>
+      </ion-list>
+    
+  <h2>Select Address</h2>
+    <ion-list>
+      <ion-item (click)="selectaddress()" class='addressblock' *ngFor="let items of FirebaseProvider.myadress; let i = index">
+              <ion-row class='adresslabel'>
+                <ion-col>
+                    {{items.adressname}}
+                </ion-col>
+                <ion-col style="text-align:right;color:darkslategrey">
+                  
+                </ion-col>
+              </ion-row>
+              <ion-row class='itemheight'>
+                <ion-col>House No: {{items.housenumber}}</ion-col>
+              </ion-row>
+              <ion-row class='itemheight'>
+                <ion-col>Address: {{items.address}}</ion-col>
+              </ion-row>               
+              <ion-row class='itemheight'>
+                <ion-col>Landmark: {{items.landmark}}</ion-col>
+              </ion-row>
+      </ion-item>
+    </ion-list>
+    <button ion-button block (click)="Continue()">Continue</button>
+</ion-content>

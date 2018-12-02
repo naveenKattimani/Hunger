@@ -1,9 +1,10 @@
 <ion-content>
     <ion-navbar>        
       </ion-navbar>
+      <div class='myaccountheader'>My Account</div>
   <h2 (click)="togglemyaccount()">
       <ion-icon *ngIf="mopened==true" name="arrow-dropdown-circle"></ion-icon>
-    <ion-icon *ngIf="mopened==false" name="arrow-dropright-circle"></ion-icon>My Account</h2>
+    <ion-icon *ngIf="mopened==false" name="arrow-dropright-circle"></ion-icon>My Details</h2>
   <div [ngClass]="{hidemyaccount: !mopened}">      
     <form #bookForm="ngForm" (ngSubmit)="save()">
       

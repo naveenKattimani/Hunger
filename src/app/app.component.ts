@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { Environment } from '@ionic-native/google-maps';
+import { checkoutdetailsPage } from '../pages/checkoutdetails/checkoutdetails';
 import { FIREBASE_CONFIG } from '../../src/environment/environment';
 @Component({
   templateUrl: 'app.html'
