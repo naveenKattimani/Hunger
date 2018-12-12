@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController,NavParams, AlertController,DateTime } from 'ionic-angular';
 import firebase from 'firebase';
 import { Dialogs } from '@ionic-native/dialogs';
 import {MyaccountProvider} from '../../providers/myaccount/myaccount'
-
+import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 import { MapPage } from '../map/map';
 import { HomePage } from '../home/home';
 import {FirebaseProvider} from '../../providers/dbservice/firebasedb';
 import { Restaurants } from '../../providers/restaurants/restaurants';
 import { LoadingController } from 'ionic-angular'
+import { HTTP } from '@ionic-native/http';
+import { MyaccountPage } from '../myaccount/myaccount';
 
-
+import { Platform } from 'ionic-angular';
+import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
+import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
+import { SMS } from '@ionic-native/sms';
+import { OrdertransactionPage } from '../ordertransaction/ordertransaction';
+import { CartPage } from '../cart/cart';
 
 @Component({
   selector: 'page-checkoutdetails',
@@ -22,7 +29,7 @@ export class checkoutdetailsPage {
   public person: {name: string, contactnumber: string, address: string, landmark: string};
   name: any;
   contactnumber: any;
-  //emailid:any;
+  deliveryaddress:any;
   address: any;
   landmark:any;
   showProfile: boolean;
@@ -33,9 +40,24 @@ export class checkoutdetailsPage {
   topened: Boolean = false;
   aopened: Boolean = false;
   mopened: Boolean = true;
+  currentSelected: Boolean = true;
+  
+  browser;
+  items=this.cartSvc.thecart;
+  totalcartamount=0;
+  packagingcharge=20;
+  deliverycharge=20;
+  totalamount=0;
+  resp="";
+  public ordertimeStamp;
+  public checksum;
+  contactnum;
+  ncount: number;
+  ninapp=false;
+
   
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+  constructor(private sms: SMS,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -53,18 +75,6 @@ export class checkoutdetailsPage {
 
 
   ionViewDidLoad() {
-    
-    //this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-  //  this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('phone-sign-in-recaptcha', {
-  //   'size': 'invisible',
-  //   'callback': function(response) {
-  //     // reCAPTCHA solved - will proceed with submit function
-  //     console.log(response);
-  //   },
-  //   'expired-callback': function() {
-  //     // Reset reCAPTCHA?
-  //   }
-  // }); 
   
   this.FirebaseProvider.getmyorderhistory();
    let person = JSON.parse(localStorage.getItem('PERSON'));
@@ -78,119 +88,6 @@ export class checkoutdetailsPage {
       this.person.landmark = this.FirebaseProvider.landmark;
       this.landmark = this.person.landmark;
     }
-  }
-
-  delete(){
-    let promptt = this.alertCtrl.create({
-      title: 'Are you sure you want to remove account?',
-      cssClass:'myaccountalertCustomCss',
-      buttons: [
-        { text: 'Cancel',
-          handler: data => { console.log('Cancel clicked'); }
-        },
-        { text: 'OK',
-          handler: data => {     
-            this.person = {name: undefined, contactnumber: undefined, address: undefined,landmark: undefined};
-            localStorage.setItem('PERSON', JSON.stringify(this.person));
-            this.person.name="";
-            this.person.contactnumber="";
-            this.person.address="";
-            this.person.landmark="";
-            this.FirebaseProvider.contactnum=undefined;
-            this.showProfile = false;
-            //delete from firebase need to implement-
-            //localStorage.clear();
-            firebase.auth().onAuthStateChanged( user => {
-                if (user) { 
-                  user.delete();
-                  this.presentAlert("user deleted");
-                }
-              });
-          }
-        }
-      ]
-    });
-   promptt.present();  
-  }
-
-  save(){    
-    this.name = this.person.name;
-    this.contactnumber = "+91" + this.person.contactnumber;
-    this.address = this.person.address;
-    this.landmark = this.person.landmark;
-    this.showProfile = true;
-       
-    // (<any>window).FirebasePlugin.verifyPhoneNumber(this.contactnumber, 60, function (credential) {
-    //   let verificationId = credential.verificationId;
-    //   //This is STEP 2 — passing verification ID to verify Page
-    //   this.navCtrl.push(VerificationPage, { verificationid: verificationId, phone: this.contactnumber });
-    //   }, (error) => {
-    //   console.error(error);
-    //   });
-    var verificationId;
-    var code ;//= inputField.value.toString();
-    let promptt = this.alertCtrl.create({
-      title: 'Enter the Confirmation code',
-      inputs: [{ name: 'confirmationCode', placeholder: 'Confirmation Code' }],
-      buttons: [
-        { text: 'Cancel',
-          handler: data => { console.log('Cancel clicked'); }
-        },
-        { text: 'Send',
-          handler: data => {  
-             code=data.confirmationCode;  
-             var signInCredential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
-             //console.log("current user...."+ firebase.auth().currentUser.phoneNumber); 
-             
-             //this.presentAlert("current user " +firebase.auth().currentUser.phoneNumber);
-
-             var user = firebase.auth().currentUser;
-                if (user) {
-                  if (firebase.auth().currentUser.phoneNumber!=this.contactnumber)
-                    {
-                    firebase.auth().currentUser.updatePhoneNumber(signInCredential);   
-                    this.presentAlert("User updated");                 
-                    }
-                  localStorage.setItem('PERSON', JSON.stringify(this.person));
-                  this.FirebaseProvider.contactnum=this.person.contactnumber; 
-                }              
-                else{                         
-                  firebase.auth().signInAndRetrieveDataWithCredential(signInCredential).then((res) => {
-                    if(res.additionalUserInfo.isNewUser)
-                    {
-                      this.presentAlert("User Created "+ res.user.phoneNumber);
-                    }
-                    console.log('success');
-                    localStorage.setItem('PERSON', JSON.stringify(this.person));
-                    this.myacc.myaccounts.push({name:this.name,contactnumber:this.contactnumber,address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark,userid:res.user.uid})
-                    this.FirebaseProvider.contactnum=this.person.contactnumber; 
-                  }).catch(function (error) {
-                    this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: undefined};
-                    this.FirebaseProvider.contactnum=undefined; 
-                    localStorage.setItem('PERSON', JSON.stringify(this.person));
-                      console.error("wrong phone");
-                    });
-              }
-              
-          }
-        }
-      ]
-    });
-   promptt.present();
-
-
-    (<any>window).FirebasePlugin.verifyPhoneNumber(this.contactnumber, 60, function(credential) {
-      console.log(credential);
-      // ask user to input verificationCode:
-       verificationId = credential.verificationId;    
-      //  var signInCredential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
-      //  firebase.auth().signInWithCredential(signInCredential);       
-      }, function(error) {
-        this.reset();
-        this.person = {name: undefined, contactnumber: undefined, address: undefined};
-        localStorage.setItem('PERSON', JSON.stringify(this.person));
-      });     
-   
   }
 
   presentAlert(msg) {
@@ -215,4 +112,173 @@ export class checkoutdetailsPage {
     {
       this.mopened = !this.mopened;
     }
-}
+
+    selectaddress(i,items)
+    {
+      this.currentSelected=i;
+      this.deliveryaddress="HouseNo: " + items.housenumber + " "+ items.address + ", LandMark:" + items.landmark;
+      console.log(items.address);
+    }
+
+
+   checkout()
+   {      
+     console.log(">>>>>"+this.myacc.contactnum);
+     console.log(">>>>>"+undefined);
+     console.log(">>>>>"+this.myacc.contactnum==="undefined");
+     console.log(">>>>>"+typeof new String(this.myacc.contactnum)==="undefined");
+     
+     // this.ordertimeStamp=Date.now();
+     // this.FirebaseProvider.orderid=this.ordertimeStamp;
+     // this.navCtrl.push(OrdertransactionPage);
+     //this.presentAlert(this.myacc.contactnum);
+     
+     if(this.FirebaseProvider.contactnum!==undefined && this.FirebaseProvider.currentaddess!==undefined)
+     {
+     this.ordertimeStamp=Date.now().toString();
+     this.FirebaseProvider.orderid=this.ordertimeStamp;
+     var transferdata;
+     
+     // let headers = new Headers();
+     // headers.append('Content-Type', 'application/json');
+     // headers.append("Accept", 'application/json');
+     //headers.append("Cache-Control", 'no-cache');
+     // headers.append("Pragma", 'no-cache');
+     //const requestOptions = new RequestOptions({ headers: headers });
+ 
+     var link = 'https://restaurantpay-219614.appspot.com/pgRedirect';
+ 
+ 
+     var gencheksumparams="MID=Foodie22607738817864&"
+     gencheksumparams=gencheksumparams+"ORDER_ID="+this.ordertimeStamp+"&"
+    //gencheksumparams=gencheksumparams+"REQUEST_TYPE=DEFAULT&"
+     gencheksumparams=gencheksumparams+"CUST_ID=88667677778788&"
+     gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
+     gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
+     gencheksumparams=gencheksumparams+"TXN_AMOUNT="+this.totalamount+"&"
+     gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
+     gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.ordertimeStamp
+                 
+     link = link+"?" + gencheksumparams;
+     
+     this.Http.post(link, '','')
+       .then(data => {
+         //console.log(data);
+         
+         //data = data["_body"]; 
+         //this.presentAlert(data.data);
+         var respdata=data.data;
+         this.checksum=respdata.substring(respdata.indexOf('CHECKSUMHASH" value="')+21,respdata.length)
+         this.checksum=this.checksum.substring(0,this.checksum.indexOf('">'));
+         //this.cartSvc.checksum=this.checksum;
+         this.cartSvc.checksum=respdata;
+         console.log("CHECKSUM = " + this.cartSvc.checksum);
+         
+         let loading = this.loadingCtrl.create({
+           content: 'Loading...'
+         });    
+         loading.present();    
+         var myvar=setTimeout(() => {
+           loading.dismiss();
+         }, 1000);
+ 
+         this.paytmpage(this.cartSvc.checksum,this.ordertimeStamp);
+         console.log("--------------");
+         //this.presentAlert(localStorage.getItem('response'));
+          //place order on successfull transaction
+         //  this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.ordertimeStamp,this.cartSvc.thecart);
+         //  this.FirebaseProvider.orderhistory(this.ordertimeStamp,this.totalcartamount,this.packagingcharge,this.deliverycharge);         
+         }, error => {
+           console.log(error);
+         });     
+       }   
+       else{  
+       this.presentAlert("To continue the checkout process, please create an account");
+       this.navCtrl.push(MyaccountPage);
+       //this.navCtrl.push(OrdertransactionPage);
+       }
+     
+     }    
+ 
+     paytmpage(chcksum,ordertimeStamp)
+   {      
+     //this.presentAlert('in paytm page')
+   chcksum=chcksum.replace(/\+/g,"%2B");
+     this.ninapp=false;
+     // let headers = new Headers();
+     // headers.append('Content-Type', 'application/json');
+     // headers.append("Accept", 'application/json');
+     // const requestOptions = new RequestOptions({ headers: headers });
+     var transferdata="MID=Foodie22607738817864&"
+     //transferdata=transferdata+"REQUEST_TYPE=DEFAULT&"
+     transferdata=transferdata+"ORDER_ID="+ordertimeStamp+"&"
+     transferdata=transferdata+"CUST_ID=88667677778788&"
+     transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
+     transferdata=transferdata+"CHANNEL_ID=WAP&"
+     transferdata=transferdata+"TXN_AMOUNT="+this.totalamount+"&"
+     transferdata=transferdata+"WEBSITE=APPSTAGING&"    
+     //transferdata=transferdata+"MSISDN=9591317407&"
+     // transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
+     // transferdata=transferdata+"VERIFIED_BY=k29.naveen@gmail.com&"
+       transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+ordertimeStamp+"&"
+     //transferdata=transferdata+"CHECKSUMHASH=qWebFKLhQPOCyYVOK/b/ngdeA+irG5Xlg80NzShs9WDzbToq3Nh3hXIy9BVTW5KZMihLfxwy6zP+aF7SMLIhhxGTy7dK/5hBWiKnqE4V0Zg=";
+     transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
+ 
+   
+       //this.browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_blank","location=no");
+       // window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no")
+      let loading = this.loadingCtrl.create({
+         content: 'Loading...'
+       });
+ 
+       const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
+       bb.on("loadstart")
+         .subscribe((ev: InAppBrowserEvent) => {
+           //this.presentAlert(ev.url);
+             if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+ordertimeStamp){
+               console.log("----------------payment sucess");
+               loading.present();
+               bb.close();
+               var txnchecksum = 'https://restaurantpay-219614.appspot.com/TxnStatus?';
+               txnchecksum=txnchecksum+"ORDER_ID="+ordertimeStamp+"&"
+               this.Http.post(txnchecksum, '','')
+               .then(data => {
+                 //data = data["_body"]; 
+                 var respdata=data.data;
+                 //this.presentAlert(respdata);
+                 var myvar=setTimeout(() => {
+                   loading.dismiss();
+                  }, 4000);
+                 if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
+                 {
+                   var currentdate = new Date();
+                   var datetime = currentdate.getDate() + "/"
+                   + (currentdate.getMonth()+1)  + "/" 
+                   + currentdate.getFullYear() + " "  
+                   + currentdate.getHours() + ":"  
+                   + currentdate.getMinutes() + ":" 
+                   + currentdate.getSeconds();
+                   this.FirebaseProvider.txnstatus=1;
+                   this.FirebaseProvider.placeorder(this.ordertimeStamp,this.cartSvc.thecart);
+                   this.FirebaseProvider.orderhistory(this.deliverycharge,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.totalcartamount,this.packagingcharge,this.deliverycharge,datetime );      
+                   this.cartSvc.thecart=[];
+                   this.navCtrl.push(OrdertransactionPage);
+                 }
+                 if (respdata.indexOf("STATUS=TXN_FAILURE")>-1)
+                 {
+                   this.FirebaseProvider.txnstatus=0;
+                   this.navCtrl.push(OrdertransactionPage);
+                 }                
+               })
+ 
+               
+             }
+         }), error => {
+                   console.log(error);
+                 };
+   }
+ 
+   closeBrowser(){
+     this.browser.close();
+   }
+ }

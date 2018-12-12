@@ -17,7 +17,7 @@
     
   <h2>Select Address</h2>
     <ion-list>
-      <ion-item (click)="selectaddress()" class='addressblock' *ngFor="let items of FirebaseProvider.myadress; let i = index">
+      <ion-item (click)="selectaddress(i,items)" [class.highlight]="i === currentSelected" *ngFor="let items of FirebaseProvider.myadress; let i = index">
               <ion-row class='adresslabel'>
                 <ion-col>
                     {{items.adressname}}
@@ -37,5 +37,6 @@
               </ion-row>
       </ion-item>
     </ion-list>
-    <button ion-button block (click)="Continue()">Continue</button>
+   <button ion-button block (click)="checkout()">Pay Online</button>
+    <button ion-button block (click)="Continue()">Pay on Delivery</button>
 </ion-content>
