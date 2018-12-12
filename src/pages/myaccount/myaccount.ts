@@ -48,7 +48,7 @@ export class MyaccountPage {
       this.FirebaseProvider.getmyorderhistory();
       this.FirebaseProvider.getorders();
       loading.dismiss();
-     }, 3000);
+     }, 10);
   }
 
 

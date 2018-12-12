@@ -87,6 +87,7 @@ import { LoginPage } from '../pages/login/login';
     MyaccountProvider,
     SMS,
     LocationAccuracy,
+    checkoutdetailsPage,
   ]
 })
 export class AppModule {}

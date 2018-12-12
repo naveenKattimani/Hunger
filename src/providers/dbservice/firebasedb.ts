@@ -20,6 +20,7 @@ export class FirebaseProvider {
   dests=new Array();
   restaurantname;
   contactnum;
+  totalamount:any;
   public currentaddess;
   public landmark;
   public houseno;
@@ -105,7 +106,7 @@ export class FirebaseProvider {
      });
   }
 
-  orderhistory(selectedrestaurantid,orderid,totalcartamount,packagingcharge,deliverycharge,orderdate) {
+  orderhistory(deliveryaddress,selectedrestaurantid,orderid,totalcartamount,packagingcharge,deliverycharge,orderdate) {
     var orderef = firebase.database().ref("OrderHistory/");  
       orderef.child(orderid).set({
         contactnumber:this.contactnum,
@@ -113,7 +114,8 @@ export class FirebaseProvider {
         packagingcharge:packagingcharge,
         deliverycharge:deliverycharge,
         orderdate:orderdate,
-        address:"HouseNo: " + this.houseno + " "+ this.currentaddess + ", LandMark:" + this.landmark,
+        //address:"HouseNo: " + this.houseno + " "+ this.currentaddess + ", LandMark:" + this.landmark,
+        address:deliveryaddress,
         restaurantid:selectedrestaurantid
     });
   }

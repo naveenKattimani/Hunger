@@ -54,7 +54,6 @@ export class checkoutdetailsPage {
   contactnum;
   ncount: number;
   ninapp=false;
-
   
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(private sms: SMS,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
@@ -75,7 +74,7 @@ export class checkoutdetailsPage {
 
 
   ionViewDidLoad() {
-  
+  //this.presentAlert(this.FirebaseProvider.totalamount);
   this.FirebaseProvider.getmyorderhistory();
    let person = JSON.parse(localStorage.getItem('PERSON'));
     if (person){
@@ -155,23 +154,24 @@ export class checkoutdetailsPage {
      gencheksumparams=gencheksumparams+"CUST_ID=88667677778788&"
      gencheksumparams=gencheksumparams+"INDUSTRY_TYPE_ID=Retail&"
      gencheksumparams=gencheksumparams+"CHANNEL_ID=WAP&"
-     gencheksumparams=gencheksumparams+"TXN_AMOUNT="+this.totalamount+"&"
+     gencheksumparams=gencheksumparams+"TXN_AMOUNT="+this.FirebaseProvider.totalamount+"&"
      gencheksumparams=gencheksumparams+"WEBSITE=APPSTAGING&"
      gencheksumparams=gencheksumparams+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+this.ordertimeStamp
                  
      link = link+"?" + gencheksumparams;
-     
+     //this.presentAlert('link: '+ link);
      this.Http.post(link, '','')
        .then(data => {
          //console.log(data);
          
          //data = data["_body"]; 
-         //this.presentAlert(data.data);
+         //this.presentAlert("chksum respdata: "+data.data);
          var respdata=data.data;
          this.checksum=respdata.substring(respdata.indexOf('CHECKSUMHASH" value="')+21,respdata.length)
          this.checksum=this.checksum.substring(0,this.checksum.indexOf('">'));
          //this.cartSvc.checksum=this.checksum;
          this.cartSvc.checksum=respdata;
+         //this.presentAlert("chksum respdata: "+this.cartSvc.checksum);
          console.log("CHECKSUM = " + this.cartSvc.checksum);
          
          let loading = this.loadingCtrl.create({
@@ -186,8 +186,7 @@ export class checkoutdetailsPage {
          console.log("--------------");
          //this.presentAlert(localStorage.getItem('response'));
           //place order on successfull transaction
-         //  this.FirebaseProvider.placeorder(this.restaurant.selectedrestaurantid,this.restaurant.selectedrestaurant,this.ordertimeStamp,this.cartSvc.thecart);
-         //  this.FirebaseProvider.orderhistory(this.ordertimeStamp,this.totalcartamount,this.packagingcharge,this.deliverycharge);         
+           
          }, error => {
            console.log(error);
          });     
@@ -215,7 +214,7 @@ export class checkoutdetailsPage {
      transferdata=transferdata+"CUST_ID=88667677778788&"
      transferdata=transferdata+"INDUSTRY_TYPE_ID=Retail&"
      transferdata=transferdata+"CHANNEL_ID=WAP&"
-     transferdata=transferdata+"TXN_AMOUNT="+this.totalamount+"&"
+     transferdata=transferdata+"TXN_AMOUNT="+this.FirebaseProvider.totalamount+"&"
      transferdata=transferdata+"WEBSITE=APPSTAGING&"    
      //transferdata=transferdata+"MSISDN=9591317407&"
      // transferdata=transferdata+"EMAIL=k32.naveen@gmail.com&"
@@ -223,8 +222,8 @@ export class checkoutdetailsPage {
        transferdata=transferdata+"CALLBACK_URL=https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+ordertimeStamp+"&"
      //transferdata=transferdata+"CHECKSUMHASH=qWebFKLhQPOCyYVOK/b/ngdeA+irG5Xlg80NzShs9WDzbToq3Nh3hXIy9BVTW5KZMihLfxwy6zP+aF7SMLIhhxGTy7dK/5hBWiKnqE4V0Zg=";
      transferdata=transferdata+"CHECKSUMHASH="+ chcksum;
- 
-   
+     //this.presentAlert('transferdata:'+ transferdata);
+    this.cartSvc.checksum
        //this.browser = this.iab.create('https://securegw-stage.paytm.in/theia/processTransaction?'+transferdata,"_blank","location=no");
        // window.open("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_self","location=no")
       let loading = this.loadingCtrl.create({
@@ -234,13 +233,14 @@ export class checkoutdetailsPage {
        const bb = this.iab.create("https://securegw-stage.paytm.in/theia/processTransaction?"+transferdata,"_blank",'location=no')
        bb.on("loadstart")
          .subscribe((ev: InAppBrowserEvent) => {
-           //this.presentAlert(ev.url);
+          //this.presentAlert('transferdata:'+ transferdata);
              if(ev.url == "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+ordertimeStamp){
                console.log("----------------payment sucess");
                loading.present();
                bb.close();
                var txnchecksum = 'https://restaurantpay-219614.appspot.com/TxnStatus?';
                txnchecksum=txnchecksum+"ORDER_ID="+ordertimeStamp+"&"
+               //this.presentAlert('txn url:'+ txnchecksum);
                this.Http.post(txnchecksum, '','')
                .then(data => {
                  //data = data["_body"]; 
@@ -261,13 +261,13 @@ export class checkoutdetailsPage {
                    this.FirebaseProvider.txnstatus=1;
                    this.FirebaseProvider.placeorder(this.ordertimeStamp,this.cartSvc.thecart);
                    this.FirebaseProvider.orderhistory(this.deliverycharge,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.totalcartamount,this.packagingcharge,this.deliverycharge,datetime );      
-                   this.cartSvc.thecart=[];
+                   //this.cartSvc.thecart=[];
                    this.navCtrl.push(OrdertransactionPage);
                  }
                  if (respdata.indexOf("STATUS=TXN_FAILURE")>-1)
                  {
-                   this.FirebaseProvider.txnstatus=0;
-                   this.navCtrl.push(OrdertransactionPage);
+                   //this.FirebaseProvider.txnstatus=0;
+                   //this.navCtrl.push(OrdertransactionPage);
                  }                
                })
  
