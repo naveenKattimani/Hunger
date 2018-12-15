@@ -54,7 +54,13 @@ export class checkoutdetailsPage {
   contactnum;
   ncount: number;
   ninapp=false;
-  
+  currentdate = new Date();
+                   datetime = this.currentdate.getDate() + "/"
+                   + this.currentdate.getFullYear() + " "  
+                   + this.currentdate.getHours() + ":"  
+                   + this.currentdate.getMinutes() + ":" 
+                   + this.currentdate.getSeconds();
+
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(private sms: SMS,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
@@ -116,23 +122,37 @@ export class checkoutdetailsPage {
     {
       this.currentSelected=i;
       this.deliveryaddress="HouseNo: " + items.housenumber + " "+ items.address + ", LandMark:" + items.landmark;
+      this.FirebaseProvider.deliveryaddress=this.deliveryaddress;
       console.log(items.address);
     }
 
+    cod()
+    {
+      if(this.deliveryaddress!==undefined && this.person.name!==undefined && this.person.contactnumber!==undefined)
+      {
+        this.FirebaseProvider.placeorder(this.ordertimeStamp,this.cartSvc.thecart);
+        this.FirebaseProvider.orderhistory(this.deliveryaddress,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.FirebaseProvider.totalamount,this.packagingcharge,this.deliverycharge,this.datetime );      
+                   
+      }
+    }
 
    checkout()
    {      
-     console.log(">>>>>"+this.myacc.contactnum);
-     console.log(">>>>>"+undefined);
-     console.log(">>>>>"+this.myacc.contactnum==="undefined");
-     console.log(">>>>>"+typeof new String(this.myacc.contactnum)==="undefined");
+    //  console.log(">>>>>"+this.myacc.contactnum);
+    //  console.log(">>>>>"+undefined);
+    //  console.log(">>>>>"+this.myacc.contactnum==="undefined");
+    //  console.log(">>>>>"+typeof new String(this.myacc.contactnum)==="undefined");
      
      // this.ordertimeStamp=Date.now();
      // this.FirebaseProvider.orderid=this.ordertimeStamp;
      // this.navCtrl.push(OrdertransactionPage);
      //this.presentAlert(this.myacc.contactnum);
+     console.log(this.deliveryaddress);
+     console.log(this.person.name);
+     console.log(this.person.contactnumber);
+
      
-     if(this.FirebaseProvider.contactnum!==undefined && this.FirebaseProvider.currentaddess!==undefined)
+     if(this.deliveryaddress!==undefined && this.person.name!==undefined && this.person.contactnumber!==undefined)
      {
      this.ordertimeStamp=Date.now().toString();
      this.FirebaseProvider.orderid=this.ordertimeStamp;
@@ -192,8 +212,14 @@ export class checkoutdetailsPage {
          });     
        }   
        else{  
-       this.presentAlert("To continue the checkout process, please create an account");
-       this.navCtrl.push(MyaccountPage);
+         if(this.deliveryaddress===undefined)
+         {
+          this.presentAlert("Please select address");
+         }
+         else{
+          this.presentAlert("To continue the checkout process, please create an account");
+          this.navCtrl.push(MyaccountPage);
+         }
        //this.navCtrl.push(OrdertransactionPage);
        }
      
@@ -251,16 +277,10 @@ export class checkoutdetailsPage {
                   }, 4000);
                  if (respdata.indexOf("STATUS=TXN_SUCCESS")>-1)
                  {
-                   var currentdate = new Date();
-                   var datetime = currentdate.getDate() + "/"
-                   + (currentdate.getMonth()+1)  + "/" 
-                   + currentdate.getFullYear() + " "  
-                   + currentdate.getHours() + ":"  
-                   + currentdate.getMinutes() + ":" 
-                   + currentdate.getSeconds();
+                   
                    this.FirebaseProvider.txnstatus=1;
                    this.FirebaseProvider.placeorder(this.ordertimeStamp,this.cartSvc.thecart);
-                   this.FirebaseProvider.orderhistory(this.deliverycharge,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.totalcartamount,this.packagingcharge,this.deliverycharge,datetime );      
+                   this.FirebaseProvider.orderhistory(this.deliveryaddress,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.FirebaseProvider.totalamount,this.packagingcharge,this.deliverycharge,this.datetime );      
                    //this.cartSvc.thecart=[];
                    this.navCtrl.push(OrdertransactionPage);
                  }

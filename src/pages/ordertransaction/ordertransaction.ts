@@ -21,6 +21,7 @@ export class OrdertransactionPage {
   orderid=this.FirebaseProvider.orderid;
   txnstatus=this.FirebaseProvider.txnstatus;
   currentaddess=this.FirebaseProvider.currentaddess;
+  deliveryaddress=this.FirebaseProvider.deliveryaddress;
   
   constructor(public navCtrl: NavController,private restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, public navParams: NavParams) {
     console.log("????" + this.orderid+ this.currentaddess);

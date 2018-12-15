@@ -6,12 +6,12 @@
 
          <ion-list class="myacc">
           <ion-item>
-            <ion-label floating>Name</ion-label>
-            <ion-input type="text" [(ngModel)]="person.name" name="name" required></ion-input>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="person.name" name="name" readonly></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label floating>Contact Number</ion-label>
-            <ion-input type="text" minlength="10" maxlength="10" [(ngModel)]="person.contactnumber" name="contactnumber" required></ion-input>
+            <ion-label>Contact Number</ion-label>
+            <ion-input type="text" minlength="10" maxlength="10" [(ngModel)]="person.contactnumber" name="contactnumber" readonly>></ion-input>
           </ion-item>
       </ion-list>
     
@@ -38,5 +38,5 @@
       </ion-item>
     </ion-list>
    <button ion-button block (click)="checkout()">Pay Online</button>
-    <button ion-button block (click)="Continue()">Pay on Delivery</button>
+    <button ion-button block (click)="cod()">Cash on Delivery</button>
 </ion-content>

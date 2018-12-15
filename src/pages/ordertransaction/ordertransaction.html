@@ -14,7 +14,7 @@
 
   <div  class="ordernum">Order Number:{{orderid}}</div>
   <div class="deliveryheader">Delivery address:</div>
-  <div class="address">{{currentaddess}}</div>
+  <div class="address">{{deliveryaddress}}</div>
   
   <button *ngIf="txnstatus==1" ion-button (click)="closeorderpage()" class="closebtn">Close</button>
   <button *ngIf="txnstatus==0" ion-button (click)="backorderpage()" class="closebtn">Close</button>

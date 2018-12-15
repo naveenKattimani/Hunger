@@ -54,7 +54,7 @@ export class CartPage {
     this.cartSvc.updatetotal();
     this.totalcartamount=this.cartSvc.totalcartamount;
     this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
-    this.FirebaseProvider.totalamount=this.totalcartamount;
+    
     //this.sms.send('9591317407', 'Hello world!');
   }
 
@@ -69,7 +69,7 @@ export class CartPage {
         this.cartSvc.updatetotal();
         this.totalcartamount=this.cartSvc.totalcartamount;
         this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
-        this.FirebaseProvider.totalamount=this.totalamount;
+        this.FirebaseProvider.totalamount=this.totalcartamount;
       }
      });
      if (nflag==0)
@@ -78,7 +78,7 @@ export class CartPage {
       this.cartSvc.updatetotal();
       this.totalcartamount=this.cartSvc.totalcartamount;  
       this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge; 
-      this.FirebaseProvider.totalamount=this.totalamount;   
+      this.FirebaseProvider.totalamount=this.totalcartamount;   
     }
   }
 
@@ -96,7 +96,7 @@ export class CartPage {
             this.cartSvc.updatetotal();
             this.totalcartamount=this.cartSvc.totalcartamount;
             this.totalamount=this.totalcartamount + this.packagingcharge+ this.deliverycharge;
-            this.FirebaseProvider.totalamount=this.totalamount;
+            this.FirebaseProvider.totalamount=this.totalcartamount;
             if(cartitem.quantity==0)
             {
               //console.log("------index" + arrindex + "----"+ cartitem.title +"---" + cartitem.quantity);
@@ -109,7 +109,7 @@ export class CartPage {
 
   checkout()
   {
-    this.FirebaseProvider.totalamount=this.totalamount;
+    this.FirebaseProvider.totalamount=this.totalcartamount;
     this.navCtrl.push(checkoutdetailsPage);
   }
   // payonline()

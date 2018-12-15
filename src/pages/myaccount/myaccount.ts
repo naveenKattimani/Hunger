@@ -102,8 +102,12 @@ export class MyaccountPage {
             //localStorage.clear();
             firebase.auth().onAuthStateChanged( user => {
                 if (user) { 
-                  user.delete();
-                  this.presentAlert("user deleted");
+                  user.delete().then(function(){
+                    this.presentAlert("User deleted");
+                  }).catch(function(error){
+                    this.presentAlert("Failed to delete user.");
+                  })
+                  
                 }
               });
           }

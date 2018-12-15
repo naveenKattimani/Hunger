@@ -21,6 +21,7 @@ export class FirebaseProvider {
   restaurantname;
   contactnum;
   totalamount:any;
+  public deliveryaddress;
   public currentaddess;
   public landmark;
   public houseno;
