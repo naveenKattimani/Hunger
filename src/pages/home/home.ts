@@ -75,8 +75,8 @@ export class HomePage {
         });
         loading.present();
         this.currentaddress="Select location.";
-        this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-          if(canRequest) {
+        // this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        //   if(canRequest) {
             this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
               () =>{
                 setTimeout(() => {
@@ -88,14 +88,14 @@ export class HomePage {
                     this.restaurant.firsttimelogin=false;
                     //this.navCtrl.push(MapPage);
                   }
-                }, 5000);
+                }, 500);
                   
               },
               error => console.log('Error requesting location permissions', error)
             );
           }})     
-      }  
-    }, 1000);
+      //}  
+    //}, 1000);
       //this.openrestaurantPage();
       return true;
     }
@@ -105,8 +105,8 @@ export class HomePage {
     }   
 
      openmapPage(){
-      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-        if(canRequest) {
+      // this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      //   if(canRequest) {
           this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             () =>{
               this.restaurant.firsttimeload=false;
@@ -119,7 +119,7 @@ export class HomePage {
             },
             error => console.log('Error requesting location permissions', error)
           );
-       }}) 
+       //}}) 
       // this.initMap()
       // this.navCtrl.push(MapPage)      
     }

@@ -106,8 +106,7 @@ export class MyaccountPage {
                     this.presentAlert("User deleted");
                   }).catch(function(error){
                     this.presentAlert("Failed to delete user.");
-                  })
-                  
+                  })                  
                 }
               });
           }

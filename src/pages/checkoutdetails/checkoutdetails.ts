@@ -55,11 +55,7 @@ export class checkoutdetailsPage {
   ncount: number;
   ninapp=false;
   currentdate = new Date();
-                   datetime = this.currentdate.getDate() + "/"
-                   + this.currentdate.getFullYear() + " "  
-                   + this.currentdate.getHours() + ":"  
-                   + this.currentdate.getMinutes() + ":" 
-                   + this.currentdate.getSeconds();
+  datetime = this.currentdate.getDate() + "/" + this.currentdate.getMonth() + "/"+ this.currentdate.getFullYear() + " "   + this.currentdate.getHours() + ":"   + this.currentdate.getMinutes() + ":" + this.currentdate.getSeconds();
 
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   constructor(private sms: SMS,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
@@ -127,13 +123,26 @@ export class checkoutdetailsPage {
     }
 
     cod()
-    {
+    {  
+      this.FirebaseProvider.txnstatus=0;
+      this.ordertimeStamp=Date.now().toString();
+      this.FirebaseProvider.orderid=this.ordertimeStamp;
       if(this.deliveryaddress!==undefined && this.person.name!==undefined && this.person.contactnumber!==undefined)
       {
         this.FirebaseProvider.placeorder(this.ordertimeStamp,this.cartSvc.thecart);
-        this.FirebaseProvider.orderhistory(this.deliveryaddress,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.FirebaseProvider.totalamount,this.packagingcharge,this.deliverycharge,this.datetime );      
-                   
+        this.FirebaseProvider.orderhistory(this.deliveryaddress,this.restaurant.selectedrestaurantid,this.ordertimeStamp,this.FirebaseProvider.totalamount,this.packagingcharge,this.deliverycharge,this.datetime );                    
+        this.FirebaseProvider.txnstatus=1;
+        this.navCtrl.push(OrdertransactionPage);
       }
+      if(this.deliveryaddress===undefined)
+      {
+        this.presentAlert("Please select address");
+      }
+      else if(this.person.name===undefined || this.person.contactnumber===undefined){
+        this.presentAlert("To continue the checkout process, please create an account");
+        this.navCtrl.push(MyaccountPage);
+      }
+
     }
 
    checkout()

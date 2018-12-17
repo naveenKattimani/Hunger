@@ -264,7 +264,6 @@ export class FirebaseProvider {
   getaddress()
   {
     this.myadress=[];
-    this.contactnum='9591317407';
     var i=0;
     let ref = firebase.database().ref('/useraccount/'+this.contactnum+'/');
     ref.on('child_added', (snapshot)=>{
