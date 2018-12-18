@@ -15,8 +15,19 @@
           </ion-item>
       </ion-list>
     
-  <h2>Select Address</h2>
-    <ion-list>
+  <ion-item *ngIf="FirebaseProvider.myadress.length==0">
+    <ion-row>
+      <ion-col class='locatelabel' col-8>
+          Please add an address to continue.
+      </ion-col>
+        <ion-col col-4>
+            <button class='locate' ion-button (click)="AddAddress()"><ion-icon name="pin"></ion-icon></button>
+        </ion-col>
+      </ion-row>      
+    </ion-item> 
+
+  <h2 *ngIf="FirebaseProvider.myadress.length>0">Select Address</h2>     
+    <ion-list *ngIf="FirebaseProvider.myadress.length>0">
       <ion-item (click)="selectaddress(i,items)" [class.highlight]="i === currentSelected" *ngFor="let items of FirebaseProvider.myadress; let i = index">
               <ion-row class='adresslabel'>
                 <ion-col>

@@ -11,7 +11,7 @@ import { Restaurants } from '../../providers/restaurants/restaurants';
 import { LoadingController } from 'ionic-angular'
 import { HTTP } from '@ionic-native/http';
 import { MyaccountPage } from '../myaccount/myaccount';
-
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Platform } from 'ionic-angular';
 import { HttpClient,HttpHeaders,HttpErrorResponse} from '@angular/common/http';
 import { InAppBrowser,InAppBrowserOptions,InAppBrowserEvent } from '@ionic-native/in-app-browser';
@@ -58,7 +58,7 @@ export class checkoutdetailsPage {
   datetime = this.currentdate.getDate() + "/" + this.currentdate.getMonth() + "/"+ this.currentdate.getFullYear() + " "   + this.currentdate.getHours() + ":"   + this.currentdate.getMinutes() + ":" + this.currentdate.getSeconds();
 
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
-  constructor(private sms: SMS,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
+  constructor(private sms: SMS,private locationAccuracy: LocationAccuracy,public platform: Platform,private iab: InAppBrowser,public httpClient: HttpClient,public Http:HTTP,public navCtrl: NavController,private restaurant:Restaurants,public cartSvc:CartServiceProvider,public loadingCtrl: LoadingController,public Restaurant:Restaurants,private myacc:MyaccountProvider,public FirebaseProvider:FirebaseProvider, private dialogs:Dialogs,public navParams: NavParams, public alertCtrl:AlertController) {
     this.person = {name: undefined, contactnumber: undefined, address: "HouseNo: " + this.FirebaseProvider.houseno + " "+ this.FirebaseProvider.currentaddess,landmark: this.FirebaseProvider.landmark};
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -310,4 +310,21 @@ export class checkoutdetailsPage {
    closeBrowser(){
      this.browser.close();
    }
+
+   AddAddress()
+   {
+        this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+          () =>{
+            this.restaurant.firsttimeload=false;
+            setTimeout(()=>
+            {this.navCtrl.push(MapPage);},200);
+            
+          console.log("success") 
+          },
+          error => console.log('Error requesting location permissions', error)
+        );
+     //}}) 
+    // this.initMap()
+    // this.navCtrl.push(MapPage)      
+  }
  }

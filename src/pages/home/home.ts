@@ -65,7 +65,10 @@ export class HomePage {
       this.slides.autoplayDisableOnInteraction = false;
     }
 
-    ionViewCanEnter():boolean {     
+    ionViewCanEnter():boolean {  
+      this.FirebaseProvider.getaddress();
+      this.FirebaseProvider.getmyorderhistory();
+      this.FirebaseProvider.getorders();   
       setTimeout(() => {
       if(this.restaurant.firsttimeload==false)
       {

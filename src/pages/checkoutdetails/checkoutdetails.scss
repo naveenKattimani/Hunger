@@ -213,11 +213,31 @@ page-checkoutdetails {
     }
 
     ion-icon {
-        margin-right: 8px;
+        margin: 0;
+        color: darkslateblue;
+        font-size: 30px;
     }
 
     .highlight { 
         background-color: rgb(173, 182, 192) !important; 
     }
 
+    .locate{
+        background-color:white;
+        padding: 4px;
+        width: 19px;
+        height: 27px;
+        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        -webkit-box-shadow: none;
+    }
+
+    .locate:hover:not(.disable-hover) {
+        background-color: white;
+    }
+
+    .locatelabel
+    {
+        font-size: 13px;
+    }
 }
