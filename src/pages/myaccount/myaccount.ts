@@ -198,7 +198,6 @@ export class MyaccountPage {
 
   presentAlert(msg) {
     let alert = this.alertCtrl.create({
-      title: 'User',
       subTitle: msg,
       buttons: ['OK']
     });

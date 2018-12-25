@@ -239,5 +239,12 @@ page-checkoutdetails {
     .locatelabel
     {
         font-size: 13px;
+        padding-top: 20px;
     }
+
+    .item-input ion-label {
+        pointer-events: none;
+        width: 30%;
+    }
+
 }
