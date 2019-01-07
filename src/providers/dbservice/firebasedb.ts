@@ -251,6 +251,10 @@ export class FirebaseProvider {
     this.afd.list('/shoppingItems/').remove(id);
   }
 
+  deleteaccountaddress(name)
+  {
+    this.afd.list('/useraccount/'+this.contactnum+'/').remove(name);
+  }
   saveadress(adressname1,landmark1,housenumber1,address1)
   {
     var orderef = firebase.database().ref("useraccount/");     

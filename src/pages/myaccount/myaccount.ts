@@ -218,6 +218,29 @@ export class MyaccountPage {
       this.mopened = !this.mopened;
     }
 
+    deleteaddress(items)
+    {
+      let promptt = this.alertCtrl.create({
+        title: 'Are you sure you want to delete address?',
+        cssClass:'myaccountalertCustomCss',
+        buttons: [
+          { text: 'Cancel',
+            handler: data => { console.log('Cancel clicked'); }
+          },
+          { text: 'OK',
+            handler: data => {     
+              console.log('deleting......'+ items.adressname);
+              this.FirebaseProvider.deleteaccountaddress(items.adressname);
+              this.navCtrl.push(MyaccountPage);
+              this.navCtrl.pop();
+            }
+          }
+        ]
+      });
+     promptt.present();
+      
+      
+    }
 // savedata(udata)
 //   {
 //     console.log("uuuuu"+udata);
