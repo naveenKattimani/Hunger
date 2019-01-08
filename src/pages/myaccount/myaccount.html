@@ -66,7 +66,7 @@
         No Orders
     </div>
     <ion-list [ngClass]="{hideorders: !topened}" *ngIf="FirebaseProvider.myorders.length>0 && FirebaseProvider.gorderdetails.length>0" no-line class='myorders'>
-      <ion-item   class='orders' *ngFor="let items of FirebaseProvider.myorders; let i = index">
+      <ion-item   class='orders' *ngFor="let items of FirebaseProvider.myorders.reverse(); let i = index">
               <ion-row class='itemheight'>
                 <ion-col class='ordername' col-6>{{items.orderid}}</ion-col>
                 <ion-col class='orderdate' col-6>{{items.orderdate}}</ion-col>
