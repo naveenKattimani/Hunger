@@ -52,7 +52,7 @@ export class MyaccountPage {
   }
 
 
-  ionViewDidLoad() {
+  ionViewCanEnter():boolean {
     
     //this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   //  this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('phone-sign-in-recaptcha', {
@@ -78,6 +78,7 @@ export class MyaccountPage {
       this.person.landmark = this.FirebaseProvider.landmark;
       this.landmark = this.person.landmark;
     }
+    return true;
   }
 
   delete(){
