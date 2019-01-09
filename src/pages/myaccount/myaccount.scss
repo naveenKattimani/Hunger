@@ -27,7 +27,7 @@ page-myaccount {
 
     .myacc {
         border: 1px solid rgb(184, 173, 221);
-        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        //box-shadow: 1px 3px 3px rgb(189, 166, 166);
         margin: 9px 7px 16px;
     }
 
@@ -71,6 +71,11 @@ page-myaccount {
     ion-label
     {
         font-size: 12px;
+        
+    }
+
+    .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+        width: 24%;
     }
 
     .ng-valid[required], .ng-valid.required  {
@@ -83,8 +88,8 @@ page-myaccount {
     .button{
         text-shadow: 1px 3px 3px rgb(189, 166, 166);
         box-shadow: 1px 3px 3px rgb(189, 166, 166);
-        margin: 7px;
-        width: 95%;
+        margin: 4px;
+        width: 98%;
     }
 
     .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
@@ -101,7 +106,7 @@ page-myaccount {
 
     .myorders{
         //border: 3px solid rgb(184, 173, 221);
-        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        //box-shadow: 1px 3px 3px rgb(189, 166, 166);
         margin: 9px 7px 16px;
     }
 
