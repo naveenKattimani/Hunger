@@ -22,7 +22,7 @@ page-myaccount {
         font-weight: bold;
         color: chocolate;
         border-bottom: 18px #b2d0e2 solid;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        text-shadow: 1px 1px 3px #ded3d3;
     }
 
     .myacc {
@@ -37,7 +37,7 @@ page-myaccount {
         padding: 4px;
         margin-left: auto;
         margin-right: auto;
-        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+        text-shadow: 1px 3px 3px #ded3d3;
     }
 
     .locationaddress {
@@ -86,7 +86,7 @@ page-myaccount {
     }
 
     .button{
-        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+        //text-shadow: 1px 3px 3px #ded3d3;
         box-shadow: 1px 3px 3px rgb(189, 166, 166);
         margin: 4px;
         width: 98%;

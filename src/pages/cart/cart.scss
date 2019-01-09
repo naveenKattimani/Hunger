@@ -34,7 +34,11 @@ page-cart {
         font-weight: bold;
         color: chocolate;
         border-bottom: 18px  #b2d0e2 solid;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        text-shadow: 1px 1px 3px #ded3d3;
+    }
+    
+    .quantityindec{
+        text-align: right;
     }
 
     ion-badge {
@@ -205,7 +209,7 @@ page-cart {
         max-height: 30px;
         line-height: 1;
         border-radius: 5px;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        //text-shadow: 1px 1px 3px #ded3d3;
         box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     

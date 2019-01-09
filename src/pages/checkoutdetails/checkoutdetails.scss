@@ -22,7 +22,7 @@ page-checkoutdetails {
         font-weight: bold;
         color: chocolate;
         border-bottom: 18px #b2d0e2 solid;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        text-shadow: 1px 1px 3px #ded3d3;
     }
 
     h2 {
@@ -30,7 +30,7 @@ page-checkoutdetails {
         font-size: 14px;
         padding: 0;
         margin: 4px 6px;
-        text-shadow: 1px 3px 3px #bda6a6;
+        text-shadow: 1px 3px 3px #ded3d3;
     }
     .myacc {
         //border: 3px solid rgb(184, 173, 221);
@@ -80,7 +80,7 @@ page-checkoutdetails {
     }
 
     .button{
-        text-shadow: 1px 3px 3px rgb(189, 166, 166);
+        //text-shadow: 1px 3px 3px #ded3d3;
         box-shadow: 1px 3px 3px rgb(189, 166, 166);
         margin: 7px;
         width: 95%;
@@ -214,7 +214,6 @@ page-checkoutdetails {
 
     ion-icon {
         margin: 0;
-        color: darkslateblue;
         font-size: 30px;
     }
 
@@ -225,10 +224,10 @@ page-checkoutdetails {
     .locate{
         background-color:white;
         padding: 4px;
+        color:#6b677d;
         width: 19px;
         height: 27px;
-        text-shadow: 1px 3px 3px rgb(189, 166, 166);
-        box-shadow: 1px 3px 3px rgb(189, 166, 166);
+        text-shadow: 1px 1px 1px #ded3d3;
         -webkit-box-shadow: none;
     }
 

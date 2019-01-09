@@ -9,7 +9,7 @@
         
         <ion-row>
           <ion-col col-8><br>{{item.name}}<br>{{item.cost}}Rs</ion-col><br>
-          <ion-col col-4>
+          <ion-col class='quantityindec' col-4>
             <br>
             <button clear (click)="decrementQty(item)"><ion-icon name="remove-circle" ></ion-icon></button>
             <ion-badge class="itemsquantitybadge">{{item.quantity}}</ion-badge>
